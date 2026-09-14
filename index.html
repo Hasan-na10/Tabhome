@@ -1,0 +1,2464 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>المستشفى بالبيت | Tabhome - Hospital at Home</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Google Fonts: Tajawal, Cairo & Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Inter:wght@300;400;500;600;700;800&family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+  
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  
+  <!-- Tailwind Configuration -->
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            ar: ['Tajawal', 'Cairo', 'sans-serif'],
+            en: ['Inter', 'system-ui', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              50: '#eff6ff',
+              100: '#dbeafe',
+              200: '#bfdbfe',
+              500: '#2563eb',
+              600: '#1d4ed8',
+              700: '#1e40af',
+              800: '#1e3a8a',
+              950: '#0f172a',
+            },
+            medical: {
+              50: '#ecfdf5',
+              100: '#d1fae5',
+              500: '#10b981',
+              600: '#059669',
+              700: '#047857',
+              800: '#065f46',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      transition: background-color 0.3s ease;
+    }
+    .font-arabic {
+      font-family: 'Tajawal', 'Cairo', sans-serif;
+    }
+    .font-english {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+    .rating-star {
+      cursor: pointer;
+      transition: transform 0.15s ease, color 0.15s ease;
+    }
+    .rating-star:hover {
+      transform: scale(1.2);
+    }
+    .canvas-container {
+      touch-action: none;
+    }
+  </style>
+</head>
+<body class="bg-slate-100/90 text-slate-800 antialiased min-h-screen font-arabic selection:bg-brand-600 selection:text-white pb-12">
+
+  <header class="sticky top-0 z-50 bg-slate-950 text-white shadow-xl border-b border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-20 gap-4">
+        
+        <!-- App Logo & Branding: Tabhome المستشفى بالبيت -->
+        <div class="flex items-center gap-3 shrink-0">
+          <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-brand-600 via-indigo-600 to-medical-500 flex items-center justify-center text-white shadow-md shadow-brand-500/30">
+            <i data-lucide="cross" class="w-6 h-6 stroke-[2.5]"></i>
+          </div>
+          <div>
+            <div class="flex items-center gap-1.5">
+              <span class="text-xl sm:text-2xl font-black tracking-tight" id="navAppName">المستشفى بالبيت</span>
+              <span class="text-[11px] px-2 py-0.5 rounded-full bg-brand-500/20 text-brand-300 font-extrabold border border-brand-500/30 font-sans tracking-wide">Tabhome</span>
+            </div>
+            <p class="text-[11px] text-slate-400 font-medium tracking-wide" id="navAppSubtitle">منظومة الرعاية والطب المنزلي المتقدمة</p>
+          </div>
+        </div>
+
+        <!-- Portals Switcher Navigation Tabs -->
+        <nav class="hidden md:flex items-center bg-slate-900/90 p-1.5 rounded-2xl border border-slate-800">
+          <button onclick="switchPortal('patient')" id="tab-patient" class="portal-tab px-4 py-2 rounded-xl text-xs sm:text-sm font-bold flex items-center gap-2 transition-all bg-brand-600 text-white shadow-md">
+            <i data-lucide="user" class="w-4 h-4"></i>
+            <span data-i18n="portal_patient">بوابة المريض</span>
+          </button>
+          
+          <button onclick="switchPortal('doctor')" id="tab-doctor" class="portal-tab px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold text-slate-300 hover:text-white flex items-center gap-2 transition-all">
+            <i data-lucide="stethoscope" class="w-4 h-4"></i>
+            <span data-i18n="portal_doctor">الطبيب الميداني</span>
+          </button>
+
+          <button onclick="switchPortal('hospital')" id="tab-hospital" class="portal-tab px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold text-slate-300 hover:text-white flex items-center gap-2 transition-all">
+            <i data-lucide="building-2" class="w-4 h-4"></i>
+            <span data-i18n="portal_hospital">لوحة تحكم المستشفى</span>
+          </button>
+        </nav>
+
+        <!-- Global Utilities: SOS, Language Switcher, Active User Badge -->
+        <div class="flex items-center gap-2.5 sm:gap-3">
+          
+          <!-- SOS Emergency Quick Dial -->
+          <a href="tel:920088899" class="px-3 py-1.5 rounded-xl bg-rose-500/20 border border-rose-500/40 text-rose-300 hover:bg-rose-500 hover:text-white text-xs font-bold transition-colors flex items-center gap-1.5">
+            <span class="w-2 h-2 rounded-full bg-rose-500 animate-ping"></span>
+            <i data-lucide="phone-call" class="w-3.5 h-3.5"></i>
+            <span class="hidden sm:inline">SOS: 920088899</span>
+          </a>
+
+          <!-- Language Switcher (Ar / En) -->
+          <button onclick="toggleLanguage()" id="langSwitcherBtn" class="px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 text-xs font-bold flex items-center gap-1.5 transition-all">
+            <i data-lucide="globe" class="w-3.5 h-3.5 text-brand-400"></i>
+            <span id="currentLangLabel">English</span>
+          </button>
+
+          <!-- Active Profile Pill (Preserved: Eng. Hasan Al-Muhandis) -->
+          <div class="hidden lg:flex items-center gap-2 bg-slate-800/80 pl-3 pr-2 py-1.5 rounded-xl border border-slate-700 text-xs text-slate-300">
+            <div class="w-7 h-7 rounded-lg bg-emerald-500/20 text-emerald-300 flex items-center justify-center font-bold" id="userAvatarText">ح</div>
+            <span class="font-semibold text-white" id="userDisplayName">م. حسن المهندس</span>
+          </div>
+        </div>
+
+      </div>
+      
+      <!-- Mobile Portal Nav Bar -->
+      <div class="md:hidden flex items-center justify-around py-2.5 border-t border-slate-800/80 text-xs font-bold">
+        <button onclick="switchPortal('patient')" id="mobile-tab-patient" class="text-brand-400 flex items-center gap-1.5">
+          <i data-lucide="user" class="w-4 h-4"></i>
+          <span data-i18n="portal_patient">بوابة المريض</span>
+        </button>
+        <button onclick="switchPortal('doctor')" id="mobile-tab-doctor" class="text-slate-400 flex items-center gap-1.5">
+          <i data-lucide="stethoscope" class="w-4 h-4"></i>
+          <span data-i18n="portal_doctor">الطبيب الميداني</span>
+        </button>
+        <button onclick="switchPortal('hospital')" id="mobile-tab-hospital" class="text-slate-400 flex items-center gap-1.5">
+          <i data-lucide="building-2" class="w-4 h-4"></i>
+          <span data-i18n="portal_hospital">المستشفى</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div class="bg-gradient-to-r from-slate-900 via-brand-950 to-slate-900 text-white text-xs py-2 px-4 shadow-inner border-b border-white/10">
+    <div class="max-w-7xl mx-auto flex flex-wrap justify-between items-center gap-2">
+      <div class="flex items-center gap-2">
+        <span class="px-2 py-0.5 rounded bg-emerald-500/30 text-emerald-300 text-[10px] font-black uppercase tracking-wider" data-i18n="cbahi_label">CBAHI & MOH</span>
+        <span class="text-slate-300" data-i18n="banner_compliance">المستشفى بالبيت Tabhome مرخص من وزارة الصحة والمركز السعودي للاعتماد لتقديم الرعاية الطبية والمستشفيات الافتراضية.</span>
+      </div>
+      <div class="flex items-center gap-4 text-slate-300">
+        <span class="flex items-center gap-1"><i data-lucide="shield-check" class="w-3.5 h-3.5 text-emerald-400"></i> <span data-i18n="hipaa_secure">تشفير وحماية سرية بيانات المرضى</span></span>
+        <span class="hidden sm:inline text-slate-600">|</span>
+        <span class="hidden sm:flex items-center gap-1"><i data-lucide="clock" class="w-3.5 h-3.5 text-brand-400"></i> <span data-i18n="avg_sla">الاستجابة الميدانية: 40 دقيقة</span></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN CONTAINER FOR THE 3 PORTALS -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-6">
+
+    <!-- ========================================================================= -->
+    <!-- 1. PORTAL: PATIENT PORTAL (بوابة المريض) -->
+    <!-- ========================================================================= -->
+    <div id="portal-patient-container" class="portal-section space-y-8">
+      
+      <!-- Patient Welcome & Quick CTAs -->
+      <div class="relative bg-gradient-to-br from-slate-900 via-brand-950 to-slate-900 text-white rounded-3xl p-6 sm:p-8 shadow-2xl overflow-hidden border border-slate-800">
+        <div class="absolute -right-16 -top-16 w-64 h-64 bg-brand-500/15 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="relative z-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+          <div class="space-y-2 max-w-2xl">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-500/20 text-brand-300 text-xs font-bold border border-brand-500/30">
+              <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+              <span data-i18n="patient_active_status">ملف نشط - متابعة دورية مستقرة</span>
+            </div>
+            <h1 class="text-2xl sm:text-4xl font-black text-white font-heading" data-i18n="patient_welcome_title">أهلاً بك، م. حسن المهندس</h1>
+            <p class="text-slate-300 text-sm leading-relaxed" data-i18n="patient_welcome_subtitle">
+              منصة المستشفى بالبيت (Tabhome) تضع كامل خدمات المستشفى في منزلك: زيارات استشارية، تحاليل مخبرية فورية، تمريض متقدم، وتقييم تجربة المريض بعد كل زيارة.
+            </p>
+          </div>
+
+          <div class="flex flex-wrap sm:flex-nowrap gap-3 shrink-0 w-full md:w-auto">
+            <button onclick="openBookingModal()" class="w-full sm:w-auto px-6 py-3.5 bg-gradient-to-r from-brand-600 to-medical-600 hover:from-brand-700 hover:to-medical-700 text-white font-extrabold text-sm rounded-2xl shadow-xl shadow-brand-600/30 transition-all flex items-center justify-center gap-2 transform active:scale-95">
+              <i data-lucide="calendar-plus" class="w-4 h-4"></i>
+              <span data-i18n="btn_book_home_visit">طلب زيارة منزلية الآن</span>
+            </button>
+            <button onclick="scrollToSection('packages-section')" class="w-full sm:w-auto px-5 py-3.5 bg-white/10 hover:bg-white/15 text-white font-bold text-sm rounded-2xl border border-white/20 transition-all flex items-center justify-center gap-2">
+              <i data-lucide="shield-check" class="w-4 h-4 text-brand-300"></i>
+              <span data-i18n="nav_packages_btn">باقات الرعاية الدورية</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-slate-200">
+        <div class="flex flex-wrap items-center justify-between gap-4 border-b border-slate-100 pb-5">
+          <div class="flex items-center gap-3">
+            <div class="w-12 h-12 rounded-2xl bg-brand-50 text-brand-600 flex items-center justify-center shrink-0">
+              <i data-lucide="navigation" class="w-6 h-6 animate-pulse"></i>
+            </div>
+            <div>
+              <div class="flex items-center gap-2">
+                <h3 class="font-black text-lg text-slate-900" data-i18n="active_visit_tracking">تتبع الزيارة الطبية المباشرة</h3>
+                <span class="px-2.5 py-0.5 rounded-full bg-brand-100 text-brand-800 text-xs font-extrabold" id="patientVisitIdTag">#TH-9021</span>
+              </div>
+              <p class="text-xs text-slate-500 mt-0.5" data-i18n="active_visit_desc">فريق المستشفى بالبيت في طريقه إلى موقعكم (حي النرجس، الرياض)</p>
+            </div>
+          </div>
+          
+          <div class="flex items-center gap-2">
+            <button onclick="openFeedbackModal('TH-9021', 'د. محمد الحمد')" class="px-3.5 py-2 bg-amber-50 hover:bg-amber-100 text-amber-800 border border-amber-200 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 shadow-sm">
+              <i data-lucide="star" class="w-3.5 h-3.5 fill-amber-500 text-amber-500"></i>
+              <span data-i18n="btn_rate_visit">تقييم تجربة الزيارة</span>
+            </button>
+            <button onclick="simulateDoctorProgress()" class="px-3.5 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5" title="تقدم خطوة في المحاكاة">
+              <i data-lucide="fast-forward" class="w-3.5 h-3.5 text-brand-600"></i>
+              <span data-i18n="demo_advance_tracker">محاكاة تقدم الفريق (Demo)</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- 5-Step Stepper Progress Bar -->
+        <div class="py-8">
+          <div class="grid grid-cols-2 sm:grid-cols-5 gap-4 relative">
+            
+            <div class="step-item text-center space-y-2 relative" id="tracker-step-1">
+              <div class="w-10 h-10 mx-auto rounded-full bg-emerald-600 text-white flex items-center justify-center font-bold shadow-md shadow-emerald-600/20">
+                <i data-lucide="check" class="w-5 h-5"></i>
+              </div>
+              <p class="text-xs font-bold text-slate-800" data-i18n="step_dispatched">انطلاق الفريق</p>
+              <p class="text-[11px] text-slate-400">10:15 AM</p>
+            </div>
+
+            <div class="step-item text-center space-y-2 relative" id="tracker-step-2">
+              <div class="w-10 h-10 mx-auto rounded-full bg-brand-600 text-white flex items-center justify-center font-bold ring-4 ring-brand-100 shadow-md">
+                <i data-lucide="car" class="w-5 h-5"></i>
+              </div>
+              <p class="text-xs font-bold text-brand-700" data-i18n="step_on_way">في الطريق للمنزل</p>
+              <p class="text-[11px] text-brand-600 font-bold" id="etaTimeLabel">وصول متوقع: 12 دقيقة</p>
+            </div>
+
+            <div class="step-item text-center space-y-2 relative" id="tracker-step-3">
+              <div class="w-10 h-10 mx-auto rounded-full bg-slate-200 text-slate-500 flex items-center justify-center font-bold">
+                <i data-lucide="map-pin" class="w-5 h-5"></i>
+              </div>
+              <p class="text-xs font-semibold text-slate-500" data-i18n="step_arrived">وصل إلى الموقع</p>
+              <p class="text-[11px] text-slate-400">--:--</p>
+            </div>
+
+            <div class="step-item text-center space-y-2 relative" id="tracker-step-4">
+              <div class="w-10 h-10 mx-auto rounded-full bg-slate-200 text-slate-500 flex items-center justify-center font-bold">
+                <i data-lucide="stethoscope" class="w-5 h-5"></i>
+              </div>
+              <p class="text-xs font-semibold text-slate-500" data-i18n="step_treatment">الفحص والعلاج</p>
+              <p class="text-[11px] text-slate-400">--:--</p>
+            </div>
+
+            <div class="step-item text-center space-y-2 relative" id="tracker-step-5">
+              <div class="w-10 h-10 mx-auto rounded-full bg-slate-200 text-slate-500 flex items-center justify-center font-bold">
+                <i data-lucide="badge-check" class="w-5 h-5"></i>
+              </div>
+              <p class="text-xs font-semibold text-slate-500" data-i18n="step_completed">اكتملت الزيارة والتقرير</p>
+              <p class="text-[11px] text-slate-400">--:--</p>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Assigned Doctor & Mobile Unit Info (Random Doctor: Dr. Mohammed Al-Hamad) -->
+        <div class="bg-slate-50 rounded-2xl p-4 sm:p-5 border border-slate-200/90 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+          <div class="flex items-center gap-3.5">
+            <div class="w-14 h-14 rounded-2xl bg-gradient-to-tr from-brand-600 to-indigo-700 text-white flex items-center justify-center font-bold text-lg shadow-md shrink-0">
+              <i data-lucide="user-check" class="w-7 h-7"></i>
+            </div>
+            <div>
+              <div class="flex items-center gap-2">
+                <h4 class="font-extrabold text-slate-900 text-base" id="activeAssignedDocName">د. محمد الحمد</h4>
+                <span class="px-2 py-0.5 rounded-full bg-brand-100 text-brand-800 text-[11px] font-bold" data-i18n="consultant_tag">استشاري طب الأسرة والرعاية المتقدمة</span>
+              </div>
+              <p class="text-xs text-slate-500" data-i18n="doc_spec_hamad">استشاري الرعاية المنزلية وإدارة الأمراض المزمنة</p>
+              <p class="text-xs text-emerald-600 font-semibold mt-0.5 flex items-center gap-1">
+                <i data-lucide="shield" class="w-3.5 h-3.5"></i>
+                <span data-i18n="vehicle_unit">الوحدة الطبية المتنقلة: #Tabhome-Unit-03 (مجهزة بأجهزة فحص وعناية حرجة)</span>
+              </p>
+            </div>
+          </div>
+
+          <div class="flex items-center gap-2 w-full md:w-auto">
+            <a href="tel:920088899" class="flex-1 md:flex-initial px-4 py-2.5 bg-white hover:bg-slate-100 border border-slate-200 text-slate-700 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-2 shadow-sm">
+              <i data-lucide="phone" class="w-4 h-4 text-brand-600"></i>
+              <span data-i18n="call_doc_team">اتصال بالفريق</span>
+            </a>
+            <a href="https://wa.me/966500000000" target="_blank" class="flex-1 md:flex-initial px-4 py-2.5 bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border border-emerald-200 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-2">
+              <i data-lucide="message-circle" class="w-4 h-4 text-emerald-600"></i>
+              <span data-i18n="whatsapp_team">واتساب مباشر</span>
+            </a>
+          </div>
+        </div>
+
+      </div>
+
+      <div id="packages-section" class="bg-gradient-to-b from-slate-50 to-white rounded-3xl p-6 sm:p-10 border border-slate-200 shadow-sm space-y-8">
+        <div class="text-center max-w-2xl mx-auto space-y-2">
+          <span class="px-3.5 py-1 rounded-full bg-brand-100 text-brand-800 text-xs font-extrabold uppercase tracking-wide inline-block" data-i18n="packages_badge">باقات المستشفى بالبيت</span>
+          <h2 class="text-2xl sm:text-3xl font-black text-slate-900 font-heading" data-i18n="packages_title">خطط واشتراكات الرعاية المنزلية المنتظمة</h2>
+          <p class="text-xs sm:text-sm text-slate-600" data-i18n="packages_subtitle">
+            حلول اشتراك مصممة لمتابعة كبار السن، وأصحاب الأمراض المزمنة، وفترات النقاهة بعد العمليات الجراحية بأعلى معايير الجودة وخصومات حصرية.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          
+          <!-- Package 1: Basic Follow-up -->
+          <div class="bg-white rounded-3xl p-6 border border-slate-200 hover:border-brand-300 hover:shadow-lg transition-all flex flex-col justify-between space-y-6">
+            <div class="space-y-4">
+              <div class="flex items-center justify-between">
+                <span class="px-3 py-1 rounded-xl bg-slate-100 text-slate-700 font-extrabold text-xs" data-i18n="pkg_basic_tier">باقة المتابعة الأساسية</span>
+                <i data-lucide="activity" class="w-5 h-5 text-slate-500"></i>
+              </div>
+              <div>
+                <div class="flex items-baseline gap-1">
+                  <span class="text-3xl font-black text-slate-900">499</span>
+                  <span class="text-xs text-slate-500 font-bold" data-i18n="currency_monthly">ر.س / شهرياً</span>
+                </div>
+                <p class="text-xs text-slate-500 mt-1" data-i18n="pkg_basic_target">مثالية للمتابعة الوقائية الشهرية والفحوصات الأولية</p>
+              </div>
+
+              <ul class="space-y-2.5 text-xs text-slate-700 border-t border-slate-100 pt-4">
+                <li class="flex items-center gap-2">
+                  <i data-lucide="check" class="w-4 h-4 text-brand-600 shrink-0"></i>
+                  <span data-i18n="pkg_basic_f1">زيارتان شهرياً لطاقم التمريض الميداني</span>
+                </li>
+                <li class="flex items-center gap-2">
+                  <i data-lucide="check" class="w-4 h-4 text-brand-600 shrink-0"></i>
+                  <span data-i18n="pkg_basic_f2">قياس ومراقبة المؤشرات الحيوية بانتظام</span>
+                </li>
+                <li class="flex items-center gap-2">
+                  <i data-lucide="check" class="w-4 h-4 text-brand-600 shrink-0"></i>
+                  <span data-i18n="pkg_basic_f3">تحليل سكر تراكمي HbA1c وضغط الدم</span>
+                </li>
+                <li class="flex items-center gap-2">
+                  <i data-lucide="check" class="w-4 h-4 text-brand-600 shrink-0"></i>
+                  <span data-i18n="pkg_basic_f4">استشارة هاتفية شهرية مع طبيب الأسرة</span>
+                </li>
+              </ul>
+            </div>
+
+            <button onclick="bookSelectedPackage('باقة المتابعة الأساسية (499 ر.س)', '499')" class="w-full py-3 rounded-2xl bg-slate-100 hover:bg-brand-600 hover:text-white text-slate-800 font-extrabold text-xs transition-all flex items-center justify-center gap-2">
+              <span data-i18n="btn_choose_pkg">اختيار هذه الباقة</span>
+              <i data-lucide="arrow-left" class="w-4 h-4"></i>
+            </button>
+          </div>
+
+          <!-- Package 2: Chronic & Senior Care (Recommended) -->
+          <div class="bg-white rounded-3xl p-6 border-2 border-brand-500 shadow-xl relative flex flex-col justify-between space-y-6 scale-[1.02]">
+            <div class="absolute -top-3.5 right-1/2 translate-x-1/2 bg-gradient-to-r from-brand-600 to-indigo-600 text-white text-[11px] font-black px-4 py-1 rounded-full shadow-md uppercase tracking-wider" data-i18n="pkg_popular_badge">
+              الأكثر طلباً وموصى بها
+            </div>
+
+            <div class="space-y-4 pt-2">
+              <div class="flex items-center justify-between">
+                <span class="px-3 py-1 rounded-xl bg-brand-100 text-brand-800 font-extrabold text-xs" data-i18n="pkg_chronic_tier">باقة الأمراض المزمنة وكبار السن</span>
+                <i data-lucide="heart-pulse" class="w-5 h-5 text-brand-600"></i>
+              </div>
+              <div>
+                <div class="flex items-baseline gap-1">
+                  <span class="text-3xl font-black text-brand-700">950</span>
+                  <span class="text-xs text-slate-500 font-bold" data-i18n="currency_monthly">ر.س / شهرياً</span>
+                </div>
+                <p class="text-xs text-slate-500 mt-1" data-i18n="pkg_chronic_target">إشراف استشاري مباشر بقيادة د. محمد الحمد</p>
+              </div>
+
+              <ul class="space-y-2.5 text-xs text-slate-700 border-t border-slate-100 pt-4">
+                <li class="flex items-center gap-2">
+                  <i data-lucide="check" class="w-4 h-4 text-emerald-600 shrink-0"></i>
+                  <span data-i18n="pkg_chronic_f1">4 زيارات تمريضية منزلية شهرياً</span>
+                </li>
+                <li class="flex items-center gap-2 font-bold text-slate-900">
+                  <i data-lucide="check" class="w-4 h-4 text-emerald-600 shrink-0"></i>
+                  <span data-i18n="pkg_chronic_f2">زيارة منزلية استشارية شهرية (د. محمد الحمد)</span>
+                </li>
+                <li class="flex items-center gap-2">
+                  <i data-lucide="check" class="w-4 h-4 text-emerald-600 shrink-0"></i>
+                  <span data-i18n="pkg_chronic_f3">فحص مخبري شامل شهري (دم، كلى، كبد، دهون)</span>
+                </li>
+                <li class="flex items-center gap-2">
+                  <i data-lucide="check" class="w-4 h-4 text-emerald-600 shrink-0"></i>
+                  <span data-i18n="pkg_chronic_f4">إدارة وتجديد الوصفات عبر منصة صحتي وتوصيلها</span>
+                </li>
+                <li class="flex items-center gap-2">
+                  <i data-lucide="check" class="w-4 h-4 text-emerald-600 shrink-0"></i>
+                  <span data-i18n="pkg_chronic_f5">خط ساخن مباشر للاستجابة الطارئة على مدار 24/7</span>
+                </li>
+              </ul>
+            </div>
+
+            <button onclick="bookSelectedPackage('باقة الأمراض المزمنة وكبار السن (950 ر.س)', '950')" class="w-full py-3.5 rounded-2xl bg-gradient-to-r from-brand-600 to-indigo-600 hover:from-brand-700 hover:to-indigo-700 text-white font-extrabold text-xs shadow-lg shadow-brand-500/25 transition-all flex items-center justify-center gap-2">
+              <span data-i18n="btn_choose_chronic_pkg">الاشتراك في باقة المزمنة</span>
+              <i data-lucide="sparkles" class="w-4 h-4"></i>
+            </button>
+          </div>
+
+          <!-- Package 3: Golden VIP Comprehensive Care -->
+          <div class="bg-white rounded-3xl p-6 border border-slate-200 hover:border-brand-300 hover:shadow-lg transition-all flex flex-col justify-between space-y-6">
+            <div class="space-y-4">
+              <div class="flex items-center justify-between">
+                <span class="px-3 py-1 rounded-xl bg-amber-100 text-amber-800 font-extrabold text-xs" data-i18n="pkg_vip_tier">باقة المستشفى الشاملة VIP</span>
+                <i data-lucide="crown" class="w-5 h-5 text-amber-500"></i>
+              </div>
+              <div>
+                <div class="flex items-baseline gap-1">
+                  <span class="text-3xl font-black text-slate-900">1,850</span>
+                  <span class="text-xs text-slate-500 font-bold" data-i18n="currency_monthly">ر.س / شهرياً</span>
+                </div>
+                <p class="text-xs text-slate-500 mt-1" data-i18n="pkg_vip_target">تغطية طبية فائقة للمرضى طريحي الفراش والتأهيل المكثف</p>
+              </div>
+
+              <ul class="space-y-2.5 text-xs text-slate-700 border-t border-slate-100 pt-4">
+                <li class="flex items-center gap-2">
+                  <i data-lucide="check" class="w-4 h-4 text-brand-600 shrink-0"></i>
+                  <span data-i18n="pkg_vip_f1">8 زيارات تمريضية ورعاية جروح متقدمة شهرياً</span>
+                </li>
+                <li class="flex items-center gap-2">
+                  <i data-lucide="check" class="w-4 h-4 text-brand-600 shrink-0"></i>
+                  <span data-i18n="pkg_vip_f2">4 جلسات علاج طبيعي وتأهيل حركي منزلي</span>
+                </li>
+                <li class="flex items-center gap-2">
+                  <i data-lucide="check" class="w-4 h-4 text-brand-600 shrink-0"></i>
+                  <span data-i18n="pkg_vip_f3">زيارتان استشاريتان شهرياً مع أحدث أجهزة المراقبة</span>
+                </li>
+                <li class="flex items-center gap-2">
+                  <i data-lucide="check" class="w-4 h-4 text-brand-600 shrink-0"></i>
+                  <span data-i18n="pkg_vip_f4">أولوية التدخل السريع والإسعاف الطبي المجهز</span>
+                </li>
+              </ul>
+            </div>
+
+            <button onclick="bookSelectedPackage('باقة المستشفى الشاملة VIP (1850 ر.س)', '1850')" class="w-full py-3 rounded-2xl bg-slate-900 hover:bg-slate-800 text-white font-extrabold text-xs transition-all flex items-center justify-center gap-2">
+              <span data-i18n="btn_choose_vip_pkg">حجز باقة VIP</span>
+              <i data-lucide="arrow-left" class="w-4 h-4"></i>
+            </button>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="space-y-4">
+        <div class="flex items-center justify-between">
+          <div>
+            <h3 class="text-xl font-extrabold text-slate-900 font-heading" data-i18n="featured_doctors_title">الكوادر الطبية الميدانية المتاحة</h3>
+            <p class="text-xs text-slate-500" data-i18n="featured_doctors_subtitle">يمكنكم اختيار الطبيب أو الأخصائي لزيارتكم أو تفويض التعيين التلقائي لأقرب فريق</p>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          
+          <!-- Doctor 1: Dr. Mohammed Al-Hamad -->
+          <div class="bg-white rounded-3xl p-6 border-2 border-brand-500 shadow-lg relative group flex flex-col justify-between">
+            <span class="absolute top-4 left-4 bg-brand-600 text-white text-[10px] font-black px-2.5 py-0.5 rounded-full shadow-sm uppercase tracking-wide" data-i18n="top_rated">
+              استشاري أول
+            </span>
+            <div>
+              <div class="w-16 h-16 rounded-2xl bg-brand-50 text-brand-700 border border-brand-200 flex items-center justify-center text-xl mb-4 font-bold shadow-inner">
+                <i data-lucide="stethoscope" class="w-8 h-8"></i>
+              </div>
+              <h4 class="font-extrabold text-slate-900 text-lg">د. محمد الحمد</h4>
+              <p class="text-xs text-brand-700 font-bold mb-2" data-i18n="doc_spec_hamad">استشاري الرعاية والطب المنزلي والأمراض المزمنة</p>
+              <p class="text-xs text-slate-500 leading-relaxed mb-4" data-i18n="doc_desc_hamad">
+                خبرة سريرية واسعة في رعاية الحالات المعقدة بالمنزل، ضبط السكري وضغط الدم، وتفادي إعادة التنويم لمرضى الرعاية المديدة.
+              </p>
+              <div class="flex items-center gap-1.5 text-amber-500 text-xs font-bold mb-4">
+                <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                <span class="text-slate-600 text-[11px]">(4.98 / 260+ تقييم)</span>
+              </div>
+            </div>
+
+            <button onclick="selectDoctorAndBook('د. محمد الحمد', 'استشاري الرعاية والطب المنزلي')" class="w-full py-2.5 bg-brand-600 hover:bg-brand-700 text-white text-xs font-bold rounded-xl shadow-md transition-all flex items-center justify-center gap-1.5">
+              <i data-lucide="calendar" class="w-4 h-4"></i>
+              <span data-i18n="book_with_dr_hamad">طلب زيارة د. محمد الحمد</span>
+            </button>
+          </div>
+
+          <!-- Doctor 2: Dr. Ali Al-Ali -->
+          <div class="bg-white rounded-3xl p-6 border border-slate-200 hover:shadow-md transition-all flex flex-col justify-between">
+            <div>
+              <div class="w-16 h-16 rounded-2xl bg-slate-100 text-slate-700 border border-slate-200 flex items-center justify-center text-xl mb-4 font-bold">
+                <i data-lucide="activity" class="w-8 h-8 text-indigo-600"></i>
+              </div>
+              <h4 class="font-extrabold text-slate-900 text-lg">د. علي العلي</h4>
+              <p class="text-xs text-indigo-600 font-bold mb-2" data-i18n="doc_ali_spec">أخصائي أول العلاج الطبيعي والتأهيل العصبي</p>
+              <p class="text-xs text-slate-500 leading-relaxed mb-4" data-i18n="doc_ali_desc">
+                جلسات تأهيل منزلي لما بعد الجلطات، تبديل المفاصل، وتدريب التوازن الحركي لكبار السن داخل بيئتهم المريحة.
+              </p>
+              <div class="flex items-center gap-1 text-amber-500 text-xs font-bold mb-4">
+                <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                <span class="text-slate-600 text-[11px]">(4.95)</span>
+              </div>
+            </div>
+
+            <button onclick="selectDoctorAndBook('د. علي العلي', 'علاج طبيعي وتأهيل')" class="w-full py-2.5 bg-slate-100 hover:bg-brand-600 hover:text-white text-slate-800 text-xs font-bold rounded-xl transition-all flex items-center justify-center gap-1.5">
+              <i data-lucide="calendar" class="w-4 h-4"></i>
+              <span data-i18n="book_service">حجز جلسة تأهيل</span>
+            </button>
+          </div>
+
+          <!-- Doctor 3: Dr. Fadi Al-Saleh -->
+          <div class="bg-white rounded-3xl p-6 border border-slate-200 hover:shadow-md transition-all flex flex-col justify-between">
+            <div>
+              <div class="w-16 h-16 rounded-2xl bg-slate-100 text-slate-700 border border-slate-200 flex items-center justify-center text-xl mb-4 font-bold">
+                <i data-lucide="shield-plus" class="w-8 h-8 text-emerald-600"></i>
+              </div>
+              <h4 class="font-extrabold text-slate-900 text-lg">د. فادي الصالح</h4>
+              <p class="text-xs text-emerald-700 font-bold mb-2" data-i18n="doc_fadi_spec">استشاري طب الباطنة والرعاية التلطيفية</p>
+              <p class="text-xs text-slate-500 leading-relaxed mb-4" data-i18n="doc_fadi_desc">
+                إدارة الألم، متابعة الأدوية المتعددة، وتوفير الدعم الطبي التلطيفي الشامل للمرضى في غرفهم المنزلية.
+              </p>
+              <div class="flex items-center gap-1 text-amber-500 text-xs font-bold mb-4">
+                <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                <span class="text-slate-600 text-[11px]">(4.93)</span>
+              </div>
+            </div>
+
+            <button onclick="selectDoctorAndBook('د. فادي الصالح', 'طب الباطنة والرعاية التلطيفية')" class="w-full py-2.5 bg-slate-100 hover:bg-brand-600 hover:text-white text-slate-800 text-xs font-bold rounded-xl transition-all flex items-center justify-center gap-1.5">
+              <i data-lucide="calendar" class="w-4 h-4"></i>
+              <span data-i18n="book_service">حجز استشارة باطنة</span>
+            </button>
+          </div>
+
+        </div>
+      </div>
+
+      <div id="patient-vitals-section" class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        
+        <!-- Vitals Metric Cards -->
+        <div class="lg:col-span-2 bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-sm space-y-6">
+          <div class="flex items-center justify-between">
+            <div>
+              <h3 class="font-extrabold text-lg text-slate-900" data-i18n="patient_vitals_summary">المؤشرات الحيوية المسجلة من آخر زيارة</h3>
+              <p class="text-xs text-slate-500" data-i18n="patient_vitals_desc">تُسجل بواسطة الطبيب الميداني بعد كل فحص سريري وتُربط فورياً بملف المريض</p>
+            </div>
+            <span class="text-xs px-3 py-1 rounded-lg bg-slate-100 text-slate-600 font-bold" id="lastVitalsDateLabel">اليوم، 10:45 ص</span>
+          </div>
+
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+            <!-- Blood Pressure -->
+            <div class="bg-emerald-50/60 border border-emerald-200/80 rounded-2xl p-4">
+              <div class="flex items-center justify-between mb-2">
+                <span class="text-xs font-bold text-emerald-800" data-i18n="vital_bp">ضغط الدم</span>
+                <i data-lucide="gauge" class="w-4 h-4 text-emerald-600"></i>
+              </div>
+              <p class="text-2xl font-black text-emerald-900" id="dispPatientBP">120/80</p>
+              <span class="text-[11px] text-emerald-700 font-semibold" data-i18n="vital_normal">طبيعي ومثالي</span>
+            </div>
+
+            <!-- Glucose -->
+            <div class="bg-amber-50/60 border border-amber-200/80 rounded-2xl p-4">
+              <div class="flex items-center justify-between mb-2">
+                <span class="text-xs font-bold text-amber-800" data-i18n="vital_sugar">سكر الدم</span>
+                <i data-lucide="droplet" class="w-4 h-4 text-amber-600"></i>
+              </div>
+              <p class="text-2xl font-black text-amber-900" id="dispPatientSugar">112 <span class="text-xs font-normal">mg/dL</span></p>
+              <span class="text-[11px] text-amber-700 font-semibold" data-i18n="vital_fasting_stable">مستقر</span>
+            </div>
+
+            <!-- SpO2 -->
+            <div class="bg-sky-50/60 border border-sky-200/80 rounded-2xl p-4">
+              <div class="flex items-center justify-between mb-2">
+                <span class="text-xs font-bold text-sky-800" data-i18n="vital_spo2">أكسجين الدم SpO2</span>
+                <i data-lucide="wind" class="w-4 h-4 text-sky-600"></i>
+              </div>
+              <p class="text-2xl font-black text-sky-900" id="dispPatientOxygen">98%</p>
+              <span class="text-[11px] text-sky-700 font-semibold" data-i18n="vital_optimal">ممتاز</span>
+            </div>
+
+            <!-- Heart Rate -->
+            <div class="bg-rose-50/60 border border-rose-200/80 rounded-2xl p-4">
+              <div class="flex items-center justify-between mb-2">
+                <span class="text-xs font-bold text-rose-800" data-i18n="vital_pulse">النبض</span>
+                <i data-lucide="heart" class="w-4 h-4 text-rose-600"></i>
+              </div>
+              <p class="text-2xl font-black text-rose-900" id="dispPatientPulse">72 <span class="text-xs font-normal">bpm</span></p>
+              <span class="text-[11px] text-rose-700 font-semibold" data-i18n="vital_normal">منتظم</span>
+            </div>
+          </div>
+
+          <!-- Doctor's recommendation block -->
+          <div class="bg-slate-50 border border-slate-200 rounded-2xl p-4 flex items-start gap-3.5">
+            <div class="w-9 h-9 rounded-xl bg-brand-100 text-brand-700 flex items-center justify-center shrink-0 mt-0.5">
+              <i data-lucide="message-square-text" class="w-5 h-5"></i>
+            </div>
+            <div>
+              <h4 class="font-bold text-slate-800 text-xs sm:text-sm" data-i18n="latest_doc_advice">توصية د. محمد الحمد:</h4>
+              <p class="text-xs text-slate-600 leading-relaxed mt-1" id="dispPatientNotes">
+                "المؤشرات الحيوية مستقرة تماماً لم. حسن المهندس، الالتزام بالحمية الغذائية والنشاط البدني الخفيف ممتاز. الاستمرار على الجرعة الحالية وزيارة المتابعة بعد أسبوعين."
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Electronic Prescriptions & Documents List -->
+        <div class="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-sm flex flex-col justify-between">
+          <div class="space-y-4">
+            <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+              <h3 class="font-extrabold text-base text-slate-900" data-i18n="e_prescriptions_title">الوصفات والتقارير الطبية</h3>
+              <i data-lucide="file-text" class="w-5 h-5 text-brand-600"></i>
+            </div>
+
+            <div class="space-y-3">
+              <div class="p-3 bg-slate-50 hover:bg-slate-100 rounded-2xl border border-slate-200/80 transition-all flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                  <div class="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold text-xs">Rx</div>
+                  <div>
+                    <h5 class="font-bold text-xs text-slate-800" data-i18n="rx_chronic">وصفة علاج السكري والضغط</h5>
+                    <p class="text-[10px] text-slate-500">د. محمد الحمد • سارية</p>
+                  </div>
+                </div>
+                <button onclick="showToast(currentLang === 'ar' ? 'جاري تحميل الوصفة الطبية المعتمدة...' : 'Downloading authenticated e-prescription...')" class="p-2 text-slate-500 hover:text-brand-600">
+                  <i data-lucide="download" class="w-4 h-4"></i>
+                </button>
+              </div>
+
+              <div class="p-3 bg-slate-50 hover:bg-slate-100 rounded-2xl border border-slate-200/80 transition-all flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                  <div class="w-10 h-10 rounded-xl bg-sky-100 text-sky-700 flex items-center justify-center font-bold text-xs">LAB</div>
+                  <div>
+                    <h5 class="font-bold text-xs text-slate-800" data-i18n="lab_report">تقرير الفحص المخبري الشامل</h5>
+                    <p class="text-[10px] text-slate-500">HbA1c + دهون + وظائف كبد</p>
+                  </div>
+                </div>
+                <button onclick="showToast(currentLang === 'ar' ? 'تم فتح تقرير التحاليل الطبية' : 'Opening lab report...')" class="p-2 text-slate-500 hover:text-brand-600">
+                  <i data-lucide="external-link" class="w-4 h-4"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <button onclick="openBookingModal()" class="w-full mt-4 py-3 bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs rounded-xl transition-all flex items-center justify-center gap-2">
+            <i data-lucide="plus" class="w-4 h-4"></i>
+            <span data-i18n="request_new_rx">طلب إعادة صرف أو فحص جديد</span>
+          </button>
+        </div>
+
+      </div>
+
+      <div id="patient-experience-showcase" class="bg-gradient-to-br from-brand-950 via-slate-900 to-indigo-950 text-white rounded-3xl p-6 sm:p-10 border border-slate-800 shadow-xl space-y-8">
+        <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 border-b border-white/10 pb-6">
+          <div>
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/20 text-amber-300 text-xs font-bold border border-amber-500/30 mb-2">
+              <i data-lucide="heart-handshake" class="w-3.5 h-3.5"></i>
+              <span data-i18n="patient_exp_tag">صوت المريض في قلب الرعاية</span>
+            </div>
+            <h2 class="text-2xl sm:text-3xl font-black font-heading" data-i18n="patient_exp_title">تجربة المريض وتقييمات العائلات</h2>
+            <p class="text-xs sm:text-sm text-slate-300 mt-1" data-i18n="patient_exp_sub">
+              نلتزم بأعلى معايير جودة الرعاية المنزلية عبر قياس رضاكم المستمر ونسب التوصية (NPS).
+            </p>
+          </div>
+
+          <button onclick="openFeedbackModal('TH-9021', 'د. محمد الحمد')" class="px-5 py-3 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-slate-950 font-black text-xs rounded-2xl shadow-lg transition-all flex items-center gap-2">
+            <i data-lucide="pen-tool" class="w-4 h-4"></i>
+            <span data-i18n="btn_submit_feedback_now">شاركنا تجربتك الآن</span>
+          </button>
+        </div>
+
+        <!-- Metric highlights -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div class="bg-white/5 border border-white/10 rounded-2xl p-4 text-center">
+            <p class="text-3xl font-black text-amber-400">4.96</p>
+            <div class="flex items-center justify-center gap-1 text-amber-400 my-1">
+              <i data-lucide="star" class="w-3.5 h-3.5 fill-current"></i>
+              <i data-lucide="star" class="w-3.5 h-3.5 fill-current"></i>
+              <i data-lucide="star" class="w-3.5 h-3.5 fill-current"></i>
+              <i data-lucide="star" class="w-3.5 h-3.5 fill-current"></i>
+              <i data-lucide="star" class="w-3.5 h-3.5 fill-current"></i>
+            </div>
+            <p class="text-xs text-slate-300" data-i18n="stat_avg_rating">متوسط التقييم العام (من 5)</p>
+          </div>
+
+          <div class="bg-white/5 border border-white/10 rounded-2xl p-4 text-center">
+            <p class="text-3xl font-black text-emerald-400">98.4%</p>
+            <p class="text-xs text-emerald-300 font-semibold my-1" data-i18n="stat_csat_label">مؤشر الرضا الإكلينيكي</p>
+            <p class="text-xs text-slate-300" data-i18n="stat_csat_sub">أكثر من 1,200 زيارة منزلية</p>
+          </div>
+
+          <div class="bg-white/5 border border-white/10 rounded-2xl p-4 text-center">
+            <p class="text-3xl font-black text-brand-300">+89</p>
+            <p class="text-xs text-brand-200 font-semibold my-1" data-i18n="stat_nps_label">صافي نقاط الترويج (NPS)</p>
+            <p class="text-xs text-slate-300" data-i18n="stat_nps_sub">مستوى امتياز عالمي</p>
+          </div>
+
+          <div class="bg-white/5 border border-white/10 rounded-2xl p-4 text-center">
+            <p class="text-3xl font-black text-white">99.1%</p>
+            <p class="text-xs text-slate-300 font-semibold my-1" data-i18n="stat_punctual_label">دقة الالتزام بالموعد</p>
+            <p class="text-xs text-slate-400" data-i18n="stat_punctual_sub">وصول في الوقت المحدد</p>
+          </div>
+        </div>
+
+        <!-- Recent Real Patient Reviews -->
+        <div class="space-y-3">
+          <h4 class="font-bold text-xs uppercase tracking-wider text-slate-400" data-i18n="recent_reviews_title">آخر تجارب وآراء المستفيدين الموثقة:</h4>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4" id="recentReviewsFeed">
+            
+            <div class="bg-white/10 border border-white/10 rounded-2xl p-4 space-y-2">
+              <div class="flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                  <div class="w-8 h-8 rounded-full bg-emerald-500/30 text-emerald-300 font-bold flex items-center justify-center text-xs">س</div>
+                  <div>
+                    <p class="text-xs font-bold text-white">سالم العلي</p>
+                    <p class="text-[10px] text-slate-400">زيارة كبار السن • حي النرجس</p>
+                  </div>
+                </div>
+                <span class="text-amber-400 text-xs font-black">★ 5.0</span>
+              </div>
+              <p class="text-xs text-slate-200 leading-relaxed">
+                "تعامل راقي جداً من د. محمد الحمد والممرضة ريم. توفير جهاز مراقبة السكر المنزلي وشرح طريقة الاستخدام بكل لطف."
+              </p>
+              <div class="flex flex-wrap gap-1 pt-1">
+                <span class="px-2 py-0.5 rounded bg-white/10 text-[10px] text-brand-200">#دقة_في_الموعد</span>
+                <span class="px-2 py-0.5 rounded bg-white/10 text-[10px] text-emerald-200">#طبيب_متعاون</span>
+              </div>
+            </div>
+
+            <div class="bg-white/10 border border-white/10 rounded-2xl p-4 space-y-2">
+              <div class="flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                  <div class="w-8 h-8 rounded-full bg-brand-500/30 text-brand-300 font-bold flex items-center justify-center text-xs">ن</div>
+                  <div>
+                    <p class="text-xs font-bold text-white" id="reviewPatientNajla">نجلاء محمد</p>
+                    <p class="text-[10px] text-slate-400" data-i18n="review_najla_sub">جلسات تأهيل حركي • حي الملقا</p>
+                  </div>
+                </div>
+                <span class="text-amber-400 text-xs font-black">★ 5.0</span>
+              </div>
+              <p class="text-xs text-slate-200 leading-relaxed" data-i18n="review_najla_text">
+                "جلسات العلاج الطبيعي مع د. علي العلي بالمنزل غيرت جودة حياة والدتي تماماً بعد العملية. شكراً لفريق المستشفى بالبيت."
+              </p>
+              <div class="flex flex-wrap gap-1 pt-1">
+                <span class="px-2 py-0.5 rounded bg-white/10 text-[10px] text-brand-200">#عناية_فائقة</span>
+                <span class="px-2 py-0.5 rounded bg-white/10 text-[10px] text-emerald-200">#احترافية_عالية</span>
+              </div>
+            </div>
+
+            <div class="bg-white/10 border border-white/10 rounded-2xl p-4 space-y-2">
+              <div class="flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                  <div class="w-8 h-8 rounded-full bg-indigo-500/30 text-indigo-300 font-bold flex items-center justify-center text-xs">ع</div>
+                  <div>
+                    <p class="text-xs font-bold text-white">عبدالله الخالد</p>
+                    <p class="text-[10px] text-slate-400">سحب دم وتحاليل • حي الياسمين</p>
+                  </div>
+                </div>
+                <span class="text-amber-400 text-xs font-black">★ 4.9</span>
+              </div>
+              <p class="text-xs text-slate-200 leading-relaxed">
+                "وصل الأخصائي فادي الصالح في 25 دقيقة فقط، تم سحب العينات وظهرت النتائج على المنصة بعد 3 ساعات. سرعة خيالية."
+              </p>
+              <div class="flex flex-wrap gap-1 pt-1">
+                <span class="px-2 py-0.5 rounded bg-white/10 text-[10px] text-brand-200">#سرعة_استجابة</span>
+                <span class="px-2 py-0.5 rounded bg-white/10 text-[10px] text-emerald-200">#سهولة_المنصة</span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- ========================================================================= -->
+    <!-- 2. PORTAL: FIELD DOCTOR PORTAL (بوابة الطبيب الميداني) -->
+    <!-- ========================================================================= -->
+    <div id="portal-doctor-container" class="portal-section hidden space-y-8">
+      
+      <!-- Doctor Top Banner & Duty Status -->
+      <div class="bg-gradient-to-r from-slate-900 via-brand-950 to-slate-900 text-white rounded-3xl p-6 sm:p-8 shadow-xl border border-slate-800 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+        <div class="flex items-center gap-4">
+          <div class="w-16 h-16 rounded-2xl bg-brand-600 text-white flex items-center justify-center shadow-lg shadow-brand-600/30 text-2xl font-black shrink-0">
+            <i data-lucide="stethoscope" class="w-8 h-8"></i>
+          </div>
+          <div>
+            <div class="flex items-center gap-2">
+              <h2 class="text-xl sm:text-2xl font-black font-heading text-white">د. محمد الحمد</h2>
+              <span class="px-2.5 py-0.5 rounded-full bg-emerald-500/30 text-emerald-300 text-xs font-bold border border-emerald-500/40" data-i18n="doc_active_badge">في مهمة ميدانية نشطة</span>
+            </div>
+            <p class="text-xs sm:text-sm text-slate-300 mt-1" data-i18n="doc_spec_title">استشاري الرعاية والطب المنزلي والأمراض المزمنة • الوحدة المتنقلة #03</p>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-3 w-full md:w-auto">
+          <div class="bg-slate-800/90 px-4 py-2.5 rounded-2xl border border-slate-700 flex items-center gap-3 text-xs w-full md:w-auto justify-between">
+            <span class="text-slate-400" data-i18n="doc_duty_state">حالة المناوبة الميدانية:</span>
+            <select id="docDutyStatusSelect" onchange="handleDoctorDutyChange(this.value)" class="bg-slate-700 text-emerald-400 font-bold px-3 py-1.5 rounded-lg border-none focus:ring-1 focus:ring-brand-500 outline-none text-xs">
+              <option value="active">متاح ومستعد للزيارات (Active)</option>
+              <option value="in_visit">في زيارة حالياً (On Visit)</option>
+              <option value="break">استراحة مؤقتة (Break)</option>
+              <option value="off">انتهاء المناوبة (Off Duty)</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Live Assigned Visits Queue for Doctor -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+        
+        <!-- Visits List Sidebar -->
+        <div class="lg:col-span-5 space-y-4">
+          <div class="flex items-center justify-between">
+            <h3 class="font-extrabold text-base text-slate-900" data-i18n="doctor_queue_title">جدول الزيارات الميدانية لليوم</h3>
+            <span class="px-2.5 py-1 rounded-xl bg-brand-100 text-brand-800 font-black text-xs" id="docQueueCountBadge">3 زيارات مجدولة</span>
+          </div>
+
+          <!-- Queue cards (Preserved: Eng. Hasan Al-Muhandis, randomized others) -->
+          <div class="space-y-3" id="doctorVisitsQueueList">
+            
+            <!-- Visit 1: Active Focus (Eng. Hasan Al-Muhandis) -->
+            <div class="p-5 rounded-2xl bg-white border-2 border-brand-500 shadow-md cursor-pointer transition-all hover:scale-[1.01]" onclick="selectVisitForDoctor('TH-9021')">
+              <div class="flex items-center justify-between mb-2">
+                <span class="text-xs font-black text-brand-700 bg-brand-50 px-2.5 py-1 rounded-lg">#TH-9021 • قيد التنفيذ الآن</span>
+                <span class="text-xs text-slate-500 font-semibold">10:30 ص</span>
+              </div>
+              <h4 class="font-bold text-slate-900 text-sm mb-1">المريض: م. حسن المهندس (52 سنة)</h4>
+              <p class="text-xs text-slate-600 mb-2">الخدمة: كشف استشاري ومتابعة المؤشرات الحيوية وتجديد وصفة</p>
+              <div class="flex items-center justify-between text-[11px] text-slate-500 border-t border-slate-100 pt-2.5">
+                <span class="flex items-center gap-1 text-slate-700 font-medium"><i data-lucide="map-pin" class="w-3.5 h-3.5 text-rose-500"></i> الرياض - حي النرجس</span>
+                <span class="text-brand-700 font-bold">المسافة: 3.8 كم</span>
+              </div>
+            </div>
+
+            <!-- Visit 2: Random Patient -->
+            <div class="p-5 rounded-2xl bg-white border border-slate-200 shadow-sm cursor-pointer hover:border-slate-300 transition-all" onclick="selectVisitForDoctor('TH-9022')">
+              <div class="flex items-center justify-between mb-2">
+                <span class="text-xs font-bold text-slate-700 bg-slate-100 px-2.5 py-1 rounded-lg">#TH-9022 • التالية</span>
+                <span class="text-xs text-slate-500 font-semibold">12:15 م</span>
+              </div>
+              <h4 class="font-bold text-slate-900 text-sm mb-1">المريضة: منيرة العتيبي (76 سنة)</h4>
+              <p class="text-xs text-slate-600 mb-2">الخدمة: تقييم قرح الفراش وتغيير ضماد جراحي معقم</p>
+              <div class="flex items-center justify-between text-[11px] text-slate-500 border-t border-slate-100 pt-2.5">
+                <span class="flex items-center gap-1"><i data-lucide="map-pin" class="w-3.5 h-3.5 text-slate-400"></i> الرياض - حي الياسمين</span>
+                <span class="text-slate-600 font-bold">المسافة: 7.2 كم</span>
+              </div>
+            </div>
+
+            <!-- Visit 3: Random Patient -->
+            <div class="p-5 rounded-2xl bg-white border border-slate-200 shadow-sm cursor-pointer hover:border-slate-300 transition-all" onclick="selectVisitForDoctor('TH-9023')">
+              <div class="flex items-center justify-between mb-2">
+                <span class="text-xs font-bold text-slate-700 bg-slate-100 px-2.5 py-1 rounded-lg">#TH-9023 • مجدولة مسائية</span>
+                <span class="text-xs text-slate-500 font-semibold">04:30 م</span>
+              </div>
+              <h4 class="font-bold text-slate-900 text-sm mb-1">المريض: فهد السالم (61 سنة)</h4>
+              <p class="text-xs text-slate-600 mb-2">الخدمة: سحب تحاليل دم دورية ومتابعة ما بعد القسطرة</p>
+              <div class="flex items-center justify-between text-[11px] text-slate-500 border-t border-slate-100 pt-2.5">
+                <span class="flex items-center gap-1"><i data-lucide="map-pin" class="w-3.5 h-3.5 text-slate-400"></i> الرياض - حي الملقا</span>
+                <span class="text-slate-600 font-bold">المسافة: 11.5 كم</span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Active Visit Interactive Execution Workspace -->
+        <div class="lg:col-span-7 bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-sm space-y-6">
+          
+          <!-- Workspace Header -->
+          <div class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-100 pb-4">
+            <div>
+              <div class="flex items-center gap-2">
+                <span class="w-3 h-3 rounded-full bg-emerald-500 animate-pulse"></span>
+                <h3 class="font-black text-lg text-slate-900" id="docCurrentPatientTitle">فحص الحالة الميداني: م. حسن المهندس</h3>
+              </div>
+              <p class="text-xs text-slate-500 mt-0.5">الملف الطبي: #TH-PT-8831 • كشف سريري ومراقبة المؤشرات</p>
+            </div>
+
+            <!-- Navigation Map Trigger Button -->
+            <a href="https://maps.google.com" target="_blank" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-800 rounded-xl text-xs font-bold flex items-center gap-2 transition-all">
+              <i data-lucide="map" class="w-4 h-4 text-emerald-600"></i>
+              <span data-i18n="btn_open_gps">فتح خرائط الملاحة (GPS)</span>
+            </a>
+          </div>
+
+          <!-- Doctor Step Progress Actions -->
+          <div class="flex flex-wrap gap-2 text-xs font-bold border-b border-slate-100 pb-5">
+            <button onclick="doctorUpdateStatus('arrived')" class="px-4 py-2.5 rounded-xl bg-slate-100 hover:bg-brand-50 hover:text-brand-700 text-slate-700 border border-slate-200 transition-all flex items-center gap-1.5">
+              <i data-lucide="map-pin-check" class="w-4 h-4 text-emerald-600"></i>
+              <span data-i18n="doc_action_arrived">1. تم الوصول للمنزل</span>
+            </button>
+            <button onclick="doctorUpdateStatus('treating')" class="px-4 py-2.5 rounded-xl bg-slate-100 hover:bg-brand-50 hover:text-brand-700 text-slate-700 border border-slate-200 transition-all flex items-center gap-1.5">
+              <i data-lucide="play" class="w-4 h-4 text-brand-600"></i>
+              <span data-i18n="doc_action_start_exam">2. بدء الفحص السريري</span>
+            </button>
+          </div>
+
+          <!-- Clinical Form -->
+          <form onsubmit="handleDoctorCompleteVisit(event)" class="space-y-6">
+            <div class="space-y-3">
+              <h4 class="font-bold text-xs uppercase tracking-wider text-slate-500" data-i18n="doc_record_vitals_header">تسجيل العلامات الحيوية المقاسة:</h4>
+              
+              <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                <div>
+                  <label class="block text-[11px] font-bold text-slate-600 mb-1" data-i18n="vital_bp">ضغط الدم</label>
+                  <input type="text" id="inputVitalsBP" value="120/80" required class="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-800 focus:ring-2 focus:ring-brand-500 outline-none">
+                </div>
+                <div>
+                  <label class="block text-[11px] font-bold text-slate-600 mb-1" data-i18n="vital_sugar">سكر الدم (mg/dL)</label>
+                  <input type="number" id="inputVitalsSugar" value="112" required class="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-800 focus:ring-2 focus:ring-brand-500 outline-none">
+                </div>
+                <div>
+                  <label class="block text-[11px] font-bold text-slate-600 mb-1" data-i18n="vital_spo2">أكسجين الدم (%)</label>
+                  <input type="number" id="inputVitalsOxygen" value="98" required class="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-800 focus:ring-2 focus:ring-brand-500 outline-none">
+                </div>
+                <div>
+                  <label class="block text-[11px] font-bold text-slate-600 mb-1" data-i18n="vital_pulse">النبض (bpm)</label>
+                  <input type="number" id="inputVitalsPulse" value="72" required class="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-800 focus:ring-2 focus:ring-brand-500 outline-none">
+                </div>
+              </div>
+            </div>
+
+            <!-- Clinical Notes & Diagnoses -->
+            <div>
+              <label class="block text-xs font-bold text-slate-700 mb-1.5" data-i18n="doc_clinical_notes_label">التقرير الطبي والتوصيات السريرية</label>
+              <textarea id="inputDoctorNotes" rows="3" required class="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-800 focus:ring-2 focus:ring-brand-500 outline-none leading-relaxed">المريض م. حسن المهندس بحالة ممتازة ومستقرة، استجابة جيدة لجرعات العلاج الحالية، تم فحص القدمين وفحص النبض المحيطي وكل المؤشرات مثالية. يُوصى بالاستمرار على نفس الخطة العلاجية.</textarea>
+            </div>
+
+            <!-- E-Prescription Medication Add -->
+            <div>
+              <label class="block text-xs font-bold text-slate-700 mb-1.5" data-i18n="doc_rx_medicines_label">الأدوية الموصوفة أو المجددة (وصفة إلكترونية صحتي)</label>
+              <input type="text" id="inputDoctorPrescription" value="Metformin 500mg (مرتان يومياً مع الوجبات) | Amlodipine 5mg (حبة صباحاً)" class="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-800 focus:ring-2 focus:ring-brand-500 outline-none">
+            </div>
+
+            <!-- Digital Signature Canvas for Patient / Guardian Sign-off -->
+            <div class="space-y-2">
+              <div class="flex items-center justify-between">
+                <label class="text-xs font-bold text-slate-700" data-i18n="patient_signature_label">توقيع المريض أو المرافق لاستلام الخدمة:</label>
+                <button type="button" onclick="clearSignatureCanvas()" class="text-[11px] text-rose-600 hover:underline" data-i18n="clear_signature">مسح التوقيع</button>
+              </div>
+              <div class="border-2 border-dashed border-slate-300 rounded-2xl bg-slate-50 relative overflow-hidden canvas-container">
+                <canvas id="doctorSignatureCanvas" class="w-full h-28 cursor-crosshair block"></canvas>
+                <span class="absolute bottom-2 right-3 text-[10px] text-slate-400 pointer-events-none" data-i18n="sign_here_hint">وقع هنا باستخدام الشاشة أو الفأرة</span>
+              </div>
+            </div>
+
+            <!-- Final Submission CTA -->
+            <div class="flex items-center justify-end gap-3 pt-2">
+              <button type="submit" class="px-8 py-3.5 bg-gradient-to-r from-brand-600 to-indigo-600 hover:from-brand-700 hover:to-indigo-700 text-white font-extrabold text-xs rounded-xl shadow-lg transition-all flex items-center gap-2">
+                <i data-lucide="check-circle-2" class="w-4 h-4"></i>
+                <span data-i18n="btn_complete_visit_submit">إتمام الزيارة واعتماد التقرير رسمياً</span>
+              </button>
+            </div>
+          </form>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- ========================================================================= -->
+    <!-- 3. PORTAL: HOSPITAL OPERATIONS DASHBOARD (لوحة تحكم المستشفى) -->
+    <!-- ========================================================================= -->
+    <div id="portal-hospital-container" class="portal-section hidden space-y-8">
+      
+      <!-- Operations Stats Dashboard Overview with Patient Experience CSAT -->
+      <div class="grid grid-cols-2 lg:grid-cols-5 gap-4">
+        
+        <div class="bg-white p-5 rounded-3xl border border-slate-200 shadow-sm">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-xs font-bold text-slate-500" data-i18n="kpi_total_today">إجمالي زيارات اليوم</span>
+            <div class="w-8 h-8 rounded-xl bg-brand-50 text-brand-600 flex items-center justify-center font-bold text-xs"><i data-lucide="calendar" class="w-4 h-4"></i></div>
+          </div>
+          <p class="text-3xl font-black text-slate-900" id="kpiTotalVisits">54</p>
+          <span class="text-[11px] text-emerald-600 font-bold">↑ +18% عن الأمس</span>
+        </div>
+
+        <div class="bg-white p-5 rounded-3xl border border-slate-200 shadow-sm">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-xs font-bold text-slate-500" data-i18n="kpi_dispatched_units">الفرق الميدانية بالخدمة</span>
+            <div class="w-8 h-8 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center font-bold text-xs"><i data-lucide="car" class="w-4 h-4"></i></div>
+          </div>
+          <p class="text-3xl font-black text-brand-600" id="kpiActiveUnits">14 / 16</p>
+          <span class="text-[11px] text-slate-500 font-semibold" data-i18n="kpi_units_active_desc">88% تغطية نشطة</span>
+        </div>
+
+        <div class="bg-white p-5 rounded-3xl border border-slate-200 shadow-sm">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-xs font-bold text-slate-500" data-i18n="kpi_pending_dispatch">طلبات بانتظار التوجيه</span>
+            <div class="w-8 h-8 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center font-bold text-xs"><i data-lucide="clock" class="w-4 h-4"></i></div>
+          </div>
+          <p class="text-3xl font-black text-amber-600" id="kpiPendingDispatches">4</p>
+          <span class="text-[11px] text-amber-700 font-bold" data-i18n="kpi_triage_urgent">منها 1 حالة عاجلة</span>
+        </div>
+
+        <div class="bg-white p-5 rounded-3xl border border-slate-200 shadow-sm">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-xs font-bold text-slate-500" data-i18n="kpi_avg_sla">متوسط سرعة الوصول</span>
+            <div class="w-8 h-8 rounded-xl bg-sky-50 text-sky-600 flex items-center justify-center font-bold text-xs"><i data-lucide="timer" class="w-4 h-4"></i></div>
+          </div>
+          <p class="text-3xl font-black text-sky-700">35 <span class="text-sm font-normal">دقيقة</span></p>
+          <span class="text-[11px] text-emerald-600 font-semibold" data-i18n="kpi_sla_beat">أسرع من الهدف بـ 10 دقائق</span>
+        </div>
+
+        <!-- KPI: Patient Experience Index -->
+        <div class="bg-white p-5 rounded-3xl border border-slate-200 shadow-sm col-span-2 lg:col-span-1">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-xs font-bold text-slate-500" data-i18n="kpi_satisfaction">مؤشر رضا تجربة المريض</span>
+            <div class="w-8 h-8 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center font-bold text-xs"><i data-lucide="star" class="w-4 h-4 fill-current"></i></div>
+          </div>
+          <p class="text-3xl font-black text-slate-900" id="kpiSatisfactionVal">98.4%</p>
+          <span class="text-[11px] text-emerald-600 font-bold" data-i18n="kpi_nps_badge">NPS: +89 (ممتاز)</span>
+        </div>
+
+      </div>
+
+      <!-- Live Operations Fleet Board & Dispatch Matrix -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+        
+        <!-- Live Triage & Pending Booking Requests Dispatcher (8 cols) -->
+        <div class="lg:col-span-8 bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-sm space-y-6">
+          <div class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-100 pb-4">
+            <div>
+              <h3 class="font-extrabold text-lg text-slate-900" data-i18n="triage_board_title">لوحة توجيه الطلبات الفورية والمجدولة</h3>
+              <p class="text-xs text-slate-500" data-i18n="triage_board_desc">مراقبة طلبات المرضى وتعيين الأطباء والفرق الطبية المتحركة</p>
+            </div>
+
+            <div class="flex items-center gap-2">
+              <button onclick="addNewMockEmergencyRequest()" class="px-3 py-1.5 rounded-xl bg-brand-50 hover:bg-brand-100 text-brand-800 text-xs font-bold transition-all flex items-center gap-1">
+                <i data-lucide="plus" class="w-3.5 h-3.5"></i>
+                <span data-i18n="btn_simulate_booking">إضافة طلب افتراضي (Demo)</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Pending Requests Table / Card List -->
+          <div class="overflow-x-auto">
+            <table class="w-full text-right text-xs">
+              <thead class="bg-slate-50 text-slate-600 uppercase font-bold border-b border-slate-200/80">
+                <tr>
+                  <th class="p-3.5 rounded-r-xl" data-i18n="th_ref">الرقم</th>
+                  <th class="p-3.5" data-i18n="th_patient">المريض والحي</th>
+                  <th class="p-3.5" data-i18n="th_service">الخدمة المطلوبة</th>
+                  <th class="p-3.5" data-i18n="th_status">الحالة</th>
+                  <th class="p-3.5" data-i18n="th_assigned_team">الفريق المعين</th>
+                  <th class="p-3.5 rounded-l-xl text-center" data-i18n="th_actions">الإجراء</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-100" id="hospitalRequestsTableBody">
+                
+                <!-- Row 1: Preserved Eng. Hasan Al-Muhandis -->
+                <tr class="hover:bg-slate-50/70 transition-colors">
+                  <td class="p-3.5 font-mono font-bold text-brand-700">#TH-9021</td>
+                  <td class="p-3.5">
+                    <span class="font-bold text-slate-800 block">م. حسن المهندس</span>
+                    <span class="text-[11px] text-slate-400">حي النرجس، الرياض</span>
+                  </td>
+                  <td class="p-3.5">كشف استشاري منزلي شامل</td>
+                  <td class="p-3.5">
+                    <span class="px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-800 font-bold text-[10px]" data-i18n="status_in_progress">في الطريق للمنزل</span>
+                  </td>
+                  <td class="p-3.5 font-bold text-slate-700">د. محمد الحمد</td>
+                  <td class="p-3.5 text-center">
+                    <button onclick="showToast(currentLang === 'ar' ? 'جاري تتبع إحداثيات سيارة د. محمد الحمد' : 'Tracking Dr. Mohammed Al-Hamad vehicle GPS...')" class="p-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-600" title="تتبع GPS">
+                      <i data-lucide="map-pin" class="w-4 h-4"></i>
+                    </button>
+                  </td>
+                </tr>
+
+                <!-- Row 2: Random Patient 1 -->
+                <tr class="hover:bg-slate-50/70 transition-colors">
+                  <td class="p-3.5 font-mono font-bold text-slate-600">#TH-9024</td>
+                  <td class="p-3.5">
+                    <span class="font-bold text-slate-800 block">نوف الدوسري</span>
+                    <span class="text-[11px] text-slate-400">حي الصحافة، الرياض</span>
+                  </td>
+                  <td class="p-3.5">سحب تحاليل مخبرية فورية</td>
+                  <td class="p-3.5">
+                    <span class="px-2.5 py-1 rounded-full bg-amber-100 text-amber-800 font-bold text-[10px]" data-i18n="status_pending">بانتظار التعميد</span>
+                  </td>
+                  <td class="p-3.5">
+                    <select onchange="assignDoctorToRequest('TH-9024', this.value)" class="p-1.5 bg-slate-50 border border-slate-200 rounded-lg text-xs font-semibold outline-none">
+                      <option value="">تعيين طاقم...</option>
+                      <option value="د. محمد الحمد">د. محمد الحمد</option>
+                      <option value="د. علي العلي">د. علي العلي</option>
+                      <option value="د. فادي الصالح">د. فادي الصالح</option>
+                    </select>
+                  </td>
+                  <td class="p-3.5 text-center">
+                    <button onclick="approveRequest('TH-9024')" class="px-2.5 py-1 bg-brand-600 text-white rounded-lg font-bold text-[11px] hover:bg-brand-700" data-i18n="btn_dispatch">
+                      تعميد
+                    </button>
+                  </td>
+                </tr>
+
+                <!-- Row 3: Random Patient 2 -->
+                <tr class="hover:bg-slate-50/70 transition-colors">
+                  <td class="p-3.5 font-mono font-bold text-slate-600">#TH-9025</td>
+                  <td class="p-3.5">
+                    <span class="font-bold text-slate-800 block">سعد القاسم</span>
+                    <span class="text-[11px] text-slate-400">حي العقيق، الرياض</span>
+                  </td>
+                  <td class="p-3.5">جلسة علاج طبيعي وتأهيل</td>
+                  <td class="p-3.5">
+                    <span class="px-2.5 py-1 rounded-full bg-sky-100 text-sky-800 font-bold text-[10px]" data-i18n="status_assigned">تم التعيين</span>
+                  </td>
+                  <td class="p-3.5 font-bold text-slate-700">د. علي العلي</td>
+                  <td class="p-3.5 text-center">
+                    <button onclick="showToast(currentLang === 'ar' ? 'تم إرسال تنبيه تأكيد الموعد للمريض' : 'Sent SMS confirmation to patient')" class="p-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-600">
+                      <i data-lucide="send" class="w-4 h-4"></i>
+                    </button>
+                  </td>
+                </tr>
+
+              </tbody>
+            </table>
+          </div>
+
+        </div>
+
+        <!-- Sidebar: Fleet + Live Patient Feedback Feed (4 cols) -->
+        <div class="lg:col-span-4 space-y-6">
+          
+          <!-- Live Fleet Status -->
+          <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm space-y-4">
+            <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+              <h3 class="font-extrabold text-base text-slate-900" data-i18n="fleet_status_title">أسطول الوحدات الطبية المتنقلة</h3>
+              <i data-lucide="truck" class="w-5 h-5 text-brand-600"></i>
+            </div>
+
+            <div class="space-y-3">
+              <!-- Vehicle 1: Dr. Mohammed Al-Hamad -->
+              <div class="p-3 rounded-2xl bg-emerald-50/60 border border-emerald-200 flex items-center justify-between">
+                <div>
+                  <div class="flex items-center gap-1.5">
+                    <span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
+                    <h5 class="font-bold text-xs text-slate-900">الوحدة #03 - استشاري + تمريض</h5>
+                  </div>
+                  <p class="text-[11px] text-slate-600 mt-0.5">القائد: د. محمد الحمد</p>
+                  <span class="text-[10px] text-emerald-800 font-semibold block">الموقع: حي النرجس • في الزيارة</span>
+                </div>
+                <span class="text-xs font-black text-emerald-700 bg-white px-2 py-1 rounded-lg border border-emerald-200">نشط</span>
+              </div>
+
+              <!-- Vehicle 2: Dr. Ali Al-Ali -->
+              <div class="p-3 rounded-2xl bg-slate-50 border border-slate-200 flex items-center justify-between">
+                <div>
+                  <div class="flex items-center gap-1.5">
+                    <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                    <h5 class="font-bold text-xs text-slate-900">الوحدة #06 - تأهيل طبيعي</h5>
+                  </div>
+                  <p class="text-[11px] text-slate-600 mt-0.5">القائد: د. علي العلي</p>
+                  <span class="text-[10px] text-slate-500 font-semibold block">الموقع: حي الملقا • متاح للطلب</span>
+                </div>
+                <span class="text-xs font-bold text-slate-600 bg-white px-2 py-1 rounded-lg border border-slate-200">متاح</span>
+              </div>
+
+              <!-- Vehicle 3: Dr. Fadi Al-Saleh -->
+              <div class="p-3 rounded-2xl bg-slate-50 border border-slate-200 flex items-center justify-between">
+                <div>
+                  <div class="flex items-center gap-1.5">
+                    <span class="w-2 h-2 rounded-full bg-brand-500"></span>
+                    <h5 class="font-bold text-xs text-slate-900">الوحدة #09 - باطنة ومختبر</h5>
+                  </div>
+                  <p class="text-[11px] text-slate-600 mt-0.5">القائد: د. فادي الصالح</p>
+                  <span class="text-[10px] text-slate-500 font-semibold block">الموقع: حي الصحافة • تجهيز عينات</span>
+                </div>
+                <span class="text-xs font-bold text-brand-700 bg-white px-2 py-1 rounded-lg border border-brand-200">نشط</span>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Hospital Quality & Patient Sentiment Stream -->
+          <div class="bg-gradient-to-br from-slate-900 to-indigo-950 text-white rounded-3xl p-6 shadow-xl border border-slate-800 space-y-4">
+            <div class="flex items-center justify-between">
+              <h4 class="font-bold text-sm" data-i18n="live_sentiment_title">موجز تقييمات المرضى الحية</h4>
+              <i data-lucide="message-square-heart" class="w-5 h-5 text-amber-400"></i>
+            </div>
+            
+            <div class="space-y-2.5 text-xs">
+              <div class="p-2.5 rounded-xl bg-white/10 flex items-start justify-between">
+                <div>
+                  <p class="font-bold text-white">زيارة م. حسن المهندس</p>
+                  <p class="text-[11px] text-slate-300">"خدمة استثنائية وسرعة وصول ممتازة"</p>
+                </div>
+                <span class="px-2 py-0.5 rounded bg-emerald-500/30 text-emerald-300 font-bold text-[10px]">إيجابي جداً</span>
+              </div>
+
+              <div class="p-2.5 rounded-xl bg-white/10 flex items-start justify-between">
+                <div>
+                  <p class="font-bold text-white">زيارة منيرة العتيبي</p>
+                  <p class="text-[11px] text-slate-300">"عناية جروح معقمة وتواصل مريح"</p>
+                </div>
+                <span class="px-2 py-0.5 rounded bg-emerald-500/30 text-emerald-300 font-bold text-[10px]">إيجابي</span>
+              </div>
+            </div>
+
+            <div class="pt-2 border-t border-slate-800 flex items-center justify-between text-xs">
+              <span class="text-slate-400" data-i18n="last_audit_date">آخر تدقيق سباهي (CBAHI):</span>
+              <span class="font-bold text-emerald-400">معتمد 100%</span>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </main>
+
+  <div id="bookingModal" class="fixed inset-0 z-50 hidden overflow-y-auto bg-slate-950/70 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-white w-full max-w-2xl rounded-3xl shadow-2xl border border-slate-100 overflow-hidden transform transition-all">
+      
+      <!-- Modal Header -->
+      <div class="bg-gradient-to-r from-slate-950 via-brand-900 to-indigo-950 text-white p-5 flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center">
+            <i data-lucide="cross" class="w-5 h-5 text-brand-300"></i>
+          </div>
+          <div>
+            <h3 class="font-bold text-lg font-heading" data-i18n="modal_booking_title">طلب زيارة المستشفى بالبيت (Tabhome)</h3>
+            <p class="text-xs text-brand-200" data-i18n="modal_booking_subtitle">يصلكم الطاقم الطبي المجهز في الوقت المناسب</p>
+          </div>
+        </div>
+        <button onclick="closeBookingModal()" class="p-1.5 rounded-lg bg-white/10 hover:bg-white/20 text-white transition-colors">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <!-- Stepper Indicator -->
+      <div class="bg-slate-50 border-b border-slate-200 px-6 py-3">
+        <div class="flex items-center justify-between max-w-md mx-auto text-xs">
+          <div class="flex items-center gap-2">
+            <div id="modalStep1Bubble" class="w-7 h-7 rounded-full bg-brand-600 text-white font-bold flex items-center justify-center">1</div>
+            <span class="font-bold text-slate-800" data-i18n="modal_step1_label">الخدمة والمريض</span>
+          </div>
+          <div class="h-0.5 w-12 bg-slate-200" id="modalStep1Line"></div>
+          <div class="flex items-center gap-2">
+            <div id="modalStep2Bubble" class="w-7 h-7 rounded-full bg-slate-200 text-slate-600 font-bold flex items-center justify-center">2</div>
+            <span class="font-semibold text-slate-500" data-i18n="modal_step2_label">الموقع والموعد</span>
+          </div>
+          <div class="h-0.5 w-12 bg-slate-200" id="modalStep2Line"></div>
+          <div class="flex items-center gap-2">
+            <div id="modalStep3Bubble" class="w-7 h-7 rounded-full bg-slate-200 text-slate-600 font-bold flex items-center justify-center">3</div>
+            <span class="font-semibold text-slate-500" data-i18n="modal_step3_label">التأكيد</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal Step Containers -->
+      <form id="bookingFlowForm" onsubmit="handlePatientBookingSubmit(event)" class="p-6">
+        
+        <!-- STEP 1: Service, Doctor & Patient Type -->
+        <div id="bookingStep1" class="space-y-4">
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1" data-i18n="field_service_select">الخدمة الطبية المطلوبة</label>
+            <select id="fieldServiceSelect" class="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-800 focus:ring-2 focus:ring-brand-500 outline-none">
+              <option value="كشف واستشارة استشاري منزلي" data-price="299">كشف واستشارة استشاري منزلي (299 ر.س)</option>
+              <option value="تمريض منزلي وعناية بالجروح والمحاليل" data-price="150">تمريض منزلي وعناية بالجروح والمحاليل (150 ر.س)</option>
+              <option value="سحب تحاليل مخبرية شاملة من المنزل" data-price="180">سحب تحاليل مخبرية شاملة من المنزل (180 ر.س)</option>
+              <option value="جلسة علاج طبيعي وإعادة تأهيل حركي" data-price="280">جلسة علاج طبيعي وإعادة تأهيل حركي (280 ر.س)</option>
+              <option value="رعاية ومرافقة كبار السن المديدة" data-price="320">رعاية ومرافقة كبار السن المديدة (320 ر.س)</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1" data-i18n="field_preferred_doctor">الطبيب أو الأخصائي المفضل</label>
+            <select id="fieldDoctorSelect" class="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-800 focus:ring-2 focus:ring-brand-500 outline-none">
+              <option value="د. محمد الحمد (استشاري الرعاية والطب المنزلي)">د. محمد الحمد (استشاري الرعاية والطب المنزلي - موصى به)</option>
+              <option value="د. علي العلي (أخصائي أول علاج طبيعي)">د. علي العلي (أخصائي أول علاج طبيعي)</option>
+              <option value="د. فادي الصالح (استشاري باطنة ورعاية تلطيفية)">د. فادي الصالح (استشاري باطنة ورعاية تلطيفية)</option>
+              <option value="أقرب فريق طبي متاح فورياً">أقرب فريق طبي متاح فورياً (طوارئ)</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1.5" data-i18n="field_for_whom">لمن هذه الرعاية؟</label>
+            <div class="grid grid-cols-3 gap-2 text-xs font-semibold">
+              <label class="cursor-pointer border border-slate-200 rounded-xl p-3 text-center has-[:checked]:border-brand-600 has-[:checked]:bg-brand-50 has-[:checked]:text-brand-800 transition-all">
+                <input type="radio" name="modalPatientRelation" value="self" checked class="hidden">
+                <i data-lucide="user" class="w-4 h-4 mx-auto mb-1 text-slate-600"></i>
+                <span data-i18n="rel_self">نفسي</span>
+              </label>
+              <label class="cursor-pointer border border-slate-200 rounded-xl p-3 text-center has-[:checked]:border-brand-600 has-[:checked]:bg-brand-50 has-[:checked]:text-brand-800 transition-all">
+                <input type="radio" name="modalPatientRelation" value="parent" class="hidden">
+                <i data-lucide="heart" class="w-4 h-4 mx-auto mb-1 text-slate-600"></i>
+                <span data-i18n="rel_parent">الوالد / الوالدة</span>
+              </label>
+              <label class="cursor-pointer border border-slate-200 rounded-xl p-3 text-center has-[:checked]:border-brand-600 has-[:checked]:bg-brand-50 has-[:checked]:text-brand-800 transition-all">
+                <input type="radio" name="modalPatientRelation" value="child" class="hidden">
+                <i data-lucide="smile" class="w-4 h-4 mx-auto mb-1 text-slate-600"></i>
+                <span data-i18n="rel_child">طفل / قريب</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div>
+              <label class="block text-xs font-semibold text-slate-700 mb-1" data-i18n="field_patient_name">اسم المريض</label>
+              <input type="text" id="fieldPatientName" value="م. حسن المهندس" required class="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-semibold focus:ring-2 focus:ring-brand-500 outline-none">
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-slate-700 mb-1" data-i18n="field_patient_age">عمر المريض</label>
+              <input type="number" id="fieldPatientAge" value="52" min="1" max="110" class="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-semibold focus:ring-2 focus:ring-brand-500 outline-none">
+            </div>
+          </div>
+
+          <div class="pt-3 flex justify-end">
+            <button type="button" onclick="setBookingModalStep(2)" class="px-6 py-2.5 bg-brand-600 text-white font-bold rounded-xl text-xs hover:bg-brand-700 transition-all flex items-center gap-1.5">
+              <span data-i18n="btn_next_location">التالي: الموقع والموعد</span>
+              <i data-lucide="chevron-left" class="w-4 h-4"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- STEP 2: Location, Time & Phone -->
+        <div id="bookingStep2" class="space-y-4 hidden">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div>
+              <label class="block text-xs font-semibold text-slate-700 mb-1" data-i18n="field_city">المدينة</label>
+              <select id="fieldCitySelect" class="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-semibold focus:ring-2 focus:ring-brand-500 outline-none">
+                <option value="الرياض">الرياض</option>
+                <option value="جدة">جدة</option>
+                <option value="الدمام والخبر">الدمام والخبر</option>
+                <option value="مكة المكرمة">مكة المكرمة</option>
+                <option value="المدينة المنورة">المدينة المنورة</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-slate-700 mb-1" data-i18n="field_district">الحي والعنوان الوطني</label>
+              <input type="text" id="fieldDistrict" value="حي النرجس، شارع أنس بن مالك" required class="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-semibold focus:ring-2 focus:ring-brand-500 outline-none">
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div>
+              <label class="block text-xs font-semibold text-slate-700 mb-1" data-i18n="field_date">تاريخ الزيارة</label>
+              <input type="date" id="fieldVisitDate" class="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-semibold focus:ring-2 focus:ring-brand-500 outline-none">
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-slate-700 mb-1" data-i18n="field_time_slot">توقيت الزيارة</label>
+              <select id="fieldTimeSlot" class="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-semibold focus:ring-2 focus:ring-brand-500 outline-none">
+                <option value="طوارئ - خلال 40 دقيقة">طوارئ فورية (أقرب وقت متاح)</option>
+                <option value="صباحية (09:00 ص - 12:00 م)">صباحية (09:00 ص - 12:00 م)</option>
+                <option value="مسائية (04:00 م - 08:00 م)">مسائية (04:00 م - 08:00 م)</option>
+              </select>
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 mb-1" data-i18n="field_phone">رقم الجوال للتواصل وتأكيد الموقع</label>
+            <input type="tel" id="fieldPhone" value="0555123456" required dir="ltr" class="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-semibold text-right focus:ring-2 focus:ring-brand-500 outline-none">
+          </div>
+
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 mb-1" data-i18n="field_symptoms">الأعراض أو ملاحظات طبية خاصة</label>
+            <textarea id="fieldNotes" rows="2" placeholder="اذكر أي تفاصيل إضافية..." class="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:ring-2 focus:ring-brand-500 outline-none">متابعة قراءات الضغط والسكر وتجديد الوصفة</textarea>
+          </div>
+
+          <div class="pt-3 flex items-center justify-between">
+            <button type="button" onclick="setBookingModalStep(1)" class="px-4 py-2 text-slate-600 font-bold text-xs" data-i18n="btn_previous">السابق</button>
+            <button type="button" onclick="setBookingModalStep(3)" class="px-6 py-2.5 bg-brand-600 text-white font-bold rounded-xl text-xs hover:bg-brand-700 transition-all flex items-center gap-1.5">
+              <span data-i18n="btn_review_order">التالي: مراجعة الطلب</span>
+              <i data-lucide="chevron-left" class="w-4 h-4"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- STEP 3: Review & Final Submission -->
+        <div id="bookingStep3" class="space-y-4 hidden">
+          <div class="bg-slate-50 border border-slate-200 rounded-2xl p-4 text-xs space-y-2.5">
+            <div class="flex justify-between pb-2 border-b border-slate-200">
+              <span class="text-slate-500" data-i18n="summary_service">الخدمة المطلوبة:</span>
+              <span class="font-bold text-slate-800" id="summaryServiceText">-</span>
+            </div>
+            <div class="flex justify-between pb-2 border-b border-slate-200">
+              <span class="text-slate-500" data-i18n="summary_doctor">الطبيب المعين:</span>
+              <span class="font-bold text-brand-700" id="summaryDoctorText">-</span>
+            </div>
+            <div class="flex justify-between pb-2 border-b border-slate-200">
+              <span class="text-slate-500" data-i18n="summary_patient">اسم المريض:</span>
+              <span class="font-bold text-slate-800" id="summaryPatientText">-</span>
+            </div>
+            <div class="flex justify-between pb-2 border-b border-slate-200">
+              <span class="text-slate-500" data-i18n="summary_location">العنوان:</span>
+              <span class="font-bold text-slate-800" id="summaryLocationText">-</span>
+            </div>
+            <div class="flex justify-between pt-1 text-sm font-black text-brand-800">
+              <span data-i18n="summary_price">القيمة الإجمالية التقديرية:</span>
+              <span id="summaryPriceText">299 ر.س</span>
+            </div>
+          </div>
+
+          <div class="p-3 bg-emerald-50 text-emerald-800 rounded-xl text-xs flex items-center gap-2">
+            <i data-lucide="shield-check" class="w-4 h-4 text-emerald-600 shrink-0"></i>
+            <span data-i18n="payment_guarantee">الدفع بعد إتمام الزيارة بنجاح (نقداً أو عبر نقاط البيع مدى والبطاقات الائتمانية).</span>
+          </div>
+
+          <div class="pt-3 flex items-center justify-between">
+            <button type="button" onclick="setBookingModalStep(2)" class="px-4 py-2 text-slate-600 font-bold text-xs" data-i18n="btn_edit_details">تعديل التفاصيل</button>
+            <button type="submit" class="px-8 py-3 bg-gradient-to-r from-brand-600 to-indigo-600 hover:from-brand-700 text-white font-black text-xs rounded-xl shadow-lg transition-all flex items-center gap-2">
+              <i data-lucide="send" class="w-4 h-4"></i>
+              <span data-i18n="btn_confirm_dispatch">تأكيد وانطلاق الفريق الطبي</span>
+            </button>
+          </div>
+        </div>
+
+      </form>
+
+    </div>
+  </div>
+
+  <div id="feedbackModal" class="fixed inset-0 z-50 hidden overflow-y-auto bg-slate-950/75 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-white w-full max-w-lg rounded-3xl shadow-2xl border border-slate-100 overflow-hidden transform transition-all">
+      
+      <div class="bg-gradient-to-r from-slate-950 via-brand-900 to-slate-900 text-white p-5 flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-amber-400/20 text-amber-300 flex items-center justify-center">
+            <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+          </div>
+          <div>
+            <h3 class="font-bold text-lg font-heading" data-i18n="modal_feedback_title">تقييم تجربة المريض (Tabhome)</h3>
+            <p class="text-xs text-slate-300" id="feedbackTargetInfo">الزيارة: #TH-9021 • م. حسن المهندس</p>
+          </div>
+        </div>
+        <button onclick="closeFeedbackModal()" class="p-1.5 rounded-lg bg-white/10 hover:bg-white/20 text-white transition-colors">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <form id="patientFeedbackForm" onsubmit="handlePatientFeedbackSubmit(event)" class="p-6 space-y-5">
+        
+        <!-- Star Rating Dimensions -->
+        <div class="space-y-3">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold text-slate-700" data-i18n="rate_overall">التقييم العام للخدمة</span>
+            <div class="flex items-center gap-1 text-amber-400" id="overallStarGroup">
+              <i data-lucide="star" class="w-6 h-6 rating-star fill-current" onclick="setStarRating(1)"></i>
+              <i data-lucide="star" class="w-6 h-6 rating-star fill-current" onclick="setStarRating(2)"></i>
+              <i data-lucide="star" class="w-6 h-6 rating-star fill-current" onclick="setStarRating(3)"></i>
+              <i data-lucide="star" class="w-6 h-6 rating-star fill-current" onclick="setStarRating(4)"></i>
+              <i data-lucide="star" class="w-6 h-6 rating-star fill-current" onclick="setStarRating(5)"></i>
+            </div>
+          </div>
+
+          <div class="flex items-center justify-between text-xs">
+            <span class="text-slate-600" data-i18n="rate_punctuality">الدقة في موعد الوصول</span>
+            <div class="flex items-center gap-1 text-slate-400" id="punctualityStarGroup">
+              <span class="text-amber-500 font-bold">★ ★ ★ ★ ★</span>
+            </div>
+          </div>
+
+          <div class="flex items-center justify-between text-xs">
+            <span class="text-slate-600" data-i18n="rate_care_quality">جودة الفحص والاهتمام الطبي</span>
+            <div class="flex items-center gap-1 text-slate-400">
+              <span class="text-amber-500 font-bold">★ ★ ★ ★ ★</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Net Promoter Score (NPS) 1 to 10 -->
+        <div class="space-y-2 border-t border-slate-100 pt-3">
+          <label class="block text-xs font-bold text-slate-700" data-i18n="nps_question">ما مدى احتمالية ترشيحك لمنصة المستشفى بالبيت لعائلتك أو أصدقائك؟ (1-10)</label>
+          <div class="grid grid-cols-10 gap-1 text-center" id="npsSelector">
+            <!-- 1 to 10 buttons -->
+            <button type="button" onclick="selectNPS(1)" class="nps-btn py-2 text-xs font-bold rounded-lg border border-slate-200 hover:border-brand-500">1</button>
+            <button type="button" onclick="selectNPS(2)" class="nps-btn py-2 text-xs font-bold rounded-lg border border-slate-200 hover:border-brand-500">2</button>
+            <button type="button" onclick="selectNPS(3)" class="nps-btn py-2 text-xs font-bold rounded-lg border border-slate-200 hover:border-brand-500">3</button>
+            <button type="button" onclick="selectNPS(4)" class="nps-btn py-2 text-xs font-bold rounded-lg border border-slate-200 hover:border-brand-500">4</button>
+            <button type="button" onclick="selectNPS(5)" class="nps-btn py-2 text-xs font-bold rounded-lg border border-slate-200 hover:border-brand-500">5</button>
+            <button type="button" onclick="selectNPS(6)" class="nps-btn py-2 text-xs font-bold rounded-lg border border-slate-200 hover:border-brand-500">6</button>
+            <button type="button" onclick="selectNPS(7)" class="nps-btn py-2 text-xs font-bold rounded-lg border border-slate-200 hover:border-brand-500">7</button>
+            <button type="button" onclick="selectNPS(8)" class="nps-btn py-2 text-xs font-bold rounded-lg border border-slate-200 hover:border-brand-500">8</button>
+            <button type="button" onclick="selectNPS(9)" class="nps-btn py-2 text-xs font-bold rounded-lg border border-slate-200 hover:border-brand-500">9</button>
+            <button type="button" onclick="selectNPS(10)" class="nps-btn py-2 text-xs font-bold rounded-lg bg-brand-600 text-white border border-brand-600">10</button>
+          </div>
+          <div class="flex justify-between text-[10px] text-slate-400">
+            <span data-i18n="nps_unlikely">مستبعد جداً (1)</span>
+            <span data-i18n="nps_likely">بالتأكيد أوصي بها (10)</span>
+          </div>
+        </div>
+
+        <!-- Feedback Tags / Compliments -->
+        <div class="space-y-1.5 border-t border-slate-100 pt-3">
+          <label class="block text-xs font-bold text-slate-700" data-i18n="feedback_tags_label">أبرز ما لفت انتباهك في الزيارة:</label>
+          <div class="flex flex-wrap gap-1.5 text-xs" id="feedbackTagsWrapper">
+            <span onclick="toggleTag(this)" class="cursor-pointer px-3 py-1 rounded-full border border-brand-300 bg-brand-50 text-brand-700 font-semibold">دقة في الموعد</span>
+            <span onclick="toggleTag(this)" class="cursor-pointer px-3 py-1 rounded-full border border-brand-300 bg-brand-50 text-brand-700 font-semibold">طبيب متعاون</span>
+            <span onclick="toggleTag(this)" class="cursor-pointer px-3 py-1 rounded-full border border-slate-200 bg-white text-slate-600 font-semibold">تعقيم ممتاز</span>
+            <span onclick="toggleTag(this)" class="cursor-pointer px-3 py-1 rounded-full border border-slate-200 bg-white text-slate-600 font-semibold">شرح وافي للعلاج</span>
+            <span onclick="toggleTag(this)" class="cursor-pointer px-3 py-1 rounded-full border border-slate-200 bg-white text-slate-600 font-semibold">سهولة التطبيق</span>
+          </div>
+        </div>
+
+        <!-- Open Text Feedback -->
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1" data-i18n="feedback_comment_label">ملاحظاتك أو كلمات شكر للفريق الطبي:</label>
+          <textarea id="feedbackCommentText" rows="3" placeholder="اكتب رأيك بصراحة لمساعدتنا في تحسين تجربتكم..." class="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:ring-2 focus:ring-brand-500 outline-none leading-relaxed">تعامل ممتاز جداً من د. محمد الحمد، دقة وسرعة في الوصول وشرح شامل لكافة الفحوصات المنزلية.</textarea>
+        </div>
+
+        <div class="flex items-center justify-end gap-2 pt-2">
+          <button type="button" onclick="closeFeedbackModal()" class="px-4 py-2 text-slate-500 text-xs font-bold" data-i18n="btn_cancel">إلغاء</button>
+          <button type="submit" class="px-6 py-2.5 bg-brand-600 hover:bg-brand-700 text-white font-extrabold text-xs rounded-xl shadow-md transition-all flex items-center gap-1.5">
+            <i data-lucide="check" class="w-4 h-4"></i>
+            <span data-i18n="btn_submit_rating">إرسال التقييم واعتماده</span>
+          </button>
+        </div>
+      </form>
+
+    </div>
+  </div>
+
+  <!-- Toast Notification Bar -->
+  <div id="toastNotification" class="fixed bottom-6 left-6 z-50 transform translate-y-24 opacity-0 transition-all duration-300 pointer-events-none">
+    <div class="bg-slate-900 text-white px-5 py-3.5 rounded-2xl shadow-2xl flex items-center gap-3 text-xs font-semibold border border-slate-700">
+      <i data-lucide="check-circle" class="w-5 h-5 text-brand-400 shrink-0"></i>
+      <span id="toastMessage">تم التحديث بنجاح</span>
+    </div>
+  </div>
+
+  <script>
+    // ---------------------------------------------------------
+    // BILINGUAL DICTIONARY (ARABIC / ENGLISH)
+    // ---------------------------------------------------------
+    const i18nData = {
+      ar: {
+        portal_patient: "بوابة المريض",
+        portal_doctor: "الطبيب الميداني",
+        portal_hospital: "لوحة تحكم المستشفى",
+        cbahi_label: "CBAHI & وزارة الصحة",
+        banner_compliance: "المستشفى بالبيت Tabhome مرخص من وزارة الصحة والمركز السعودي للاعتماد لتقديم الرعاية الطبية والمستشفيات الافتراضية.",
+        hipaa_secure: "تشفير وحماية سرية بيانات المرضى",
+        avg_sla: "الاستجابة الميدانية: 40 دقيقة",
+        patient_active_status: "ملف نشط - متابعة دورية مستقرة",
+        patient_welcome_title: "أهلاً بك، م. حسن المهندس",
+        patient_welcome_subtitle: "منصة المستشفى بالبيت (Tabhome) تضع كامل خدمات المستشفى في منزلك: زيارات استشارية، تحاليل مخبرية فورية، تمريض متقدم، وتقييم تجربة المريض بعد كل زيارة.",
+        btn_book_home_visit: "طلب زيارة منزلية الآن",
+        btn_rate_visit: "تقييم تجربة الزيارة",
+        nav_packages_btn: "باقات الرعاية الدورية",
+        packages_badge: "باقات المستشفى بالبيت",
+        packages_title: "خطط واشتراكات الرعاية المنزلية المنتظمة",
+        packages_subtitle: "حلول اشتراك مصممة لمتابعة كبار السن، وأصحاب الأمراض المزمنة، وفترات النقاهة بعد العمليات الجراحية بأعلى معايير الجودة وخصومات حصرية.",
+        pkg_basic_tier: "باقة المتابعة الأساسية",
+        currency_monthly: "ر.س / شهرياً",
+        pkg_basic_target: "مثالية للمتابعة الوقائية الشهرية والفحوصات الأولية",
+        pkg_basic_f1: "زيارتان شهرياً لطاقم التمريض الميداني",
+        pkg_basic_f2: "قياس ومراقبة المؤشرات الحيوية بانتظام",
+        pkg_basic_f3: "تحليل سكر تراكمي HbA1c وضغط الدم",
+        pkg_basic_f4: "استشارة هاتفية شهرية مع طبيب الأسرة",
+        btn_choose_pkg: "اختيار هذه الباقة",
+        pkg_popular_badge: "الأكثر طلباً وموصى بها",
+        pkg_chronic_tier: "باقة الأمراض المزمنة وكبار السن",
+        pkg_chronic_target: "إشراف استشاري مباشر بقيادة د. محمد الحمد",
+        pkg_chronic_f1: "4 زيارات تمريضية منزلية شهرياً",
+        pkg_chronic_f2: "زيارة منزلية استشارية شهرية (د. محمد الحمد)",
+        pkg_chronic_f3: "فحص مخبري شامل شهري (دم، كلى، كبد، دهون)",
+        pkg_chronic_f4: "إدارة وتجديد الوصفات عبر منصة صحتي وتوصيلها",
+        pkg_chronic_f5: "خط ساخن مباشر للاستجابة الطارئة على مدار 24/7",
+        btn_choose_chronic_pkg: "الاشتراك في باقة المزمنة",
+        pkg_vip_tier: "باقة المستشفى الشاملة VIP",
+        pkg_vip_target: "تغطية طبية فائقة للمرضى طريحي الفراش والتأهيل المكثف",
+        pkg_vip_f1: "8 زيارات تمريضية ورعاية جروح متقدمة شهرياً",
+        pkg_vip_f2: "4 جلسات علاج طبيعي وتأهيل حركي منزلي",
+        pkg_vip_f3: "زيارتان استشاريتان شهرياً مع أحدث أجهزة المراقبة",
+        pkg_vip_f4: "أولوية التدخل السريع والإسعاف الطبي المجهز",
+        btn_choose_vip_pkg: "حجز باقة VIP",
+        active_visit_tracking: "تتبع الزيارة الطبية المباشرة",
+        active_visit_desc: "فريق المستشفى بالبيت في طريقه إلى موقعكم (حي النرجس، الرياض)",
+        demo_advance_tracker: "محاكاة تقدم الفريق (Demo)",
+        step_dispatched: "انطلاق الفريق",
+        step_on_way: "في الطريق للمنزل",
+        step_arrived: "وصل إلى الموقع",
+        step_treatment: "الفحص والعلاج",
+        step_completed: "اكتملت الزيارة والتقرير",
+        consultant_tag: "استشاري طب الأسرة والرعاية المتقدمة",
+        doc_spec_hamad: "استشاري الرعاية المنزلية وإدارة الأمراض المزمنة",
+        vehicle_unit: "الوحدة الطبية المتنقلة: #Tabhome-Unit-03 (مجهزة بأجهزة فحص وعناية حرجة)",
+        call_doc_team: "اتصال بالفريق",
+        whatsapp_team: "واتساب مباشر",
+        featured_doctors_title: "الكوادر الطبية الميدانية المتاحة",
+        featured_doctors_subtitle: "يمكنكم اختيار الطبيب أو الأخصائي لزيارتكم أو تفويض التعيين التلقائي لأقرب فريق",
+        top_rated: "استشاري أول",
+        doc_desc_hamad: "خبرة سريرية واسعة في رعاية الحالات المعقدة بالمنزل، ضبط السكري وضغط الدم، وتفادي إعادة التنويم لمرضى الرعاية المديدة.",
+        book_with_dr_hamad: "طلب زيارة د. محمد الحمد",
+        doc_ali_spec: "أخصائي أول العلاج الطبيعي والتأهيل العصبي",
+        doc_ali_desc: "جلسات تأهيل منزلي لما بعد الجلطات، تبديل المفاصل، وتدريب التوازن الحركي لكبار السن داخل بيئتهم المريحة.",
+        doc_fadi_spec: "استشاري طب الباطنة والرعاية التلطيفية",
+        doc_fadi_desc: "إدارة الألم، متابعة الأدوية المتعددة، وتوفير الدعم الطبي التلطيفي الشامل للمرضى في غرفهم المنزلية.",
+        book_service: "حجز الخدمة",
+        patient_vitals_summary: "المؤشرات الحيوية المسجلة من آخر زيارة",
+        patient_vitals_desc: "تُسجل بواسطة الطبيب الميداني بعد كل فحص سريري وتُربط فورياً بملف المريض",
+        vital_bp: "ضغط الدم",
+        vital_sugar: "سكر الدم",
+        vital_spo2: "أكسجين الدم SpO2",
+        vital_pulse: "النبض",
+        vital_normal: "طبيعي ومثالي",
+        vital_fasting_stable: "مستقر",
+        vital_optimal: "ممتاز",
+        latest_doc_advice: "توصية د. محمد الحمد:",
+        e_prescriptions_title: "الوصفات والتقارير الطبية",
+        rx_chronic: "وصفة علاج السكري والضغط",
+        lab_report: "تقرير الفحص المخبري الشامل",
+        request_new_rx: "طلب إعادة صرف أو فحص جديد",
+        patient_exp_tag: "صوت المريض في قلب الرعاية",
+        patient_exp_title: "تجربة المريض وتقييمات العائلات",
+        patient_exp_sub: "نلتزم بأعلى معايير جودة الرعاية المنزلية عبر قياس رضاكم المستمر ونسب التوصية (NPS).",
+        btn_submit_feedback_now: "شاركنا تجربتك الآن",
+        stat_avg_rating: "متوسط التقييم العام (من 5)",
+        stat_csat_label: "مؤشر الرضا الإكلينيكي",
+        stat_csat_sub: "أكثر من 1,200 زيارة منزلية",
+        stat_nps_label: "صافي نقاط الترويج (NPS)",
+        stat_nps_sub: "مستوى امتياز عالمي",
+        stat_punctual_label: "دقة الالتزام بالموعد",
+        stat_punctual_sub: "وصول في الوقت المحدد",
+        recent_reviews_title: "آخر تجارب وآراء المستفيدين الموثقة:",
+        doc_active_badge: "في مهمة ميدانية نشطة",
+        doc_spec_title: "استشاري الرعاية والطب المنزلي والأمراض المزمنة • الوحدة المتنقلة #03",
+        doc_duty_state: "حالة المناوبة الميدانية:",
+        doctor_queue_title: "جدول الزيارات الميدانية لليوم",
+        btn_open_gps: "فتح خرائط الملاحة (GPS)",
+        doc_action_arrived: "1. تم الوصول للمنزل",
+        doc_action_start_exam: "2. بدء الفحص السريري",
+        doc_record_vitals_header: "تسجيل العلامات الحيوية المقاسة:",
+        doc_clinical_notes_label: "التقرير الطبي والتوصيات السريرية",
+        doc_rx_medicines_label: "الأدوية الموصوفة أو المجددة (وصفة إلكترونية صحتي)",
+        patient_signature_label: "توقيع المريض أو المرافق لاستلام الخدمة:",
+        clear_signature: "مسح التوقيع",
+        sign_here_hint: "وقع هنا باستخدام الشاشة أو الفأرة",
+        btn_complete_visit_submit: "إتمام الزيارة واعتماد التقرير رسمياً",
+        kpi_total_today: "إجمالي زيارات اليوم",
+        kpi_dispatched_units: "الفرق الميدانية بالخدمة",
+        kpi_pending_dispatch: "طلبات بانتظار التوجيه",
+        kpi_triage_urgent: "منها 1 حالة عاجلة",
+        kpi_units_active_desc: "88% تغطية نشطة",
+        kpi_avg_sla: "متوسط سرعة الوصول",
+        kpi_sla_beat: "أسرع من الهدف بـ 10 دقائق",
+        kpi_satisfaction: "مؤشر رضا تجربة المريض",
+        kpi_nps_badge: "NPS: +89 (ممتاز)",
+        triage_board_title: "لوحة توجيه الطلبات الفورية والمجدولة",
+        triage_board_desc: "مراقبة طلبات المرضى وتعيين الأطباء والفرق الطبية المتحركة",
+        btn_simulate_booking: "إضافة طلب افتراضي (Demo)",
+        th_ref: "الرقم",
+        th_patient: "المريض والحي",
+        th_service: "الخدمة المطلوبة",
+        th_status: "الحالة",
+        th_assigned_team: "الفريق المعين",
+        th_actions: "الإجراء",
+        status_in_progress: "في الطريق للمنزل",
+        status_pending: "بانتظار التعميد",
+        status_assigned: "تم التعيين",
+        btn_dispatch: "تعميد",
+        fleet_status_title: "أسطول الوحدات الطبية المتنقلة",
+        live_sentiment_title: "موجز تقييمات المرضى الحية",
+        last_audit_date: "آخر تدقيق سباهي (CBAHI):",
+        modal_booking_title: "طلب زيارة المستشفى بالبيت (Tabhome)",
+        modal_booking_subtitle: "يصلكم الطاقم الطبي المجهز في الوقت المناسب",
+        modal_step1_label: "الخدمة والمريض",
+        modal_step2_label: "الموقع والموعد",
+        modal_step3_label: "التأكيد",
+        field_service_select: "الخدمة الطبية المطلوبة",
+        field_preferred_doctor: "الطبيب أو الأخصائي المفضل",
+        field_for_whom: "لمن هذه الرعاية؟",
+        rel_self: "نفسي",
+        rel_parent: "الوالد / الوالدة",
+        rel_child: "طفل / قريب",
+        field_patient_name: "اسم المريض",
+        field_patient_age: "عمر المريض",
+        btn_next_location: "التالي: الموقع والموعد",
+        field_city: "المدينة",
+        field_district: "الحي والعنوان الوطني",
+        field_date: "تاريخ الزيارة",
+        field_time_slot: "توقيت الزيارة",
+        field_phone: "رقم الجوال للتواصل وتأكيد الموقع",
+        field_symptoms: "الأعراض أو ملاحظات طبية خاصة",
+        btn_previous: "السابق",
+        btn_review_order: "التالي: مراجعة الطلب",
+        summary_service: "الخدمة المطلوبة:",
+        summary_doctor: "الطبيب المعين:",
+        summary_patient: "اسم المريض:",
+        summary_location: "العنوان:",
+        summary_price: "القيمة الإجمالية التقديرية:",
+        payment_guarantee: "الدفع بعد إتمام الزيارة بنجاح (نقداً أو عبر نقاط البيع مدى والبطاقات الائتمانية).",
+        btn_edit_details: "تعديل التفاصيل",
+        btn_confirm_dispatch: "تأكيد وانطلاق الفريق الطبي",
+        modal_feedback_title: "تقييم تجربة المريض (Tabhome)",
+        rate_overall: "التقييم العام للخدمة",
+        rate_punctuality: "الدقة في موعد الوصول",
+        rate_care_quality: "جودة الفحص والاهتمام الطبي",
+        nps_question: "ما مدى احتمالية ترشيحك لمنصة المستشفى بالبيت لعائلتك أو أصدقائك؟ (1-10)",
+        nps_unlikely: "مستبعد جداً (1)",
+        nps_likely: "بالتأكيد أوصي بها (10)",
+        feedback_tags_label: "أبرز ما لفت انتباهك في الزيارة:",
+        feedback_comment_label: "ملاحظاتك أو كلمات شكر للفريق الطبي:",
+        btn_cancel: "إلغاء",
+        btn_submit_rating: "إرسال التقييم واعتماده"
+      },
+      en: {
+        portal_patient: "Patient Portal",
+        portal_doctor: "Field Doctor Portal",
+        portal_hospital: "Hospital Operations",
+        cbahi_label: "CBAHI & MOH Accredited",
+        banner_compliance: "Hospital at Home (Tabhome) is licensed by MOH & CBAHI for advanced home healthcare and virtual hospital services.",
+        hipaa_secure: "Encrypted & Confidential Patient Health Records",
+        avg_sla: "Avg Response Time: 40 Mins",
+        patient_active_status: "Active File - Chronic Care Stable",
+        patient_welcome_title: "Welcome, Eng. Hasan Al-Muhandis",
+        patient_welcome_subtitle: "Hospital at Home (Tabhome) brings complete hospital clinical capabilities to your home: specialist consults, bedside labs, skilled nursing, and live feedback.",
+        btn_book_home_visit: "Request Home Visit",
+        btn_rate_visit: "Rate Visit Experience",
+        nav_packages_btn: "Care Packages",
+        packages_badge: "Tabhome Care Plans",
+        packages_title: "Scheduled Home Healthcare Plans & Subscriptions",
+        packages_subtitle: "Subscription programs designed for senior citizens, chronic disease monitoring, and post-surgery rehabilitation with highest quality and exclusive savings.",
+        pkg_basic_tier: "Basic Care Package",
+        currency_monthly: "SAR / Month",
+        pkg_basic_target: "Ideal for preventive monthly follow-up and essential vitals tracking",
+        pkg_basic_f1: "2 Monthly field nursing home visits",
+        pkg_basic_f2: "Regular vitals assessment & monitoring",
+        pkg_basic_f3: "HbA1c glucose test and blood pressure tracking",
+        pkg_basic_f4: "Monthly teleconsultation with family physician",
+        btn_choose_pkg: "Choose This Plan",
+        pkg_popular_badge: "Most Popular & Recommended",
+        pkg_chronic_tier: "Chronic & Geriatric Care Plan",
+        pkg_chronic_target: "Supervised directly by Dr. Mohammed Al-Hamad",
+        pkg_chronic_f1: "4 In-home nursing visits per month",
+        pkg_chronic_f2: "Monthly consultant home visit (Dr. Mohammed Al-Hamad)",
+        pkg_chronic_f3: "Full monthly mobile lab panel (Blood, Kidney, Liver, Lipids)",
+        pkg_chronic_f4: "Sehhaty e-prescriptions refill & door delivery",
+        pkg_chronic_f5: "Dedicated 24/7 emergency medical hotline",
+        btn_choose_chronic_pkg: "Subscribe to Chronic Plan",
+        pkg_vip_tier: "Comprehensive Hospital VIP Plan",
+        pkg_vip_target: "Intensive clinical coverage for bedridden patients and rehab",
+        pkg_vip_f1: "8 Monthly nursing & advanced wound care visits",
+        pkg_vip_f2: "4 In-home physical therapy & mobility sessions",
+        pkg_vip_f3: "2 Senior consultant visits with advanced bedside monitoring",
+        pkg_vip_f4: "Priority rapid response & critical care mobile dispatch",
+        btn_choose_vip_pkg: "Book VIP Care",
+        active_visit_tracking: "Live Home Visit Tracking",
+        active_visit_desc: "Tabhome mobile clinical team is on the route to your residence (Al-Narjis, Riyadh)",
+        demo_advance_tracker: "Simulate Step Progress (Demo)",
+        step_dispatched: "Team Dispatched",
+        step_on_way: "On The Way",
+        step_arrived: "Arrived at Home",
+        step_treatment: "In Examination",
+        step_completed: "Visit Completed",
+        consultant_tag: "Consultant Family & Home Medicine",
+        doc_spec_hamad: "Consultant of Home Healthcare & Chronic Disease Management",
+        vehicle_unit: "Mobile Unit: #Tabhome-Unit-03 (Fully Equipped Critical Care Bag)",
+        call_doc_team: "Call Unit",
+        whatsapp_team: "WhatsApp Chat",
+        featured_doctors_title: "Available Field Medical Staff",
+        featured_doctors_subtitle: "Choose your preferred doctor or let our dispatch system assign the nearest mobile unit",
+        top_rated: "Senior Consultant",
+        doc_desc_hamad: "Expert in complex home medical care, hypertension/diabetes management, and hospital readmission prevention.",
+        book_with_dr_hamad: "Request Dr. Mohammed Al-Hamad",
+        doc_ali_spec: "Senior Physical Therapy & Neuro Rehab Specialist",
+        doc_ali_desc: "Post-stroke mobility restoration, joint replacement rehab, and balance therapy in home comfort.",
+        doc_fadi_spec: "Internal Medicine & Palliative Care Consultant",
+        doc_fadi_desc: "Pain management, polypharmacy review, and comprehensive palliative home care.",
+        book_service: "Book Specialist",
+        patient_vitals_summary: "Clinical Vitals Recorded from Last Visit",
+        patient_vitals_desc: "Captured by field physicians after clinical exam and synchronized instantly to your electronic record",
+        vital_bp: "Blood Pressure",
+        vital_sugar: "Blood Glucose",
+        vital_spo2: "Oxygen Saturation (SpO2)",
+        vital_pulse: "Heart Rate",
+        vital_normal: "Normal & Optimal",
+        vital_fasting_stable: "Stable",
+        vital_optimal: "Excellent",
+        latest_doc_advice: "Dr. Mohammed Al-Hamad's Recommendation:",
+        e_prescriptions_title: "E-Prescriptions & Lab Reports",
+        rx_chronic: "Chronic Disease E-Prescription",
+        lab_report: "Comprehensive Mobile Lab Panel",
+        request_new_rx: "Request Refill or New Test",
+        patient_exp_tag: "Patient Voice at the Center of Care",
+        patient_exp_title: "Patient Experience & Family Ratings",
+        patient_exp_sub: "Committed to hospital-grade home care through constant satisfaction tracking and Net Promoter Score (NPS).",
+        btn_submit_feedback_now: "Share Your Experience Now",
+        stat_avg_rating: "Average Rating (Out of 5)",
+        stat_csat_label: "Clinical CSAT Index",
+        stat_csat_sub: "Over 1,200 Home Visits",
+        stat_nps_label: "Net Promoter Score (NPS)",
+        stat_nps_sub: "World-Class Excellence",
+        stat_punctual_label: "Punctuality Rate",
+        stat_punctual_sub: "Arrival on Promised Slot",
+        recent_reviews_title: "Recent Verified Family Feedback:",
+        doc_active_badge: "On Active Field Duty",
+        doc_spec_title: "Consultant of Home Healthcare & Chronic Disease • Mobile Unit #03",
+        doc_duty_state: "Field Duty Status:",
+        doctor_queue_title: "Today's Assigned Field Visits",
+        btn_open_gps: "Open GPS Navigation",
+        doc_action_arrived: "1. Arrived at Patient Home",
+        doc_action_start_exam: "2. Start Clinical Exam",
+        doc_record_vitals_header: "Record Measured Clinical Vitals:",
+        doc_clinical_notes_label: "Clinical Examination Notes & Orders",
+        doc_rx_medicines_label: "Prescribed / Refilled Medications (Sehhaty Rx)",
+        patient_signature_label: "Patient or Caregiver Signature:",
+        clear_signature: "Clear Signature",
+        sign_here_hint: "Sign on screen or with mouse",
+        btn_complete_visit_submit: "Complete Visit & Authenticate Report",
+        kpi_total_today: "Total Visits Today",
+        kpi_dispatched_units: "Units On Active Duty",
+        kpi_pending_dispatch: "Pending Dispatch Queue",
+        kpi_triage_urgent: "Including 1 Urgent",
+        kpi_units_active_desc: "88% Fleet Utilization",
+        kpi_avg_sla: "Average Response Time",
+        kpi_sla_beat: "10 Mins Ahead of Target",
+        kpi_satisfaction: "Patient Experience CSAT",
+        kpi_nps_badge: "NPS: +89 (Excellent)",
+        triage_board_title: "Immediate & Scheduled Triage Matrix",
+        triage_board_desc: "Monitor incoming patient requests and assign field doctors and vehicles",
+        btn_simulate_booking: "Simulate New Request (Demo)",
+        th_ref: "Ref #",
+        th_patient: "Patient & District",
+        th_service: "Service Requested",
+        th_status: "Status",
+        th_assigned_team: "Assigned Staff",
+        th_actions: "Actions",
+        status_in_progress: "On The Way",
+        status_pending: "Pending Dispatch",
+        status_assigned: "Staff Assigned",
+        btn_dispatch: "Dispatch",
+        fleet_status_title: "Mobile Medical Fleet Status",
+        live_sentiment_title: "Live Patient Sentiment Feed",
+        last_audit_date: "Last CBAHI Audit:",
+        modal_booking_title: "Request Hospital at Home (Tabhome) Visit",
+        modal_booking_subtitle: "Equipped mobile clinical unit arrives safely at your home",
+        modal_step1_label: "Service & Patient",
+        modal_step2_label: "Location & Schedule",
+        modal_step3_label: "Confirmation",
+        field_service_select: "Select Medical Service",
+        field_preferred_doctor: "Preferred Doctor / Specialist",
+        field_for_whom: "Who is this care for?",
+        rel_self: "Self",
+        rel_parent: "Parent",
+        rel_child: "Child / Relative",
+        field_patient_name: "Patient Full Name",
+        field_patient_age: "Patient Age",
+        btn_next_location: "Next: Location & Schedule",
+        field_city: "City",
+        field_district: "District & Address",
+        field_date: "Visit Date",
+        field_time_slot: "Preferred Time Slot",
+        field_phone: "Contact Mobile Phone",
+        field_symptoms: "Symptoms or Medical History",
+        btn_previous: "Back",
+        btn_review_order: "Next: Review Summary",
+        summary_service: "Requested Service:",
+        summary_doctor: "Assigned Doctor:",
+        summary_patient: "Patient Name:",
+        summary_location: "Location:",
+        summary_price: "Estimated Total:",
+        payment_guarantee: "Pay securely after completion of medical service (Cash, Mada, or Credit Card POS).",
+        btn_edit_details: "Edit Details",
+        btn_confirm_dispatch: "Confirm & Dispatch Team",
+        modal_feedback_title: "Patient Experience Feedback (Tabhome)",
+        rate_overall: "Overall Service Rating",
+        rate_punctuality: "Arrival Punctuality",
+        rate_care_quality: "Clinical Care & Attention Quality",
+        nps_question: "How likely are you to recommend Tabhome to friends and family? (1-10)",
+        nps_unlikely: "Not Likely (1)",
+        nps_likely: "Highly Recommend (10)",
+        feedback_tags_label: "What stood out about this visit:",
+        feedback_comment_label: "Your comments or appreciation for the medical team:",
+        btn_cancel: "Cancel",
+        btn_submit_rating: "Submit Verified Rating"
+      }
+    };
+
+    // State Variables
+    let currentLang = 'ar';
+    let currentPortal = 'patient';
+    let currentTrackerStep = 2; // 1: Dispatched, 2: On way, 3: Arrived, 4: In treatment, 5: Completed
+    let canvasDrawing = false;
+    let selectedStarRating = 5;
+    let selectedNPSScore = 10;
+
+    document.addEventListener('DOMContentLoaded', () => {
+      lucide.createIcons();
+      initSignatureCanvas();
+      
+      // Default booking date to tomorrow
+      const dInput = document.getElementById('fieldVisitDate');
+      if (dInput) {
+        const t = new Date();
+        t.setDate(t.getDate() + 1);
+        dInput.value = t.toISOString().split('T')[0];
+        dInput.min = new Date().toISOString().split('T')[0];
+      }
+    });
+
+    // ---------------------------------------------------------
+    // PORTAL SWITCHING LOGIC
+    // ---------------------------------------------------------
+    function switchPortal(portalId) {
+      currentPortal = portalId;
+      
+      // Hide all portal containers
+      document.querySelectorAll('.portal-section').forEach(el => el.classList.add('hidden'));
+      
+      // Show targeted portal
+      const target = document.getElementById(`portal-${portalId}-container`);
+      if (target) target.classList.remove('hidden');
+
+      // Update Desktop Nav Tabs style
+      document.querySelectorAll('.portal-tab').forEach(tab => {
+        tab.classList.remove('bg-brand-600', 'text-white', 'shadow-md');
+        tab.classList.add('text-slate-300');
+      });
+      const activeTab = document.getElementById(`tab-${portalId}`);
+      if (activeTab) {
+        activeTab.classList.add('bg-brand-600', 'text-white', 'shadow-md');
+        activeTab.classList.remove('text-slate-300');
+      }
+
+      // Update Mobile Nav Tabs style
+      ['patient', 'doctor', 'hospital'].forEach(id => {
+        const mTab = document.getElementById(`mobile-tab-${id}`);
+        if (mTab) {
+          if (id === portalId) {
+            mTab.classList.add('text-brand-400');
+            mTab.classList.remove('text-slate-400');
+          } else {
+            mTab.classList.remove('text-brand-400');
+            mTab.classList.add('text-slate-400');
+          }
+        }
+      });
+
+      // Adjust user profile pill in top bar
+      const userDisplayName = document.getElementById('userDisplayName');
+      const userAvatarText = document.getElementById('userAvatarText');
+      if (portalId === 'patient') {
+        userDisplayName.textContent = currentLang === 'ar' ? 'م. حسن المهندس' : 'Eng. Hasan Al-Muhandis';
+        userAvatarText.textContent = 'ح';
+      } else if (portalId === 'doctor') {
+        userDisplayName.textContent = currentLang === 'ar' ? 'د. محمد الحمد' : 'Dr. Mohammed Al-Hamad';
+        userAvatarText.textContent = 'م';
+      } else {
+        userDisplayName.textContent = currentLang === 'ar' ? 'غرفة عمليات Tabhome' : 'Tabhome Command Center';
+        userAvatarText.textContent = 'T';
+      }
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      lucide.createIcons();
+      showToast(currentLang === 'ar' ? `تم الانتقال إلى ${i18nData.ar['portal_' + portalId]}` : `Switched to ${i18nData.en['portal_' + portalId]}`);
+    }
+
+    // ---------------------------------------------------------
+    // BILINGUAL TOGGLE & LOCALIZATION
+    // ---------------------------------------------------------
+    function toggleLanguage() {
+      currentLang = currentLang === 'ar' ? 'en' : 'ar';
+      applyLanguage(currentLang);
+    }
+
+    function applyLanguage(lang) {
+      const htmlTag = document.documentElement;
+      const bodyTag = document.body;
+      const langLabel = document.getElementById('currentLangLabel');
+      const navAppName = document.getElementById('navAppName');
+      const navAppSubtitle = document.getElementById('navAppSubtitle');
+
+      if (lang === 'en') {
+        htmlTag.setAttribute('dir', 'ltr');
+        htmlTag.setAttribute('lang', 'en');
+        bodyTag.classList.remove('font-arabic');
+        bodyTag.classList.add('font-english');
+        langLabel.textContent = 'العربية (AR)';
+        navAppName.textContent = 'Hospital at Home';
+        navAppSubtitle.textContent = 'Advanced In-Home & Virtual Hospital Care';
+      } else {
+        htmlTag.setAttribute('dir', 'rtl');
+        htmlTag.setAttribute('lang', 'ar');
+        bodyTag.classList.remove('font-english');
+        bodyTag.classList.add('font-arabic');
+        langLabel.textContent = 'English (EN)';
+        navAppName.textContent = 'المستشفى بالبيت';
+        navAppSubtitle.textContent = 'منظومة الرعاية والطب المنزلي المتقدمة';
+      }
+
+      // Translate all data-i18n elements
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (i18nData[lang] && i18nData[lang][key]) {
+          el.textContent = i18nData[lang][key];
+        }
+      });
+
+      // Maintain Eng. Hasan Al-Muhandis profile name
+      const userDisplayName = document.getElementById('userDisplayName');
+      if (userDisplayName) {
+        if (currentPortal === 'patient') {
+          userDisplayName.textContent = lang === 'en' ? 'Eng. Hasan Al-Muhandis' : 'م. حسن المهندس';
+        } else if (currentPortal === 'doctor') {
+          userDisplayName.textContent = lang === 'en' ? 'Dr. Mohammed Al-Hamad' : 'د. محمد الحمد';
+        }
+      }
+
+      const docTitle = document.getElementById('docCurrentPatientTitle');
+      if (docTitle) {
+        docTitle.textContent = lang === 'en' ? 'Field Patient Examination: Eng. Hasan Al-Muhandis' : 'فحص الحالة الميداني: م. حسن المهندس';
+      }
+
+      const assignedDoc = document.getElementById('activeAssignedDocName');
+      if (assignedDoc) {
+        assignedDoc.textContent = lang === 'en' ? 'Dr. Mohammed Al-Hamad' : 'د. محمد الحمد';
+      }
+
+      const najlaReviewName = document.getElementById('reviewPatientNajla');
+      if (najlaReviewName) {
+        najlaReviewName.textContent = lang === 'en' ? 'Najla Mohammed' : 'نجلاء محمد';
+      }
+
+      lucide.createIcons();
+      showToast(lang === 'en' ? 'Switched to English interface' : 'تم التحويل إلى الواجهة العربية');
+    }
+
+    // ---------------------------------------------------------
+    // LIVE TRACKER SIMULATION (Patient Portal)
+    // ---------------------------------------------------------
+    function simulateDoctorProgress() {
+      currentTrackerStep++;
+      if (currentTrackerStep > 5) currentTrackerStep = 1;
+      updateTrackerUI(currentTrackerStep);
+    }
+
+    function updateTrackerUI(step) {
+      for (let i = 1; i <= 5; i++) {
+        const stepEl = document.getElementById(`tracker-step-${i}`);
+        if (!stepEl) continue;
+        const iconDiv = stepEl.querySelector('div');
+
+        if (i < step) {
+          iconDiv.className = 'w-10 h-10 mx-auto rounded-full bg-emerald-600 text-white flex items-center justify-center font-bold shadow';
+          iconDiv.innerHTML = '<i data-lucide="check" class="w-5 h-5"></i>';
+        } else if (i === step) {
+          iconDiv.className = 'w-10 h-10 mx-auto rounded-full bg-brand-600 text-white flex items-center justify-center font-bold ring-4 ring-brand-100 shadow-lg';
+          if (step === 1) iconDiv.innerHTML = '<i data-lucide="check" class="w-5 h-5"></i>';
+          if (step === 2) iconDiv.innerHTML = '<i data-lucide="car" class="w-5 h-5"></i>';
+          if (step === 3) iconDiv.innerHTML = '<i data-lucide="map-pin" class="w-5 h-5"></i>';
+          if (step === 4) iconDiv.innerHTML = '<i data-lucide="stethoscope" class="w-5 h-5"></i>';
+          if (step === 5) iconDiv.innerHTML = '<i data-lucide="badge-check" class="w-5 h-5"></i>';
+        } else {
+          iconDiv.className = 'w-10 h-10 mx-auto rounded-full bg-slate-200 text-slate-500 flex items-center justify-center font-bold';
+        }
+      }
+
+      const etaLabel = document.getElementById('etaTimeLabel');
+      if (step === 2) etaLabel.textContent = currentLang === 'ar' ? 'وصول متوقع: 12 دقيقة' : 'ETA: 12 mins';
+      else if (step === 3) etaLabel.textContent = currentLang === 'ar' ? 'وصل عند الباب' : 'Arrived at gate';
+      else if (step >= 4) etaLabel.textContent = currentLang === 'ar' ? 'اكتمل الوصول' : 'On-site';
+
+      lucide.createIcons();
+      showToast(currentLang === 'ar' ? `تحديث حالة الزيارة إلى المرحلة (${step}/5)` : `Tracker updated to stage (${step}/5)`);
+    }
+
+    // ---------------------------------------------------------
+    // FIELD DOCTOR ACTIONS & WORKFLOW
+    // ---------------------------------------------------------
+    function doctorUpdateStatus(status) {
+      if (status === 'arrived') {
+        currentTrackerStep = 3;
+        updateTrackerUI(3);
+        showToast(currentLang === 'ar' ? 'تم تسجيل وصولك لمنزل المريض وإشعار العائلة' : 'Arrival logged & family notified');
+      } else if (status === 'treating') {
+        currentTrackerStep = 4;
+        updateTrackerUI(4);
+        showToast(currentLang === 'ar' ? 'بدء الفحص السريري وتدوين العلامات الحيوية' : 'Clinical examination started');
+      }
+    }
+
+    function handleDoctorDutyChange(val) {
+      showToast(currentLang === 'ar' ? `تم تغيير حالة المناوبة إلى: ${val}` : `Shift status updated to: ${val}`);
+    }
+
+    function selectVisitForDoctor(visitId) {
+      showToast(currentLang === 'ar' ? `تم فتح ملف الزيارة ${visitId}` : `Opened visit file ${visitId}`);
+    }
+
+    function handleDoctorCompleteVisit(e) {
+      e.preventDefault();
+      
+      const bp = document.getElementById('inputVitalsBP').value;
+      const sugar = document.getElementById('inputVitalsSugar').value;
+      const oxy = document.getElementById('inputVitalsOxygen').value;
+      const pulse = document.getElementById('inputVitalsPulse').value;
+      const notes = document.getElementById('inputDoctorNotes').value;
+
+      document.getElementById('dispPatientBP').textContent = bp;
+      document.getElementById('dispPatientSugar').innerHTML = `${sugar} <span class="text-xs font-normal">mg/dL</span>`;
+      document.getElementById('dispPatientOxygen').textContent = `${oxy}%`;
+      document.getElementById('dispPatientPulse').innerHTML = `${pulse} <span class="text-xs font-normal">bpm</span>`;
+      document.getElementById('dispPatientNotes').textContent = `"${notes}"`;
+
+      currentTrackerStep = 5;
+      updateTrackerUI(5);
+
+      showToast(currentLang === 'ar' ? 'تم اعتماد التقرير الطبي وتحديث ملف المريض بنجاح!' : 'Medical report approved and synchronized to patient EHR!');
+    }
+
+    // ---------------------------------------------------------
+    // DIGITAL SIGNATURE CANVAS LOGIC
+    // ---------------------------------------------------------
+    let sigCanvas, sigCtx;
+    function initSignatureCanvas() {
+      sigCanvas = document.getElementById('doctorSignatureCanvas');
+      if (!sigCanvas) return;
+      sigCtx = sigCanvas.getContext('2d');
+
+      sigCanvas.width = sigCanvas.parentElement.clientWidth || 500;
+      sigCanvas.height = 112;
+
+      sigCtx.lineWidth = 2.5;
+      sigCtx.lineCap = 'round';
+      sigCtx.strokeStyle = '#1d4ed8';
+
+      function getPos(e) {
+        const rect = sigCanvas.getBoundingClientRect();
+        const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+        const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+        return {
+          x: clientX - rect.left,
+          y: clientY - rect.top
+        };
+      }
+
+      function startDraw(e) {
+        canvasDrawing = true;
+        const pos = getPos(e);
+        sigCtx.beginPath();
+        sigCtx.moveTo(pos.x, pos.y);
+      }
+
+      function draw(e) {
+        if (!canvasDrawing) return;
+        const pos = getPos(e);
+        sigCtx.lineTo(pos.x, pos.y);
+        sigCtx.stroke();
+      }
+
+      function stopDraw() {
+        canvasDrawing = false;
+      }
+
+      sigCanvas.addEventListener('mousedown', startDraw);
+      sigCanvas.addEventListener('mousemove', draw);
+      window.addEventListener('mouseup', stopDraw);
+
+      sigCanvas.addEventListener('touchstart', startDraw, { passive: true });
+      sigCanvas.addEventListener('touchmove', draw, { passive: true });
+      window.addEventListener('touchend', stopDraw);
+    }
+
+    function clearSignatureCanvas() {
+      if (!sigCtx || !sigCanvas) return;
+      sigCtx.clearRect(0, 0, sigCanvas.width, sigCanvas.height);
+      showToast(currentLang === 'ar' ? 'تم مسح التوقيع' : 'Signature cleared');
+    }
+
+    // ---------------------------------------------------------
+    // HOSPITAL OPERATIONS & TRIAGE MATRIX
+    // ---------------------------------------------------------
+    function assignDoctorToRequest(reqId, docName) {
+      if (!docName) return;
+      showToast(currentLang === 'ar' ? `تم تعيين ${docName} للطلب #${reqId}` : `Assigned ${docName} to #${reqId}`);
+    }
+
+    function approveRequest(reqId) {
+      showToast(currentLang === 'ar' ? `تم تعميد وتوجيه الفريق الطبي للطلب #${reqId}` : `Dispatched medical team for #${reqId}`);
+      const pendingCount = document.getElementById('kpiPendingDispatches');
+      if (pendingCount) {
+        let current = parseInt(pendingCount.textContent) || 4;
+        if (current > 0) pendingCount.textContent = current - 1;
+      }
+    }
+
+    function addNewMockEmergencyRequest() {
+      const table = document.getElementById('hospitalRequestsTableBody');
+      const newRef = '#TH-' + Math.floor(9030 + Math.random() * 800);
+      const newRow = document.createElement('tr');
+      newRow.className = 'hover:bg-slate-50/70 transition-colors bg-brand-50/30';
+      newRow.innerHTML = `
+        <td class="p-3.5 font-mono font-bold text-brand-700">${newRef}</td>
+        <td class="p-3.5">
+          <span class="font-bold text-slate-800 block">${currentLang === 'ar' ? 'عبدالله السالم' : 'Abdullah Al-Salem'}</span>
+          <span class="text-[11px] text-slate-400">${currentLang === 'ar' ? 'حي الملقا، الرياض' : 'Al-Malqa, Riyadh'}</span>
+        </td>
+        <td class="p-3.5">${currentLang === 'ar' ? 'كشف طوارئ منزلي' : 'Emergency Home Visit'}</td>
+        <td class="p-3.5">
+          <span class="px-2.5 py-1 rounded-full bg-rose-100 text-rose-800 font-bold text-[10px]">${currentLang === 'ar' ? 'عاجل جديد' : 'Urgent'}</span>
+        </td>
+        <td class="p-3.5 font-bold text-slate-700">د. محمد الحمد</td>
+        <td class="p-3.5 text-center">
+          <button onclick="approveRequest('${newRef}')" class="px-2.5 py-1 bg-brand-600 text-white rounded-lg font-bold text-[11px] hover:bg-brand-700">
+            ${currentLang === 'ar' ? 'تعميد' : 'Dispatch'}
+          </button>
+        </td>
+      `;
+      table.insertBefore(newRow, table.firstChild);
+      
+      const pendingCount = document.getElementById('kpiPendingDispatches');
+      if (pendingCount) pendingCount.textContent = (parseInt(pendingCount.textContent) || 0) + 1;
+
+      showToast(currentLang === 'ar' ? 'تمت إضافة طلب زيارة افتراضي جديد إلى قائمة الانتظار' : 'New simulated visit added to dispatch queue');
+      lucide.createIcons();
+    }
+
+    // ---------------------------------------------------------
+    // BOOKING MODAL & STEPPER FLOW
+    // ---------------------------------------------------------
+    let currentModalStep = 1;
+
+    function openBookingModal() {
+      document.getElementById('bookingModal').classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+      setBookingModalStep(1);
+    }
+
+    function closeBookingModal() {
+      document.getElementById('bookingModal').classList.add('hidden');
+      document.body.style.overflow = 'auto';
+    }
+
+    function selectDoctorAndBook(doctorName, specialty) {
+      openBookingModal();
+      const docSelect = document.getElementById('fieldDoctorSelect');
+      let matched = false;
+      for (let i = 0; i < docSelect.options.length; i++) {
+        if (docSelect.options[i].text.includes(doctorName)) {
+          docSelect.selectedIndex = i;
+          matched = true;
+          break;
+        }
+      }
+      if (!matched) {
+        const opt = new Option(`${doctorName} (${specialty})`, doctorName);
+        docSelect.add(opt);
+        docSelect.value = doctorName;
+      }
+      showToast(currentLang === 'ar' ? `تم تحديد الموعد مع ${doctorName}` : `Selected ${doctorName}`);
+    }
+
+    function bookSelectedPackage(packageName, price) {
+      openBookingModal();
+      const srvSelect = document.getElementById('fieldServiceSelect');
+      let exists = false;
+      for (let i = 0; i < srvSelect.options.length; i++) {
+        if (srvSelect.options[i].value === packageName) {
+          srvSelect.selectedIndex = i;
+          exists = true;
+          break;
+        }
+      }
+      if (!exists) {
+        const newOpt = new Option(packageName, packageName);
+        srvSelect.add(newOpt);
+        srvSelect.value = packageName;
+      }
+      
+      const priceText = document.getElementById('summaryPriceText');
+      if (priceText) {
+        priceText.textContent = `${price} ${currentLang === 'ar' ? 'ر.س' : 'SAR'}`;
+      }
+
+      showToast(currentLang === 'ar' ? `تم اختيار ${packageName}` : `Selected package: ${packageName}`);
+    }
+
+    function setBookingModalStep(step) {
+      if (step === 2) {
+        const pName = document.getElementById('fieldPatientName').value.trim();
+        if (!pName) {
+          showToast(currentLang === 'ar' ? 'الرجاء إدخال اسم المريض للمتابعة' : 'Please enter patient name');
+          return;
+        }
+      }
+
+      if (step === 3) {
+        const srvSelect = document.getElementById('fieldServiceSelect');
+        const docSelect = document.getElementById('fieldDoctorSelect');
+        const patientName = document.getElementById('fieldPatientName').value;
+        const city = document.getElementById('fieldCitySelect').value;
+        const district = document.getElementById('fieldDistrict').value;
+
+        document.getElementById('summaryServiceText').textContent = srvSelect.options[srvSelect.selectedIndex].text;
+        document.getElementById('summaryDoctorText').textContent = docSelect.value;
+        document.getElementById('summaryPatientText').textContent = patientName;
+        document.getElementById('summaryLocationText').textContent = `${city}، ${district}`;
+      }
+
+      document.getElementById('bookingStep1').classList.add('hidden');
+      document.getElementById('bookingStep2').classList.add('hidden');
+      document.getElementById('bookingStep3').classList.add('hidden');
+
+      document.getElementById(`bookingStep${step}`).classList.remove('hidden');
+
+      for (let i = 1; i <= 3; i++) {
+        const b = document.getElementById(`modalStep${i}Bubble`);
+        if (!b) continue;
+        if (i < step) {
+          b.className = 'w-7 h-7 rounded-full bg-emerald-600 text-white font-bold flex items-center justify-center text-xs';
+          b.innerHTML = '<i data-lucide="check" class="w-3.5 h-3.5"></i>';
+        } else if (i === step) {
+          b.className = 'w-7 h-7 rounded-full bg-brand-600 text-white font-bold flex items-center justify-center text-xs';
+          b.textContent = i;
+        } else {
+          b.className = 'w-7 h-7 rounded-full bg-slate-200 text-slate-600 font-bold flex items-center justify-center text-xs';
+          b.textContent = i;
+        }
+      }
+
+      currentModalStep = step;
+      lucide.createIcons();
+    }
+
+    function handlePatientBookingSubmit(e) {
+      e.preventDefault();
+      closeBookingModal();
+      
+      const newRef = '#TH-' + Math.floor(9040 + Math.random() * 800);
+      document.getElementById('patientVisitIdTag').textContent = newRef;
+
+      currentTrackerStep = 1;
+      updateTrackerUI(1);
+
+      showToast(currentLang === 'ar' ? `تم تأكيد الزيارة برقم مرجعي ${newRef}، الفريق قيد الانطلاق!` : `Visit request confirmed (${newRef}), mobile team dispatched!`);
+      window.scrollTo({ top: 180, behavior: 'smooth' });
+    }
+
+    // ---------------------------------------------------------
+    // PATIENT EXPERIENCE & FEEDBACK SYSTEM
+    // ---------------------------------------------------------
+    function openFeedbackModal(visitId, docName) {
+      const modal = document.getElementById('feedbackModal');
+      modal.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+
+      const target = document.getElementById('feedbackTargetInfo');
+      if (target) {
+        target.textContent = currentLang === 'ar' 
+          ? `الزيارة: #${visitId} • ${docName} • م. حسن المهندس` 
+          : `Visit: #${visitId} • ${docName} • Eng. Hasan Al-Muhandis`;
+      }
+    }
+
+    function closeFeedbackModal() {
+      document.getElementById('feedbackModal').classList.add('hidden');
+      document.body.style.overflow = 'auto';
+    }
+
+    function setStarRating(num) {
+      selectedStarRating = num;
+      const starContainer = document.getElementById('overallStarGroup');
+      const stars = starContainer.querySelectorAll('svg');
+      stars.forEach((s, idx) => {
+        if (idx < num) {
+          s.classList.add('fill-current', 'text-amber-400');
+          s.classList.remove('text-slate-300');
+        } else {
+          s.classList.remove('fill-current', 'text-amber-400');
+          s.classList.add('text-slate-300');
+        }
+      });
+    }
+
+    function selectNPS(score) {
+      selectedNPSScore = score;
+      const btns = document.querySelectorAll('.nps-btn');
+      btns.forEach((b, idx) => {
+        if (idx + 1 === score) {
+          b.className = 'nps-btn py-2 text-xs font-bold rounded-lg bg-brand-600 text-white border border-brand-600';
+        } else {
+          b.className = 'nps-btn py-2 text-xs font-bold rounded-lg border border-slate-200 text-slate-700 hover:border-brand-500';
+        }
+      });
+    }
+
+    function toggleTag(el) {
+      if (el.classList.contains('bg-brand-50')) {
+        el.className = 'cursor-pointer px-3 py-1 rounded-full border border-slate-200 bg-white text-slate-600 font-semibold';
+      } else {
+        el.className = 'cursor-pointer px-3 py-1 rounded-full border border-brand-300 bg-brand-50 text-brand-700 font-semibold';
+      }
+    }
+
+    function handlePatientFeedbackSubmit(e) {
+      e.preventDefault();
+      closeFeedbackModal();
+      
+      const comment = document.getElementById('feedbackCommentText').value;
+
+      // Dynamically add patient feedback to the public feed
+      const feed = document.getElementById('recentReviewsFeed');
+      if (feed) {
+        const newCard = document.createElement('div');
+        newCard.className = 'bg-white/10 border border-white/20 rounded-2xl p-4 space-y-2 transform transition-all duration-300';
+        newCard.innerHTML = `
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-2">
+              <div class="w-8 h-8 rounded-full bg-amber-500/30 text-amber-300 font-bold flex items-center justify-center text-xs">ح</div>
+              <div>
+                <p class="text-xs font-bold text-white">م. حسن المهندس</p>
+                <p class="text-[10px] text-slate-400">زيارة كشف استشاري • حي النرجس</p>
+              </div>
+            </div>
+            <span class="text-amber-400 text-xs font-black">★ ${selectedStarRating}.0</span>
+          </div>
+          <p class="text-xs text-slate-200 leading-relaxed">"${comment}"</p>
+          <div class="flex flex-wrap gap-1 pt-1">
+            <span class="px-2 py-0.5 rounded bg-white/10 text-[10px] text-brand-200">#تقييم_حديث</span>
+            <span class="px-2 py-0.5 rounded bg-white/10 text-[10px] text-emerald-200">#NPS_${selectedNPSScore}</span>
+          </div>
+        `;
+        feed.insertBefore(newCard, feed.firstChild);
+      }
+
+      showToast(currentLang === 'ar' ? 'شكراً لك! تم تسجيل تقييمك وتجربتك ونشرها بنجاح' : 'Thank you! Your feedback has been verified and recorded successfully.');
+    }
+
+    // ---------------------------------------------------------
+    // HELPERS & TOAST NOTIFICATION
+    // ---------------------------------------------------------
+    function scrollToSection(sectionId) {
+      const el = document.getElementById(sectionId);
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function showToast(msg) {
+      const toast = document.getElementById('toastNotification');
+      const text = document.getElementById('toastMessage');
+      if (!toast || !text) return;
+      text.textContent = msg;
+      toast.classList.remove('translate-y-24', 'opacity-0');
+      toast.classList.add('translate-y-0', 'opacity-100');
+
+      setTimeout(() => {
+        toast.classList.remove('translate-y-0', 'opacity-100');
+        toast.classList.add('translate-y-24', 'opacity-0');
+      }, 3500);
+    }
+  </script>
+</body>
+</html>
