@@ -1,0 +1,1011 @@
+<title>index</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: one bilingual app. Website pages use a centred 1200px column; patient and field apps sit in a phone-width column; desk tools use a header + fluid content; the command center is a fixed dark wall layout that stacks on small screens. */
+:root{
+  --bg:#F3F6F5; --surface:#FFFFFF; --surface2:#EAF0EE; --ink:#12201C; --muted:#4A5A55; --line:#DDE5E2; --line2:#C5D2CD;
+  --brand-bg:#0A6B57; --brand-text:#0A6B57; --brand-ink:#08493C; --brand-soft:#E3F1EC; --on-fill:#FFFFFF;
+  --deep:#0B3D33; --deep-card:#134A3F; --on-deep:#FFFFFF; --deep-muted:#C9E3DB; --mint:#9FD9C8;
+  --blue-bg:#2A4F80; --blue-text:#2A4F80; --blue-soft:#E8EEF6;
+  --amber-text:#7A4F00; --amber-soft:#FDF1D8; --amber-line:#E2B65A;
+  --red-bg:#B5481A; --red-text:#8E3A14; --red-soft:#FBEEE7; --red-line:#E3B9A3;
+  --purple-bg:#6B4FA0; --purple-text:#5A3F8C; --purple-soft:#F3EFFA;
+  --gray-text:#3F4A47; --gray-soft:#ECEFEE;
+  --bar-bg:#12201C; --bar-fg:#E6EFEC; --bar-muted:#A9B8B3; --bar-line:#2B3A36;
+  --focus:#5FB79F;
+  --c-bg:#0C1714; --c-panel:#13221E; --c-line:#22352F; --c-ink:#E6EFEC; --c-muted:#93A8A1; --c-soft:#B9C9C4; --c-green:#3FBF9B; --c-blue:#7FA9E0; --c-amber:#F2B04A; --c-red:#F0706A; --c-row:#1F3530; --c-deep:#0F1C19;
+  --font-ar:'IBM Plex Sans Arabic','IBM Plex Sans',Tahoma,'Segoe UI',sans-serif;
+  --font-en:'IBM Plex Sans','IBM Plex Sans Arabic','Segoe UI',Helvetica,Arial,sans-serif;
+  --r:16px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0D1513; --surface:#15201D; --surface2:#1B2925; --ink:#E4EEEA; --muted:#9DB0AA; --line:#25352F; --line2:#34473F;
+  --brand-bg:#0E7A63; --brand-text:#6FD3B6; --brand-ink:#A6E6D3; --brand-soft:#16352D; --on-fill:#FFFFFF;
+  --deep:#0A2A23; --deep-card:#113A30; --on-deep:#F1F7F5; --deep-muted:#B5D6CC; --mint:#9FD9C8;
+  --blue-bg:#3A64A0; --blue-text:#9DB9E8; --blue-soft:#1C2A3F;
+  --amber-text:#F2C46B; --amber-soft:#35290F; --amber-line:#7A5A1A;
+  --red-bg:#B5481A; --red-text:#F29A78; --red-soft:#3A1E14; --red-line:#6E3420;
+  --purple-bg:#7458AD; --purple-text:#C7B3F0; --purple-soft:#2A2140;
+  --gray-text:#C5D0CC; --gray-soft:#22302C;
+  --bar-bg:#070D0B; --bar-line:#1D2A26;
+  color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+  --bg:#0D1513; --surface:#15201D; --surface2:#1B2925; --ink:#E4EEEA; --muted:#9DB0AA; --line:#25352F; --line2:#34473F;
+  --brand-bg:#0E7A63; --brand-text:#6FD3B6; --brand-ink:#A6E6D3; --brand-soft:#16352D; --on-fill:#FFFFFF;
+  --deep:#0A2A23; --deep-card:#113A30; --on-deep:#F1F7F5; --deep-muted:#B5D6CC; --mint:#9FD9C8;
+  --blue-bg:#3A64A0; --blue-text:#9DB9E8; --blue-soft:#1C2A3F;
+  --amber-text:#F2C46B; --amber-soft:#35290F; --amber-line:#7A5A1A;
+  --red-bg:#B5481A; --red-text:#F29A78; --red-soft:#3A1E14; --red-line:#6E3420;
+  --purple-bg:#7458AD; --purple-text:#C7B3F0; --purple-soft:#2A2140;
+  --gray-text:#C5D0CC; --gray-soft:#22302C;
+  --bar-bg:#070D0B; --bar-line:#1D2A26;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{background:var(--bg);color:var(--ink)}
+body{margin:0;font-family:var(--font-ar);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+html[lang="en"] body{font-family:var(--font-en);line-height:1.5}
+h1,h2,h3{margin:0;text-wrap:balance;line-height:1.3}
+p{margin:0}
+a{color:var(--brand-text)}
+button{font:inherit;cursor:pointer;color:inherit}
+:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+input,select,textarea{font:inherit;color:var(--ink);background:var(--surface);border:1px solid var(--line2);border-radius:10px;padding:10px 12px;width:100%;min-height:48px}
+input[type=file]{background:var(--surface2);border-style:dashed}
+textarea{resize:vertical}
+.ic{flex:none;display:block}
+.wrap{max-width:1200px;margin-inline:auto;padding-inline:20px}
+.muted{color:var(--muted)}
+.small{font-size:14px}
+.tiny{font-size:13px}
+.tnum{font-variant-numeric:tabular-nums}
+.stack{display:flex;flex-direction:column;gap:12px}
+.row{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.between{justify-content:space-between}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.eyebrow{color:var(--brand-text);font-weight:600;font-size:14px;letter-spacing:.02em}
+.h1{font-size:clamp(32px,5vw,52px);font-weight:700}
+.h2{font-size:clamp(26px,3.4vw,36px);font-weight:700}
+.h3{font-size:20px;font-weight:700}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:0 20px;border-radius:12px;border:1.5px solid transparent;font-weight:600;text-decoration:none;background:none;line-height:1.2;text-align:center}
+.btn-pri{background:var(--brand-bg);color:var(--on-fill)}
+.btn-sec{background:var(--surface);color:var(--brand-text);border-color:var(--brand-text)}
+.btn-ghost{background:var(--surface);color:var(--ink);border-color:var(--line2)}
+.btn-warn{background:var(--surface);color:var(--red-text);border-color:var(--red-line)}
+.btn-red{background:var(--red-bg);color:#fff}
+.btn-blue{background:var(--blue-bg);color:#fff}
+.btn-purple{background:var(--purple-bg);color:#fff}
+.btn-block{width:100%}
+.btn[disabled]{background:var(--gray-soft);color:var(--muted);border-color:transparent;cursor:not-allowed}
+.linkbtn{background:none;border:0;padding:10px 0;color:var(--brand-text);font-weight:600;text-decoration:none;display:inline-flex;gap:6px;align-items:center}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:20px}
+.tile{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px 18px;display:flex;flex-direction:column;gap:4px;flex:1 1 150px;min-width:0}
+.tile strong{font-size:28px;line-height:1.1}
+.icobox{width:44px;height:44px;border-radius:12px;background:var(--brand-soft);color:var(--brand-text);display:flex;align-items:center;justify-content:center;flex:none}
+.badge{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:600;padding:3px 10px;border-radius:999px;white-space:nowrap}
+.b-green{background:var(--brand-soft);color:var(--brand-ink)}
+.b-amber{background:var(--amber-soft);color:var(--amber-text)}
+.b-blue{background:var(--blue-soft);color:var(--blue-text)}
+.b-red{background:var(--red-soft);color:var(--red-text)}
+.b-gray{background:var(--gray-soft);color:var(--gray-text)}
+.b-purple{background:var(--purple-soft);color:var(--purple-text)}
+.b-solid{background:var(--brand-bg);color:#fff}
+.pill{min-height:44px;padding:0 16px;border-radius:999px;border:1.5px solid var(--line2);background:var(--surface);color:var(--ink)}
+.pill[aria-pressed="true"]{background:var(--brand-bg);color:#fff;border-color:var(--brand-bg);font-weight:600}
+.choice{text-align:start;background:var(--surface);border:1.5px solid var(--line);border-radius:12px;padding:12px 14px;display:flex;gap:12px;align-items:flex-start;color:var(--ink);min-height:56px;width:100%}
+.choice[aria-pressed="true"],.choice[aria-checked="true"]{background:var(--brand-soft);border:2px solid var(--brand-text)}
+.box{width:24px;height:24px;border-radius:6px;border:2px solid var(--line2);flex:none;display:flex;align-items:center;justify-content:center;margin-top:1px}
+[aria-pressed="true"] .box,[aria-checked="true"] .box{background:var(--brand-bg);border-color:var(--brand-bg);color:#fff}
+.radio{border-radius:999px}
+.grid-auto{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,250px),1fr));gap:16px}
+.grid-2{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:16px}
+.field{display:flex;flex-direction:column;gap:6px;font-weight:500;flex:1 1 220px;min-width:0}
+fieldset{border:0;margin:0;padding:0;min-width:0}
+legend{font-weight:700;padding:0;margin-bottom:10px}
+.note{display:flex;gap:10px;align-items:flex-start;border-radius:12px;padding:12px 14px;font-size:15px}
+.note-red{background:var(--red-soft);color:var(--red-text)}
+.note-green{background:var(--brand-soft);color:var(--brand-ink)}
+.note-amber{background:var(--amber-soft);color:var(--amber-text);border:1.5px solid var(--amber-line)}
+.note-gray{background:var(--gray-soft);color:var(--gray-text);border:1.5px dashed var(--line2)}
+.tablebox{overflow-x:auto;border-radius:12px}
+table{width:100%;border-collapse:collapse;text-align:start;font-size:15px}
+th{font-size:13px;color:var(--muted);font-weight:600;background:var(--surface2);padding:12px 14px;text-align:start}
+td{padding:12px 14px;border-top:1px solid var(--line);text-align:start}
+.toast{position:fixed;inset-inline:16px;bottom:calc(20px + env(safe-area-inset-bottom,0px));margin-inline:auto;max-width:420px;background:var(--bar-bg);color:var(--bar-fg);border-radius:12px;padding:12px 16px;z-index:60;text-align:center;box-shadow:0 10px 30px rgba(0,0,0,.25)}
+
+/* prototype bar */
+.proto{position:sticky;top:env(safe-area-inset-top,0px);z-index:40;background:var(--bar-bg);color:var(--bar-fg);border-bottom:1px solid var(--bar-line)}
+.proto .wrap{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;justify-content:space-between;padding-block:8px;max-width:1440px}
+.proto a{color:var(--bar-fg);text-decoration:none;font-weight:700;display:flex;gap:8px;align-items:center}
+.proto select{width:auto;min-height:40px;background:#1E2C28;color:var(--bar-fg);border-color:#33463F;padding:6px 10px;font-size:14px;max-width:62vw}
+.langbtn{min-height:40px;padding:0 14px;border-radius:999px;border:1px solid rgba(255,255,255,.4);background:transparent;color:#fff;font-weight:600;font-size:14px}
+.proto-tag{font-size:12px;color:var(--bar-muted);font-weight:500}
+
+/* website */
+.site-top{background:var(--deep);color:#fff;font-size:14px}
+.site-top .wrap{display:flex;flex-wrap:wrap;gap:6px 20px;align-items:center;justify-content:space-between;padding-block:8px}
+.site-head{background:var(--surface);border-bottom:1px solid var(--line);position:sticky;top:env(safe-area-inset-top,0px);z-index:30}
+.site-head .wrap{display:flex;gap:16px;align-items:center;justify-content:space-between;padding-block:12px}
+.brand{display:flex;gap:12px;align-items:center;text-decoration:none;color:var(--ink)}
+.brand b{font-size:19px;line-height:1.2;display:block}
+.brand span{font-size:13px;color:var(--muted);display:block;line-height:1.2}
+.mainnav{display:flex;gap:4px 18px;flex-wrap:wrap;align-items:center}
+.mainnav button,.mainnav a{background:none;border:0;padding:10px 0;color:var(--ink);text-decoration:none;font-weight:500}
+.mainnav [aria-current="page"]{color:var(--brand-text);font-weight:700}
+.menubtn{display:none}
+@media (max-width: 900px){
+  .mainnav{display:none}
+  .mainnav.open{display:flex;flex-direction:column;align-items:stretch;position:absolute;inset-inline:0;top:100%;background:var(--surface);border-bottom:1px solid var(--line);padding:8px 20px 16px;gap:0}
+  .mainnav.open button,.mainnav.open a{padding:14px 0;border-bottom:1px solid var(--line);text-align:start}
+  .menubtn{display:inline-flex}
+  .head-cta{display:none}
+}
+.section{padding-block:clamp(48px,7vw,80px)}
+.hero{background:var(--surface)}
+.hero .wrap{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:40px;align-items:center;padding-block:clamp(40px,6vw,72px)}
+.photo{min-height:340px;border-radius:20px;background:var(--surface2);display:flex;flex-direction:column;gap:10px;align-items:center;justify-content:center;color:var(--muted);text-align:center;padding:24px;border:1px dashed var(--line2)}
+.float{position:absolute;bottom:-20px;inset-inline-start:20px;background:var(--surface);border-radius:16px;padding:16px 18px;box-shadow:0 12px 32px rgba(18,32,28,.16);display:flex;gap:12px;align-items:center;max-width:320px;border:1px solid var(--line)}
+.band{background:var(--deep);color:var(--on-deep)}
+.band .eyebrow{color:var(--mint)}
+.band .muted{color:var(--deep-muted)}
+.dcard{background:var(--deep-card);border-radius:16px;padding:22px;display:flex;flex-direction:column;gap:10px}
+.num{width:40px;height:40px;border-radius:999px;background:var(--mint);color:#0B3D33;font-weight:700;display:flex;align-items:center;justify-content:center;flex:none}
+.refband{background:var(--blue-soft)}
+.tabs{display:flex;gap:6px;background:var(--surface2);border-radius:14px;padding:6px}
+.tabs button{flex:1 1 0;border:0;border-radius:10px;min-height:48px;background:transparent;color:var(--muted);font-weight:500}
+.tabs button[aria-pressed="true"]{background:var(--surface);color:var(--brand-text);font-weight:700;box-shadow:0 1px 3px rgba(0,0,0,.12)}
+.site-foot{background:var(--bar-bg);color:#D5DFDC;padding-block:56px 28px}
+.site-foot a,.site-foot button{color:#D5DFDC;background:none;border:0;padding:4px 0;text-decoration:none;text-align:start}
+
+/* journey */
+.phase{border-radius:20px;padding:clamp(16px,3vw,28px);background:var(--surface2);display:flex;flex-direction:column;gap:16px}
+.steps{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,220px),1fr));gap:14px;counter-reset:none;list-style:none;margin:0;padding:0}
+.step{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px;display:flex;flex-direction:column;gap:6px;position:relative}
+.step .n{font-weight:700;color:var(--brand-text);font-size:14px}
+.step.gate{background:var(--purple-soft);border:2px solid var(--purple-bg)}
+.step.gate .n,.step.gate .owner{color:var(--purple-text)}
+.step.good{background:var(--brand-soft);border-color:var(--brand-text)}
+.step.risk{background:var(--red-soft);border-color:var(--red-line)}
+.step.risk .n{color:var(--red-text)}
+.step .owner{font-size:13px;font-weight:600;color:var(--brand-text);margin-top:auto}
+.branch{border-radius:14px;padding:14px 16px;display:flex;gap:12px;align-items:flex-start}
+.branch.exit{background:var(--surface);border:1.5px dashed var(--line2)}
+.branch.loop{background:var(--surface);border:1.5px dashed var(--brand-text)}
+.branch.risk{background:var(--red-soft);border:1.5px solid var(--red-line);color:var(--ink)}
+.legend{display:flex;flex-wrap:wrap;gap:8px 20px;font-size:14px;color:var(--muted)}
+.sw{display:inline-block;width:14px;height:14px;border-radius:4px;vertical-align:middle;margin-inline-end:6px}
+
+/* phone apps */
+.appwrap{padding:20px 16px 40px;display:flex;justify-content:center}
+.phone{width:100%;max-width:430px;background:var(--bg);border:1px solid var(--line);border-radius:28px;overflow:clip;display:flex;flex-direction:column;min-height:780px;box-shadow:0 20px 50px rgba(18,32,28,.10)}
+.ph-head{background:var(--surface);border-bottom:1px solid var(--line);padding:14px 16px;display:flex;align-items:center;gap:8px}
+.ph-head.dark{background:var(--bar-bg);color:#fff;border-color:var(--bar-line)}
+.ph-body{flex:1 1 auto;padding:18px;display:flex;flex-direction:column;gap:16px}
+.ph-foot{position:sticky;bottom:0;background:var(--surface);border-top:1px solid var(--line);padding:12px 18px calc(16px + env(safe-area-inset-bottom,0px));display:flex;flex-direction:column;gap:8px}
+.tabbar{position:sticky;bottom:0;background:var(--surface);border-top:1px solid var(--line);display:flex;padding:6px 6px calc(10px + env(safe-area-inset-bottom,0px))}
+.tabbar a,.tabbar button{flex:1 1 0;min-height:56px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;color:var(--muted);text-decoration:none;font-size:12px;background:none;border:0}
+.tabbar [aria-current="page"]{color:var(--brand-text);font-weight:700}
+.iconbtn{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;border:1px solid var(--line);background:var(--surface);color:var(--ink);text-decoration:none;flex:none}
+.ph-head.dark .iconbtn{background:transparent;border-color:transparent;color:#fff}
+.hero-card{background:var(--deep);color:#fff;border-radius:20px;padding:18px;display:flex;flex-direction:column;gap:12px}
+.hero-card .sub{color:var(--deep-muted)}
+.avatar{width:40px;height:40px;border-radius:999px;background:var(--surface2);color:var(--muted);display:flex;align-items:center;justify-content:center;font-weight:700;flex:none}
+.qa{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.qa a,.qa button{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:16px;text-decoration:none;color:var(--ink);display:flex;flex-direction:column;gap:10px;min-height:104px;text-align:start;font-weight:600}
+.progress{height:10px;border-radius:999px;background:var(--brand-soft);overflow:hidden}
+.progress span{display:block;height:100%;background:var(--brand-bg);border-radius:999px}
+.daybtn{flex:1 1 0;min-height:64px;border-radius:12px;border:1.5px solid var(--line);background:var(--surface);display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1.25}
+.daybtn[aria-pressed="true"]{background:var(--brand-bg);border-color:var(--brand-bg);color:#fff}
+.seg{display:flex;border-bottom:1px solid var(--line)}
+.seg button{flex:1 1 0;min-height:48px;border:0;border-bottom:3px solid transparent;background:none;color:var(--muted)}
+.seg button[aria-selected="true"]{border-bottom-color:var(--brand-text);color:var(--brand-text);font-weight:700}
+.tracker{display:flex;list-style:none;margin:0;padding:0}
+.tracker li{flex:1 1 0;display:flex;flex-direction:column;align-items:center;gap:6px;font-size:12px;text-align:center;color:var(--muted)}
+.dot{width:28px;height:28px;border-radius:999px;border:2px solid var(--line2);background:var(--surface);display:flex;align-items:center;justify-content:center}
+.tracker .done .dot{background:var(--brand-bg);border-color:var(--brand-bg);color:#fff}
+.tracker .cur{color:var(--brand-text);font-weight:700}
+.tracker .cur .dot{border:3px solid var(--brand-bg)}
+.tracker .cur .dot::after{content:"";width:10px;height:10px;border-radius:999px;background:var(--brand-bg)}
+.sig{height:110px;border-radius:14px;border:1.5px dashed var(--purple-bg);background:var(--surface);color:var(--purple-text);font-weight:600;width:100%}
+.sig.done{border-style:solid;border-width:2px;background:var(--purple-soft);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px}
+.bars{display:flex;gap:6px}
+.bars span{flex:1 1 0;height:6px;border-radius:999px;background:var(--line)}
+.bars span.on{background:var(--brand-bg)}
+.staff-stats{display:flex;gap:8px}
+.staff-stats div{flex:1 1 0;background:#22332E;border-radius:12px;padding:8px 12px;display:flex;flex-direction:column}
+.staff-stats span{font-size:12px;color:var(--bar-muted)}
+.staff-stats strong{font-size:22px;color:#fff}
+
+/* desk tools */
+.desk-head{background:var(--surface);border-bottom:1px solid var(--line)}
+.desk-head .wrap{max-width:1440px;display:flex;flex-wrap:wrap;gap:10px 24px;align-items:center;justify-content:space-between;padding-block:12px}
+.desknav{display:flex;gap:4px;overflow-x:auto;max-width:100%;padding-bottom:2px}
+.desknav a{padding:10px 14px;border-radius:10px;color:var(--ink);text-decoration:none;white-space:nowrap}
+.desknav [aria-current="page"]{background:var(--brand-soft);color:var(--brand-ink);font-weight:600}
+.desk-main{max-width:1280px;margin-inline:auto;padding:24px 20px 48px;display:flex;flex-direction:column;gap:20px}
+.cols{display:flex;flex-wrap:wrap;gap:20px;align-items:flex-start}
+.cols>*{min-width:0}
+.queue button{width:100%;text-align:start;background:var(--surface);border:0;border-inline-start:4px solid transparent;border-bottom:1px solid var(--line);padding:14px 18px;display:flex;flex-direction:column;gap:4px;color:var(--ink)}
+.queue button[aria-pressed="true"]{background:var(--brand-soft);border-inline-start-color:var(--brand-text)}
+.stages{display:flex;flex-wrap:wrap;gap:6px;list-style:none;margin:0;padding:0}
+.stages li{flex:1 1 104px;border-radius:10px;padding:8px 10px;font-size:13px;line-height:1.35;background:var(--surface2);color:var(--muted);border:1px dashed var(--line2);display:flex;flex-direction:column;gap:2px}
+.stages li.done{background:var(--brand-soft);color:var(--brand-ink);border:1px solid transparent;font-weight:600}
+.stages li.cur{background:var(--brand-bg);color:#fff;border:1px solid transparent;font-weight:700}
+.stages li.stop{background:var(--gray-soft);color:var(--gray-text);text-decoration:line-through;border:1px solid transparent}
+
+/* referrer portal */
+.rp{display:flex;flex-wrap:wrap;min-height:calc(100vh - 57px)}
+.rp-side{flex:1 1 240px;background:var(--bar-bg);color:#D5DFDC;padding:22px 14px;display:flex;flex-direction:column;gap:22px}
+.rp-side nav{display:flex;flex-direction:column;gap:4px}
+.rp-side nav a,.rp-side nav button{display:flex;gap:12px;align-items:center;padding:12px;border-radius:10px;color:#D5DFDC;text-decoration:none;background:none;border:0;text-align:start}
+.rp-side nav [aria-current="page"]{background:#22332E;color:#fff;font-weight:600}
+.rp-main{flex:999 1 560px;min-width:0;padding:28px 24px 48px;display:flex;flex-direction:column;gap:22px}
+@media (max-width: 860px){
+  .rp-side{flex-basis:100%;padding:14px}
+  .rp-side nav{flex-direction:row;overflow-x:auto}
+  .rp-side nav a,.rp-side nav button{white-space:nowrap}
+  .rp-user{display:none}
+  .rp-main{padding:20px 16px 40px}
+}
+.timeline{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
+.timeline li{display:flex;gap:14px}
+.timeline .rail{display:flex;flex-direction:column;align-items:center}
+.timeline .rail i{width:14px;height:14px;border-radius:999px;background:var(--brand-bg);margin-top:5px}
+.timeline .rail b{width:2px;flex:1 1 auto;background:var(--line2)}
+.timeline .open i{background:var(--surface);border:2px solid var(--brand-bg)}
+.msg{background:var(--surface2);border-radius:12px;padding:10px 12px}
+
+/* command center: deliberately dark in both themes */
+.cmd{background:var(--c-bg);color:var(--c-ink);min-height:calc(100vh - 57px);padding:20px;display:flex;flex-direction:column;gap:16px}
+.cmd .muted{color:var(--c-muted)}
+.cmd a{color:#7FD4BA}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,170px),1fr));gap:12px}
+.kpi{background:var(--c-panel);border:1px solid var(--c-line);border-radius:14px;padding:14px 18px;display:flex;flex-direction:column;gap:6px}
+.kpi strong{font-size:34px;line-height:1}
+.kpi.alert{background:#2A1715;border-color:#5A2A24}
+.cgrid{display:grid;grid-template-columns:minmax(0,420px) minmax(0,1fr) minmax(0,400px);gap:16px;align-items:start}
+@media (max-width: 1300px){.cgrid{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.cgrid .mapcol{grid-column:1 / -1;order:-1}}
+@media (max-width: 760px){.cgrid{grid-template-columns:minmax(0,1fr)}}
+.cpanel{background:var(--c-panel);border:1px solid var(--c-line);border-radius:16px;display:flex;flex-direction:column;min-width:0}
+.cpanel>header{padding:14px 18px;border-bottom:1px solid var(--c-line);display:flex;justify-content:space-between;align-items:center;gap:10px}
+.calert{background:var(--c-deep);border:1px solid var(--c-line);border-radius:12px;padding:12px 14px;display:flex;flex-direction:column;gap:8px}
+.cbtn{min-height:38px;padding:0 14px;border-radius:8px;font-weight:700;font-size:14px;border:1px solid #36504A;background:transparent;color:var(--c-ink)}
+.cbtn.go{background:var(--c-green);color:#08231B;border-color:var(--c-green)}
+.cmd table th{background:transparent;color:var(--c-muted);font-size:13px}
+.cmd table td{border-top:1px solid var(--c-row);color:var(--c-soft)}
+.cmd table td.p{color:var(--c-ink);font-weight:600}
+.sev{font-size:12px;font-weight:700;padding:2px 8px;border-radius:999px}
+.sev.crit{background:var(--c-red);color:#1A0B09}
+.sev.warn{background:var(--c-amber);color:#1F1503}
+.sev.info{background:var(--c-blue);color:#0B1626}
+.st-in{color:var(--c-green);font-weight:600}
+.st-route{color:var(--c-blue);font-weight:600}
+.st-late{color:var(--c-amber);font-weight:600}
+.trow{padding:10px 18px;border-bottom:1px solid var(--c-row);display:flex;gap:12px;align-items:center}
+.tag{font-size:12px;font-weight:600;padding:2px 8px;border-radius:999px;border:1px solid #36504A;white-space:nowrap}
+.mapbox{position:relative;border-radius:16px;overflow:hidden;background:var(--c-panel);border:1px solid var(--c-line)}
+.mapbox svg{display:block;width:100%;height:auto}
+
+/* ---------- device adaptation ---------- */
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+button,a,select,label{touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+input,select,textarea{font-size:max(16px,1rem)} /* stops iOS zooming into fields */
+input[type=date]{display:block;-webkit-appearance:none;appearance:none;min-height:48px}
+.rp,.cmd{min-height:calc(100vh - 57px);min-height:calc(100dvh - 57px)}
+.tb-brand{display:none}
+.devtag{font-size:12px;color:var(--bar-muted);display:inline-flex;gap:6px;align-items:center;white-space:nowrap}
+@media (hover:hover) and (pointer:fine){
+  .btn,.pill,.choice,.queue button,.qa a,.qa button{transition:filter .15s,background-color .15s}
+  .btn:hover{filter:brightness(1.06)}
+  .pill:hover,.choice:hover,.qa a:hover,.qa button:hover{border-color:var(--brand-text)}
+  .queue button:hover{background:var(--surface2)}
+}
+@media (pointer:coarse){ .pill{min-height:48px} .linkbtn{min-height:44px} }
+
+/* tablets */
+@media (min-width:600px) and (max-width:899px){
+  .phone{max-width:680px}
+  .qa{grid-template-columns:repeat(4,minmax(0,1fr))}
+}
+/* desktops: the mobile apps become desktop apps with a side menu */
+@media (min-width:900px){
+  .appwrap{padding:24px 24px 48px}
+  .phone:has(.tabbar){max-width:1180px;display:grid;grid-template-columns:250px minmax(0,1fr);grid-template-rows:auto 1fr auto;grid-template-areas:"nav head" "nav body" "nav foot";min-height:calc(100dvh - 120px);border-radius:20px}
+  .phone:has(.tabbar)>.tabbar{grid-area:nav;position:static;flex-direction:column;justify-content:flex-start;gap:4px;border-top:0;border-inline-end:1px solid var(--line);padding:18px 12px}
+  .phone:has(.tabbar)>.tabbar a,.phone:has(.tabbar)>.tabbar button{flex:none;flex-direction:row;justify-content:flex-start;gap:12px;font-size:15px;min-height:48px;padding:0 14px;border-radius:10px}
+  .phone:has(.tabbar)>.tabbar [aria-current="page"]{background:var(--brand-soft)}
+  .tb-brand{display:flex;gap:10px;align-items:center;padding:4px 10px 18px;margin-bottom:6px;border-bottom:1px solid var(--line);font-weight:700}
+  .phone:has(.tabbar)>.ph-head{grid-area:head;padding:18px 28px}
+  .phone:has(.tabbar)>.ph-body{grid-area:body;padding:28px}
+  .phone:has(.tabbar)>.ph-foot{grid-area:foot;position:static}
+  .phone:not(:has(.tabbar)){max-width:760px;border-radius:20px}
+  .phone:not(:has(.tabbar))>.ph-body{padding:28px}
+  .phone:not(:has(.tabbar))>.ph-foot{position:static}
+  .ph-body.dash{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));align-content:start;gap:20px}
+  .ph-body.dash>.span{grid-column:1 / -1}
+  .ph-head.dark .staff-stats{max-width:520px}
+}
+@media (min-width:1600px){ .wrap{max-width:1320px} .desk-main{max-width:1400px} }
+
+/* tables become cards on phones */
+@media (max-width:700px){
+  .rtable table{min-width:0!important}
+  .rtable thead{display:none}
+  .rtable tr{display:block;border-top:1px solid var(--line);padding:12px 16px}
+  .rtable td{display:flex;justify-content:space-between;align-items:center;gap:12px;border:0;padding:4px 0;text-align:end!important}
+  .rtable td::before{content:attr(data-label);color:var(--muted);font-size:13px;font-weight:600;text-align:start}
+  .rtable td[data-label=""]::before{content:none}
+  .cmd .rtable tr{border-top-color:var(--c-row)}
+  .cmd .rtable td::before{color:var(--c-muted)}
+  .kpis{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .proto .wrap{padding-block:6px}
+  .proto select{max-width:58vw}
+  .devtag span{display:none}
+}
+/* phones in landscape: keep the bottom bar slim */
+@media (max-height:500px) and (orientation:landscape){
+  .tabbar a,.tabbar button{min-height:46px;font-size:11px}
+  .phone{min-height:auto}
+}
+.is-ios .ph-foot,.is-ios .tabbar{padding-bottom:max(12px,env(safe-area-inset-bottom,0px))}
+
+@media (prefers-reduced-motion: reduce){*{scroll-behavior:auto!important;transition:none!important}}
+@media (max-width: 520px){
+  .appwrap{padding:0}
+  .phone{border-radius:0;border:0;box-shadow:none;min-height:calc(100vh - 57px)}
+  .wrap{padding-inline:16px}
+  .float{position:static;margin-top:12px;max-width:none}
+}
+</style>
+
+<div id="app"></div>
+<div id="toast" class="toast" role="status" hidden></div>
+
+<script>
+(function(){
+"use strict";
+var S = {
+  lang: 'ar', route: 'home', menu: false, f: {},
+  home: { mode: 'personal', service: 'nursing', slot: 'morning', submitted: false },
+  preq: { service: 'physio', day: 'tue', slot: 'morning' },
+  pcare: { tab: 'plan' },
+  cons: { step: 'intro', signer: 'self', agreed: {}, signed: false },
+  rlist: { filter: 'all' },
+  rcase: { asked: false, msgs: [] },
+  inbox: { sel: 'TH-1048', staff: 'n1', assigned: {} },
+  review: { stage: 'eligibility', met: { dx: true, stable: true } },
+  reass: { pick: 'modify', confirmed: false },
+  svisit: { done: { verify: true }, finished: false },
+  cmd: { acked: {} }
+};
+try { var savedLang = localStorage.getItem('tabhome-lang'); if (savedLang === 'en' || savedLang === 'ar') S.lang = savedLang; } catch (e) {}
+
+function t(ar, en){ return S.lang === 'ar' ? ar : en; }
+function tt(p){ return S.lang === 'ar' ? p[0] : p[1]; }
+function esc(s){ return String(s).replace(/[&<>"']/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
+function rtl(){ return S.lang === 'ar'; }
+
+/* device detection: layout itself is driven by CSS; this adds OS-specific fixes and the label in the top bar */
+function detectDevice(){
+  var ua = navigator.userAgent || '', w = window.innerWidth;
+  var ios = /iPad|iPhone|iPod/.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  var android = /Android/i.test(ua), samsung = /SamsungBrowser|SM-[A-Z0-9]/i.test(ua);
+  var touch = window.matchMedia ? window.matchMedia('(pointer: coarse)').matches : ('ontouchstart' in window);
+  var kind = w < 600 ? 'phone' : (w < 900 || (touch && w < 1100)) ? 'tablet' : 'desktop';
+  var os = ios ? (/iPad/.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1) ? 'ipad' : 'iphone') : samsung ? 'samsung' : android ? 'android' : 'other';
+  var root = document.documentElement;
+  root.classList.toggle('is-ios', ios); root.classList.toggle('is-android', android); root.classList.toggle('is-touch', touch);
+  ['phone','tablet','desktop'].forEach(function(k){ root.classList.toggle('dev-' + k, k === kind); });
+  var changed = !S.device || S.device.kind !== kind || S.device.os !== os;
+  S.device = { kind: kind, os: os };
+  return changed;
+}
+function deviceLabel(){
+  var k = { phone:['هاتف','Phone'], tablet:['جهاز لوحي','Tablet'], desktop:['كمبيوتر','Computer'] }[S.device.kind];
+  var o = { iphone:['آيفون','iPhone'], ipad:['آيباد','iPad'], samsung:['سامسونج','Samsung'], android:['أندرويد','Android'], other:null }[S.device.os];
+  return tt(k) + (o ? ' · ' + tt(o) : '');
+}
+(function(){ try { var m = document.querySelector('meta[name="theme-color"]') || document.createElement('meta'); m.name = 'theme-color'; m.content = '#12201C'; document.head.appendChild(m); } catch (e) {} })();
+detectDevice();
+
+var P = {
+  home:'M3 11l9-7 9 7M5 10v10h14V10', homeplus:'M3 11l9-7 9 7M5 10v10h14V10M12 12v6M9 15h6', homedoor:'M3 11l9-7 9 7M5 10v10h14V10M10 20v-6h4v6',
+  cal:'M5 5h14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2zM8 3v4M16 3v4M3 10h18',
+  plus:'M12 5v14M5 12h14', pluscircle:'M12 3a9 9 0 1 0 0 18a9 9 0 1 0 0-18zM12 8v8M8 12h8',
+  user:'M12 4a4 4 0 1 0 0 8a4 4 0 1 0 0-8zM5 21a7 7 0 0 1 14 0', users:'M9 4a4 4 0 1 0 0 8a4 4 0 1 0 0-8zM2 21a7 7 0 0 1 14 0M17 4a4 4 0 0 1 0 8M22 21a7 7 0 0 0-4-6.3',
+  userplus:'M9 4a4 4 0 1 0 0 8a4 4 0 1 0 0-8zM2 21a7 7 0 0 1 14 0M19 8v6M16 11h6',
+  flask:'M9 3h6M10 3v6l-5 9a2 2 0 0 0 1.8 3h10.4a2 2 0 0 0 1.8-3l-5-9V3M7.5 15h9', chat:'M21 12a8 8 0 0 1-11.6 7.1L4 21l1.9-5.4A8 8 0 1 1 21 12z',
+  bell:'M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9M10 21a2 2 0 0 0 4 0', check:'M5 12l5 5L20 7', x:'M6 6l12 12M18 6L6 18',
+  phone:'M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2',
+  pin:'M12 21s-7-6.1-7-11a7 7 0 0 1 14 0c0 4.9-7 11-7 11zM12 7.5a2.5 2.5 0 1 0 0 5a2.5 2.5 0 1 0 0-5z',
+  clock:'M12 3a9 9 0 1 0 0 18a9 9 0 1 0 0-18zM12 7v5l3 2', doc:'M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9zM14 3v6h6M8 13h8M8 17h5',
+  list:'M6 3h12a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2zM8 8h8M8 12h8M8 16h5',
+  heart:'M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10zM8 11h2l1-2 2 4 1-2h2',
+  steth:'M6 3v6a4 4 0 0 0 8 0V3M10 13v3a4 4 0 0 0 8 0v-2M18 10a2 2 0 1 0 0 4a2 2 0 1 0 0-4z', pulse:'M3 12h4l3-7 4 14 3-7h4',
+  band:'M4.9 14.1l9.2-9.2a3 3 0 0 1 4.2 4.2l-9.2 9.2a3 3 0 0 1-4.2-4.2zM11 11h.01M13 13h.01', elder:'M12 4a3 3 0 1 0 0 6a3 3 0 1 0 0-6zM9 21v-6l-2-3 3-2h4l3 2-2 3v6',
+  hospital:'M4 21V5a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v16M2 21h20M12 7v6M9 10h6M10 21v-4h4v4', discharge:'M4 21V5a2 2 0 0 1 2-2h8M2 21h12M15 13h7M19 10l3 3-3 3',
+  alert:'M12 3l9 16H3zM12 10v4M12 17h.01', info:'M12 3a9 9 0 1 0 0 18a9 9 0 1 0 0-18zM12 8v5M12 16h.01', nav:'M3 11l18-8-8 18-2-8z',
+  camera:'M4 8h3l2-3h6l2 3h3v11H4zM12 9.5a3.5 3.5 0 1 0 0 7a3.5 3.5 0 1 0 0-7z', mail:'M5 5h14a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2zM3 7l9 6 9-6',
+  grid:'M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z', monitor:'M3 4h18v12H3zM8 20h8M12 16v4',
+  route:'M6 15a2 2 0 1 0 0 4a2 2 0 1 0 0-4zM18 5a2 2 0 1 0 0 4a2 2 0 1 0 0-4zM6 15V9a4 4 0 0 1 4-4h6M18 9v6a4 4 0 0 1-4 4H8',
+  menu:'M4 7h16M4 12h16M4 17h16', gear:'M12 9a3 3 0 1 0 0 6a3 3 0 1 0 0-6zM12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1L7 17M17 7l2.1-2.1',
+  shield:'M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6zM9 12l2 2 4-4'
+};
+function ic(n, size, sw){ size = size || 20; sw = sw || 1.75; var d = P[n];
+  if (n === 'fwd') d = rtl() ? 'M19 12H5M11 6l-6 6 6 6' : 'M5 12h14M13 6l6 6-6 6';
+  if (n === 'back') d = rtl() ? 'M5 12h14M13 6l6 6-6 6' : 'M19 12H5M11 6l-6 6 6 6';
+  if (n === 'chev') d = rtl() ? 'M15 6l-6 6 6 6' : 'M9 6l6 6-6 6';
+  return '<svg class="ic" width="'+size+'" height="'+size+'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="'+sw+'" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="'+d+'"/></svg>'; }
+function logo(s){ s = s || 40; return '<svg width="'+s+'" height="'+s+'" viewBox="0 0 44 44" aria-hidden="true" style="flex:none"><rect width="44" height="44" rx="12" fill="#0A6B57"/><path d="M10 22l12-10 12 10" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M22 20v12M16 26h12" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/></svg>'; }
+function A(action, arg){ return 'data-a="'+action+'"' + (arg !== undefined ? ' data-arg="'+esc(arg)+'"' : ''); }
+function pressed(b){ return 'aria-pressed="'+(b ? 'true' : 'false')+'"'; }
+function keep(id){ return 'id="'+id+'" data-keep'; }
+
+/* ---------- route table ---------- */
+var ROUTES = [
+  ['home', ['الموقع الإلكتروني','Public website'], 'site'],
+  ['journey', ['رحلة المريض','Patient journey'], 'site'],
+  ['portals', ['كل الواجهات','All interfaces'], 'site'],
+  ['p-home', ['المريض · الرئيسية','Patient · Home'], 'patient'],
+  ['p-request', ['المريض · طلب زيارة','Patient · Request a visit'], 'patient'],
+  ['p-visits', ['المريض · زياراتي','Patient · My visits'], 'patient'],
+  ['p-care', ['المريض · خطتي الطبية','Patient · My care plan'], 'patient'],
+  ['p-consent', ['المريض · التعريف والموافقة','Patient · Introduction & consent'], 'patient'],
+  ['r-list', ['المستشفى المحيل · الإحالات','Referrer · Referrals'], 'referrer'],
+  ['r-case', ['المستشفى المحيل · ملف المريض','Referrer · Patient file'], 'referrer'],
+  ['d-inbox', ['الطاقم · صندوق الطلبات','Staff · Intake inbox'], 'staff'],
+  ['d-review', ['الطاقم · الأهلية واللجنة','Staff · Eligibility & committee'], 'staff'],
+  ['d-reassess', ['الطاقم · إعادة التقييم','Staff · Reassessment'], 'staff'],
+  ['s-today', ['الطاقم الميداني · زيارات اليوم','Field staff · Today'], 'staff'],
+  ['s-visit', ['الطاقم الميداني · تنفيذ الزيارة','Field staff · Visit'], 'staff'],
+  ['command', ['غرفة التحكم والقيادة','Command center'], 'command']
+];
+var GROUPS = { site:['الموقع','Website'], patient:['واجهة المريض','Patient'], referrer:['المستشفى المحيل','Referring hospital'], staff:['طاقم العمل','Staff'], command:['غرفة التحكم','Command center'] };
+function routeInfo(r){ for (var i=0;i<ROUTES.length;i++) if (ROUTES[i][0] === r) return ROUTES[i]; return null; }
+
+/* ---------- shared bits ---------- */
+function protoBar(){
+  var opts = '';
+  ['site','patient','referrer','staff','command'].forEach(function(g){
+    opts += '<optgroup label="'+esc(tt(GROUPS[g]))+'">';
+    ROUTES.forEach(function(r){ if (r[2] === g) opts += '<option value="'+r[0]+'"'+(r[0]===S.route?' selected':'')+'>'+esc(tt(r[1]))+'</option>'; });
+    opts += '</optgroup>';
+  });
+  return '<div class="proto"><div class="wrap">'+
+    '<a href="#portals">'+logo(28)+'<span>'+t('تاب هوم','Tabhome')+' <span class="proto-tag">· '+t('نموذج أولي','Prototype')+'</span></span></a>'+
+    '<div class="row" style="gap:8px"><span class="devtag" title="'+t('تم ضبط العرض لجهازك','Layout adapted to your device')+'">'+ic(S.device.kind==='desktop'?'monitor':'phone',16)+'<span>'+deviceLabel()+'</span></span><label class="sr" for="switcher">'+t('انتقل إلى واجهة','Go to interface')+'</label><select id="switcher">'+opts+'</select>'+
+    '<button type="button" class="langbtn" '+A('lang')+' lang="'+t('en','ar')+'">'+t('English','العربية')+'</button></div>'+
+  '</div></div>';
+}
+function svcList(){ return [
+  ['doctor', ['زيارة طبيب','Doctor visit'], ['كشف وتشخيص ووصف العلاج في المنزل.','Examination, diagnosis and treatment at home.'], 'steth'],
+  ['nursing', ['تمريض منزلي','Home nursing'], ['الأدوية والحقن والمحاليل ومتابعة العلامات الحيوية.','Medication, injections, IV fluids and vital signs.'], 'homeplus'],
+  ['physio', ['علاج طبيعي وتأهيل','Physiotherapy & rehab'], ['بعد الإصابات والعمليات والجلطات.','After injuries, surgery and strokes.'], 'pulse'],
+  ['discharge', ['رعاية ما بعد الخروج','Post-discharge care'], ['استكمال العلاج في المنزل بعد الخروج من المستشفى.','Continuing treatment at home after discharge.'], 'discharge'],
+  ['wound', ['العناية بالجروح','Wound care'], ['جروح السكري وما بعد العمليات وقرح الفراش.','Diabetic, post-surgical wounds and pressure ulcers.'], 'band'],
+  ['lab', ['تحاليل منزلية','Home lab tests'], ['سحب العينات في المنزل وإرسال النتائج إلكترونياً.','Samples collected at home, results sent online.'], 'flask'],
+  ['elderly', ['رعاية كبار السن وطريحي الفراش','Elderly & bedbound care'], ['رعاية يومية بإشراف تمريضي.','Daily care under nursing supervision.'], 'elder'],
+  ['chronic', ['متابعة الأمراض المزمنة','Chronic disease follow-up'], ['السكري والضغط والقلب والجهاز التنفسي.','Diabetes, hypertension, heart and respiratory.'], 'heart']
+]; }
+function toast(msg){ var el = document.getElementById('toast'); el.textContent = msg; el.hidden = false; clearTimeout(toast._t); toast._t = setTimeout(function(){ el.hidden = true; }, 2600); }
+
+/* ---------- WEBSITE ---------- */
+function siteHeader(){
+  var cur = S.route;
+  return '<div class="site-top"><div class="wrap"><span class="row" style="gap:8px">'+ic('info',16)+t('لا نقدّم خدمات الطوارئ — للحالات الطارئة اتصل على 997','We do not provide emergency services — in an emergency call 997')+'</span>'+
+    '<span class="row" style="gap:10px"><a href="#portals" style="color:#fff;font-weight:600">'+t('كل الواجهات','All interfaces')+'</a><button type="button" class="langbtn" '+A('lang')+' lang="'+t('en','ar')+'">'+t('English','العربية')+'</button></span></div></div>'+
+  '<header class="site-head"><div class="wrap" style="position:relative">'+
+    '<a class="brand" href="#home">'+logo(42)+'<span><b>'+t('تاب هوم','Tabhome')+'</b><span>'+t('مستشفى منزلي','Hospital at Home')+'</span></span></a>'+
+    '<nav class="mainnav'+(S.menu?' open':'')+'" aria-label="'+t('القائمة الرئيسية','Main menu')+'">'+
+      '<button type="button" '+A('scroll','services')+'>'+t('خدماتنا','Services')+'</button>'+
+      '<button type="button" '+A('scroll','how')+'>'+t('كيف نعمل','How it works')+'</button>'+
+      '<button type="button" '+A('scroll','referrers')+'>'+t('للمستشفيات والأطباء','For hospitals')+'</button>'+
+      '<a href="#journey"'+(cur==='journey'?' aria-current="page"':'')+'>'+t('رحلة المريض','Patient journey')+'</a>'+
+      '<a href="#portals"'+(cur==='portals'?' aria-current="page"':'')+'>'+t('الدخول للبوابات','Sign in to portals')+'</a>'+
+    '</nav>'+
+    '<div class="row" style="gap:8px"><button type="button" class="btn btn-pri head-cta" '+A('startRequest','personal')+'>'+t('اطلب الخدمة','Request care')+'</button>'+
+    '<button type="button" class="iconbtn menubtn" '+A('menu')+' aria-expanded="'+(S.menu?'true':'false')+'" aria-label="'+t('القائمة','Menu')+'">'+ic('menu',22)+'</button></div>'+
+  '</div></header>';
+}
+function siteFooter(){
+  return '<footer class="site-foot" id="contact"><div class="wrap stack" style="gap:32px">'+
+    '<div class="grid-2" style="gap:32px">'+
+      '<div class="stack"><span class="row" style="color:#fff">'+logo(40)+'<strong style="font-size:19px">'+t('تاب هوم — مستشفى منزلي','Tabhome — Hospital at Home')+'</strong></span><p>'+t('رعاية طبية متكاملة في منزل المريض، بطلب مباشر أو بإحالة من المستشفى.','Complete medical care in the patient’s home, by direct request or hospital referral.')+'</p></div>'+
+      '<div class="stack" style="gap:6px"><strong style="color:#fff">'+t('روابط','Links')+'</strong><button type="button" '+A('scroll','services')+'>'+t('خدماتنا','Services')+'</button><a href="#journey">'+t('رحلة المريض','Patient journey')+'</a><a href="#portals">'+t('كل الواجهات','All interfaces')+'</a><button type="button" '+A('startRequest','referral')+'>'+t('إحالة مريض','Refer a patient')+'</button></div>'+
+      '<div class="stack" style="gap:6px"><strong style="color:#fff">'+t('تواصل معنا','Contact')+'</strong><span class="row" style="gap:8px">'+ic('phone',18)+t('[رقم الهاتف]','[PHONE]')+'</span><span class="row" style="gap:8px">'+ic('mail',18)+t('[البريد الإلكتروني]','[EMAIL]')+'</span><span class="row" style="gap:8px">'+ic('pin',18)+t('[المقر الإداري]','[HEAD OFFICE]')+'</span></div>'+
+    '</div>'+
+    '<div class="row between tiny" style="border-top:1px solid #2B3A36;padding-top:20px;color:#A9B8B3"><span>© 2026 '+t('تاب هوم. جميع الحقوق محفوظة.','Tabhome. All rights reserved.')+'</span><span>'+t('نموذج أولي — البيانات تجريبية','Prototype — sample data')+'</span></div>'+
+  '</div></footer>';
+}
+function pageHome(){
+  var H = S.home, svcs = svcList();
+  var slots = [['morning',['صباحاً','Morning'],['8 – 12','8 am – 12 pm']],['afternoon',['ظهراً','Afternoon'],['12 – 4','12 – 4 pm']],['evening',['مساءً','Evening'],['4 – 8','4 – 8 pm']]];
+  var personal = H.mode === 'personal';
+  var svcName = tt((svcs.filter(function(s){return s[0]===H.service;})[0]||svcs[1])[1]);
+  var slotName = tt((slots.filter(function(s){return s[0]===H.slot;})[0]||slots[0])[1]);
+  var form;
+  if (H.submitted) {
+    form = '<div role="status" class="stack" style="align-items:center;text-align:center;padding:40px 8px">'+
+      '<span class="icobox" style="width:64px;height:64px;border-radius:999px">'+ic('check',32,2)+'</span>'+
+      '<h3 class="h3">'+(personal ? t('تم استلام طلبك','Request received') : t('تم استلام الإحالة','Referral received'))+'</h3>'+
+      '<p class="muted" style="max-width:440px">'+(personal ? t('الخدمة: ','Service: ')+'<strong>'+svcName+'</strong> · '+t('الفترة: ','Time: ')+'<strong>'+slotName+'</strong>. '+t('سيتواصل معك منسّق الرعاية لتقييم الحالة.','A care coordinator will call you to assess the case.') : t('الخدمة: ','Service: ')+'<strong>'+svcName+'</strong>. '+t('سيصل تأكيد الاستلام للجهة المحيلة، وتبدأ مراجعة الأهلية.','A receipt confirmation goes to the referrer and eligibility review begins.'))+'</p>'+
+      '<div class="row" style="justify-content:center"><button type="button" class="btn btn-sec" '+A('homeReset')+'>'+t('طلب جديد','New request')+'</button>'+(personal ? '' : '<a class="btn btn-ghost" href="#r-list">'+t('تابعها في بوابة المحيل','Track it in the referrer portal')+'</a>')+'</div></div>';
+  } else {
+    form = '<div class="stack" style="gap:24px">'+
+      '<div class="tabs" role="group" aria-label="'+t('نوع الطلب','Request type')+'"><button type="button" '+pressed(personal)+' '+A('homeMode','personal')+'>'+t('طلب شخصي','Personal request')+'</button><button type="button" '+pressed(!personal)+' '+A('homeMode','referral')+'>'+t('إحالة من مستشفى','Hospital referral')+'</button></div>'+
+      (personal ? '' : '<fieldset class="stack"><legend>'+t('بيانات الجهة المحيلة','Referring facility')+'</legend><div class="row" style="align-items:stretch"><label class="field">'+t('اسم المستشفى / الجهة','Hospital / facility')+'<input '+keep('f-org')+' autocomplete="organization"></label><label class="field">'+t('الطبيب المحيل','Referring physician')+'<input '+keep('f-doc')+'></label></div><div class="row" style="align-items:stretch"><label class="field">'+t('هاتف الطبيب أو القسم','Physician / department phone')+'<input '+keep('f-dphone')+' type="tel" dir="ltr"></label><label class="field">'+t('البريد للمتابعة','Follow-up email')+'<input '+keep('f-demail')+' type="email" dir="ltr"></label></div></fieldset>')+
+      '<fieldset class="stack"><legend>'+t('بيانات المريض','Patient details')+'</legend><div class="row" style="align-items:stretch"><label class="field">'+t('اسم المريض','Patient name')+'<input '+keep('f-name')+' autocomplete="name"></label><label class="field">'+t('جوال المريض أو ذويه','Patient or family mobile')+'<input '+keep('f-phone')+' type="tel" dir="ltr" placeholder="05XXXXXXXX"></label></div>'+
+      '<div class="row" style="align-items:stretch"><label class="field">'+t('المدينة / الحي','City / district')+'<input '+keep('f-area')+' placeholder="'+t('مثال: الدمام — حي الشاطئ','e.g. Dammam — Al Shati')+'"></label>'+
+      (personal ? '<label class="field">'+t('صلتك بالمريض','Your relation to the patient')+'<select '+keep('f-rel')+'><option>'+t('أنا المريض','I am the patient')+'</option><option>'+t('أحد أفراد الأسرة','Family member')+'</option><option>'+t('أخرى','Other')+'</option></select></label>' : '<label class="field">'+t('تاريخ الخروج المتوقع','Expected discharge date')+'<input '+keep('f-disc')+' type="date"></label>')+'</div></fieldset>'+
+      '<fieldset><legend>'+t('الخدمة المطلوبة','Service needed')+'</legend><div class="row" style="gap:8px">'+svcs.map(function(s){ return '<button type="button" class="pill" '+pressed(H.service===s[0])+' '+A('homeSvc',s[0])+'>'+tt(s[1])+'</button>'; }).join('')+'</div></fieldset>'+
+      (personal ? '<label class="field" style="max-width:320px">'+t('التاريخ المفضل للزيارة الأولى','Preferred first visit date')+'<input '+keep('f-date')+' type="date"></label><fieldset><legend>'+t('الفترة المفضلة','Preferred time')+'</legend><div class="row" style="gap:8px;align-items:stretch">'+slots.map(function(s){ return '<button type="button" class="choice" style="flex:1 1 140px;flex-direction:column;align-items:center;gap:0;width:auto" '+pressed(H.slot===s[0])+' '+A('homeSlot',s[0])+'><strong>'+tt(s[1])+'</strong><span class="tiny muted tnum">'+tt(s[2])+'</span></button>'; }).join('')+'</div></fieldset><label class="field">'+t('ملاحظات عن الحالة (اختياري)','Notes about the condition (optional)')+'<textarea '+keep('f-notes')+' rows="3"></textarea></label>' :
+       '<label class="field">'+t('التشخيص وملخص الحالة','Diagnosis & case summary')+'<textarea '+keep('f-dx')+' rows="4" placeholder="'+t('التشخيص، الأدوية الحالية، الاحتياجات التمريضية أو التأهيلية','Diagnosis, current medication, nursing or rehab needs')+'"></textarea></label><label class="field">'+t('خطاب الإحالة والتقارير الطبية','Referral letter & medical reports')+'<input id="f-files" type="file" multiple><span class="tiny muted" style="font-weight:400">'+t('PDF أو صور — [الحد الأقصى للحجم]','PDF or images — [max size]')+'</span></label>')+
+      '<button type="button" class="btn '+(personal?'btn-pri':'btn-blue')+' btn-block" style="min-height:56px;font-size:17px" '+A('homeSubmit')+'>'+(personal ? t('إرسال الطلب','Send request') : t('إرسال الإحالة','Send referral'))+'</button>'+
+    '</div>';
+  }
+  return siteHeader()+'<main>'+
+  '<section class="hero"><div class="wrap"><div class="stack" style="gap:22px">'+
+    '<span class="badge b-green" style="align-self:flex-start;font-size:14px;padding:6px 14px">'+t('مستشفى منزلي متكامل','A complete hospital at home')+'</span>'+
+    '<h1 class="h1">'+t('مستشفى كامل… يأتي إلى بيتك','A full hospital… that comes to your home')+'</h1>'+
+    '<p class="muted" style="font-size:19px;max-width:560px">'+t('تاب هوم مستشفى منزلي يقدّم الرعاية الطبية والتمريضية والتأهيلية في منزل المريض. اطلب الخدمة مباشرة لك أو لأحد أفراد أسرتك، أو عبر إحالة من المستشفى المعالج.','Tabhome is a home-based hospital delivering medical, nursing and rehabilitation care at home. Request care directly for yourself or a family member, or through a referral from the treating hospital.')+'</p>'+
+    '<div class="row"><button type="button" class="btn btn-pri" '+A('startRequest','personal')+'>'+t('اطلب الخدمة','Request care')+ic('fwd')+'</button><button type="button" class="btn btn-sec" '+A('startRequest','referral')+'>'+t('إحالة مريض (للمستشفيات)','Refer a patient (hospitals)')+'</button></div>'+
+  '</div><div style="position:relative"><div class="photo" role="img" aria-label="'+t('مكان صورة: فريق طبي في زيارة منزلية','Image placeholder: medical team on a home visit')+'">'+ic('camera',44,1.5)+'<span>'+t('[صورة: فريق طبي أثناء زيارة منزلية]','[Photo: medical team on a home visit]')+'</span></div>'+
+    '<div class="float"><span class="icobox">'+ic('list',22)+'</span><span><strong style="display:block">'+t('خطة رعاية لكل مريض','A care plan for every patient')+'</strong><span class="small muted">'+t('طبيب وتمريض وتأهيل حسب حالته','Doctor, nursing and rehab as needed')+'</span></span></div></div></div></section>'+
+
+  '<section class="section" style="padding-bottom:16px"><div class="wrap stack" style="gap:24px"><h2 class="h2">'+t('طريقتان لبدء الرعاية','Two ways to start care')+'</h2><div class="grid-2">'+
+    pathCard('userplus','green',['طلب شخصي','Personal request'],['للمريض أو أحد أفراد أسرته','For patients and families'],[['اختر الخدمة والوقت المناسب','Choose the service and a suitable time'],['يتواصل معك منسّق الرعاية لتقييم الحالة','A care coordinator calls to assess the case'],['تبدأ الزيارات بعد الاعتماد والموافقة','Visits begin after approval and consent']],'personal',['ابدأ الطلب','Start a request'])+
+    pathCard('hospital','blue',['إحالة من مستشفى','Hospital referral'],['للمستشفيات والأطباء والمراكز','For hospitals, physicians and centres'],[['أرسل الإحالة مع التقارير','Send the referral with reports'],['نراجع الأهلية ونؤكد الاستلام','We review eligibility and confirm receipt'],['تقارير متابعة للطبيب المحيل','Follow-up reports for the referring physician']],'referral',['أرسل إحالة','Send a referral'])+
+  '</div></div></section>'+
+
+  '<section class="section" id="services"><div class="wrap stack" style="gap:28px"><div class="stack" style="gap:6px;max-width:640px"><span class="eyebrow">'+t('خدماتنا في المنزل','Our home services')+'</span><h2 class="h2">'+t('رعاية بمستوى المستشفى دون مغادرة المنزل','Hospital-level care without leaving home')+'</h2></div><div class="grid-auto">'+
+    svcs.map(function(s){ return '<div class="card stack" style="gap:8px"><span style="color:var(--brand-text)">'+ic(s[3],28)+'</span><strong style="font-size:18px">'+tt(s[1])+'</strong><span class="muted small">'+tt(s[2])+'</span></div>'; }).join('')+
+  '</div></div></section>'+
+
+  '<section class="section band" id="how"><div class="wrap stack" style="gap:32px"><div class="row between" style="align-items:flex-end"><div class="stack" style="gap:6px;max-width:640px"><span class="eyebrow">'+t('كيف نعمل','How it works')+'</span><h2 class="h2">'+t('من الطلب إلى التعافي في المنزل','From request to recovery at home')+'</h2></div><a class="btn btn-ghost" href="#journey">'+t('رحلة المريض كاملة','See the full journey')+ic('fwd')+'</a></div>'+
+    '<ol class="grid-auto" style="list-style:none;margin:0;padding:0">'+
+    [[['الطلب أو الإحالة','Request or referral'],['يصلنا طلبك مباشرة أو إحالة من المستشفى المعالج، ونؤكد الاستلام.','Your request reaches us directly or via the treating hospital, and we confirm receipt.']],
+     [['تقييم الأهلية واعتماد اللجنة','Eligibility & committee approval'],['يقيّم الطبيب الحالة وملاءمة المنزل، وتعتمدها اللجنة الطبية. إن لم تكن مؤهلاً نوضح السبب ونقترح البديل.','A physician assesses the case and home; the committee approves. If not eligible, we explain why and suggest an alternative.']],
+     [['التعريف بالخدمة والموافقة','Introduction & consent'],['نشرح لك الخطة والمسؤوليات، ولا تبدأ الرعاية إلا بموافقتك أو موافقة ممثلك المفوّض.','We explain the plan; care starts only with your consent or your authorised representative’s.']],
+     [['التسجيل وخطة الرعاية','Enrolment & care plan'],['نفعّل ملفك في التطبيق، ونعيّن الفريق ونجدول الزيارات ونجهّز المعدات والأدوية.','We activate your app profile, assign the team, schedule visits and arrange equipment.']],
+     [['الرعاية والمتابعة المستمرة','Care & continuous monitoring'],['زيارات ومراقبة عن بعد بإشراف غرفة التحكم، مع إعادة تقييم دورية.','Visits and remote monitoring overseen by our command center, with regular reassessment.']],
+     [['الخروج أو النقل الآمن','Discharge or safe transfer'],['عند التعافي نخرّجك بتقرير ومتابعة، وعند الحاجة ننقلك للمستشفى بتسليم طبي آمن.','On recovery we discharge you with a report and follow-up; if needed, we transfer you to hospital safely.']]
+    ].map(function(s,i){ return '<li class="dcard"><span class="num">'+(i+1)+'</span><strong style="font-size:18px">'+tt(s[0])+'</strong><span class="muted small">'+tt(s[1])+'</span></li>'; }).join('')+
+  '</ol></div></section>'+
+
+  '<section class="section refband" id="referrers"><div class="wrap grid-2" style="gap:32px;align-items:center"><div class="stack" style="gap:14px"><span class="eyebrow" style="color:var(--blue-text)">'+t('للمستشفيات والأطباء','For hospitals & doctors')+'</span><h2 class="h2">'+t('شريككم في رعاية المريض بعد الخروج','Your partner in care after discharge')+'</h2><p class="muted">'+t('نستكمل خطة العلاج التي بدأتموها، ونبقيكم على اطلاع بكل مرحلة من رحلة المريض.','We continue the treatment you started and keep you informed at every stage of the journey.')+'</p>'+
+    '<ul class="stack" style="list-style:none;margin:0;padding:0;gap:10px">'+[['إحالة إلكترونية مع التقارير المرفقة','Electronic referrals with attached reports'],['تتبع حالة الإحالة في كل مرحلة','Track each referral through every stage'],['إبلاغ فوري عند عدم الأهلية مع البديل المقترح','Immediate notice and alternative if not eligible'],['تقارير متابعة دورية وتقرير خروج','Regular follow-up reports and a discharge report'],['إعادة المريض للمستشفى عند الحاجة، وإعادة الإحالة بعد الاستقرار','Readmission when needed, re-referral once stable']].map(function(x){ return '<li class="row" style="gap:10px;align-items:flex-start;flex-wrap:nowrap"><span style="color:var(--blue-text)">'+ic('check',20,2)+'</span><span>'+tt(x)+'</span></li>'; }).join('')+'</ul></div>'+
+    '<div class="card stack" style="gap:12px"><strong style="font-size:20px">'+t('قناة الإحالات','Referral desk')+'</strong><span class="row muted" style="gap:10px">'+ic('mail')+t('[بريد الإحالات]','[REFERRALS EMAIL]')+'</span><span class="row muted" style="gap:10px">'+ic('phone')+t('[رقم الإحالات]','[REFERRALS PHONE]')+'</span><button type="button" class="btn btn-blue" '+A('startRequest','referral')+'>'+t('أرسل إحالة إلكترونية','Send an electronic referral')+'</button><a class="btn btn-ghost" href="#r-list">'+t('دخول بوابة المستشفى المحيل','Open the referrer portal')+'</a></div></div></section>'+
+
+  '<section class="section" id="request"><div class="wrap grid-2" style="grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:40px;align-items:start"><div class="stack" style="gap:14px"><span class="eyebrow">'+t('ابدأ الرعاية','Start care')+'</span><h2 class="h2">'+t('اطلب الخدمة أو أرسل إحالة','Request care or send a referral')+'</h2><p class="muted">'+t('سيتواصل معك منسّق الرعاية خلال [مدة الرد].','A care coordinator will contact you within [RESPONSE TIME].')+'</p>'+
+    '<div class="note note-green">'+ic('phone')+'<span>'+t('أو اتصل بنا: ','Or call us: ')+'<strong>'+t('[رقم الهاتف]','[PHONE]')+'</strong></span></div><div class="note note-red">'+ic('info')+'<span>'+t('هذا النموذج ليس للحالات الطارئة. في حالة الطوارئ اتصل على 997 فوراً.','This form is not for emergencies. In an emergency, call 997 immediately.')+'</span></div></div>'+
+    '<div class="card" style="padding:clamp(18px,3vw,32px)">'+form+'</div></div></section>'+
+
+  '<section class="section" style="background:var(--surface)" id="team"><div class="wrap stack" style="gap:28px"><div class="stack" style="gap:6px"><span class="eyebrow">'+t('فريقنا','Our team')+'</span><h2 class="h2">'+t('فريق طبي متكامل يزورك في المنزل','A complete medical team that visits you')+'</h2></div><div class="grid-auto">'+
+    [['د. [الاسم]','Dr. [NAME]','طبيب الرعاية المنزلية','Home care physician'],['[الاسم]','[NAME]','رئيسة التمريض المنزلي','Head of home nursing'],['[الاسم]','[NAME]','أخصائي العلاج الطبيعي','Physiotherapist'],['[الاسم]','[NAME]','منسّقة الرعاية والإحالات','Care & referrals coordinator']].map(function(p){ return '<article class="card" style="padding:0;overflow:hidden"><div class="photo" style="min-height:180px;border-radius:0;border:0" role="img" aria-label="'+t('مكان صورة','Photo placeholder')+'">'+t('[صورة]','[Photo]')+'</div><div class="stack" style="gap:2px;padding:16px"><strong>'+(rtl()?p[0]:p[1])+'</strong><span class="muted small">'+(rtl()?p[2]:p[3])+'</span></div></article>'; }).join('')+
+  '</div></div></section></main>'+siteFooter();
+}
+function pathCard(icon, tone, title, sub, items, mode, cta){
+  var blue = tone === 'blue';
+  return '<div class="card stack" style="gap:16px;padding:28px"><div class="row" style="flex-wrap:nowrap;gap:14px"><span class="icobox" style="width:54px;height:54px;'+(blue?'background:var(--blue-soft);color:var(--blue-text)':'')+'">'+ic(icon,28)+'</span><span><strong style="font-size:21px;display:block">'+tt(title)+'</strong><span class="muted">'+tt(sub)+'</span></span></div>'+
+    '<ul class="stack" style="list-style:none;margin:0;padding:0;gap:8px">'+items.map(function(x){ return '<li class="row" style="flex-wrap:nowrap;gap:10px;align-items:flex-start"><span style="color:'+(blue?'var(--blue-text)':'var(--brand-text)')+'">'+ic('check',20,2)+'</span><span>'+tt(x)+'</span></li>'; }).join('')+'</ul>'+
+    '<button type="button" class="btn '+(blue?'btn-blue':'btn-pri')+'" style="align-self:flex-start" '+A('startRequest',mode)+'>'+tt(cta)+'</button></div>';
+}
+
+/* ---------- JOURNEY ---------- */
+function pageJourney(){
+  function step(n, title, desc, owner, cls, link){
+    return '<li class="step '+(cls||'')+'"><span class="n tnum">'+n+'</span><strong style="font-size:17px;line-height:1.35">'+tt(title)+'</strong><span class="muted small">'+tt(desc)+'</span><span class="owner">'+tt(owner)+'</span>'+(link?'<a class="linkbtn small" href="#'+link[0]+'">'+tt(link[1])+ic('chev',16)+'</a>':'')+'</li>';
+  }
+  function br(cls, icon, title, text, link){
+    return '<div class="branch '+cls+'"><span style="color:'+(cls==='risk'?'var(--red-text)':cls==='loop'?'var(--brand-text)':'var(--muted)')+'">'+ic(icon,22)+'</span><span class="stack" style="gap:2px"><strong>'+tt(title)+'</strong><span class="small muted">'+tt(text)+'</span>'+(link?'<a class="linkbtn small" href="#'+link[0]+'">'+tt(link[1])+ic('chev',16)+'</a>':'')+'</span></div>';
+  }
+  var V = ['اعرض الواجهة','Open the screen'];
+  return siteHeader()+'<main class="section" style="padding-top:40px"><div class="wrap stack" style="gap:28px">'+
+    '<div class="stack" style="gap:10px;max-width:760px"><span class="eyebrow">'+t('رحلة المريض','Patient journey')+'</span><h1 class="h1" style="font-size:clamp(30px,4.4vw,46px)">'+t('من الإحالة إلى التعافي — بكل المسارات','From referral to recovery — every path')+'</h1><p class="muted" style="font-size:18px">'+t('13 خطوة في ثلاث مراحل، مع الخروج من المسار، والحلقات، والتصعيد، والطوارئ، والعودة. كل خطوة مرتبطة بالواجهة التي تُنفّذ فيها.','13 steps in three phases, including exits, loops, escalation, emergencies and return. Each step links to the screen where it happens.')+'</p></div>'+
+    '<div class="legend"><span><i class="sw" style="background:var(--purple-soft);border:2px solid var(--purple-bg)"></i>'+t('بوابة إلزامية','Mandatory gateway')+'</span><span><i class="sw" style="border:1.5px dashed var(--line2)"></i>'+t('خروج من المسار','Exit from pathway')+'</span><span><i class="sw" style="border:1.5px dashed var(--brand-text)"></i>'+t('حلقة عودة','Loop back')+'</span><span><i class="sw" style="background:var(--red-soft);border:1.5px solid var(--red-line)"></i>'+t('تصعيد وطوارئ ونقل','Escalation, emergency, transfer')+'</span><span><i class="sw" style="background:var(--brand-soft);border:1.5px solid var(--brand-text)"></i>'+t('التعافي والخروج','Recovery & discharge')+'</span></div>'+
+
+    '<section class="phase" aria-labelledby="ph1"><div class="row between"><h2 id="ph1" class="h3">'+t('المرحلة 1 · الدخول والقبول','Phase 1 · Intake & approval')+'</h2><span class="badge b-amber">'+t('الخطوات 1–7','Steps 1–7')+'</span></div><ol class="steps">'+
+      step('1',['الإحالة أو الطلب','Referral / request'],['إحالة من مستشفى أو طلب مباشر، مع تأكيد الاستلام','Hospital referral or direct request; receipt confirmed'],['منسّق الرعاية · [المدة]','Care coordinator · [SLA]'],'',['d-inbox',V])+
+      step('2',['تقييم الأهلية','Eligibility assessment'],['التشخيص واستقرار الحالة وملاءمة المنزل','Diagnosis, stability and home suitability'],['الطبيب · [المدة]','Physician · [SLA]'],'',['d-review',V])+
+      step('3',['اعتماد اللجنة الطبية','Medical committee'],['مراجعة سريرية واعتماد الرعاية في المنزل','Clinical review and approval'],['اللجنة الطبية · [المدة]','Medical committee · [SLA]'],'',['d-review',V])+
+      step('4',['التعريف بالخدمة','Service introduction'],['نموذج الرعاية والخطة والمسؤوليات والمدة','Care model, plan, responsibilities, duration'],['منسّق الرعاية','Care coordinator'],'',['p-consent',V])+
+      step('5',['الموافقة المستنيرة','Informed consent'],['توقيع المريض أو ممثله، وتشمل مشاركة البيانات','Patient or representative signs, incl. data sharing'],['بوابة إلزامية · لا تبدأ الرعاية دونها','Mandatory gateway · no care without it'],'gate',['p-consent',V])+
+      step('6',['التسجيل في تاب هوم','Tabhome enrolment'],['تفعيل ملف المريض وربطه بالتطبيق','Profile activated and app connected'],['منسّق الرعاية','Care coordinator'],'',['p-home',V])+
+      step('7',['خطة الرعاية والجدولة','Care plan & scheduling'],['تعيين الفريق والزيارات وتجهيز المعدات والأدوية','Team, visits, equipment and medication'],['الطبيب والمنسّق · [المدة]','Physician + coordinator · [SLA]'],'',['d-inbox',V])+
+    '</ol><div class="grid-2">'+
+      br('loop','route',['معلومات ناقصة (2 ← 1)','Info needed (2 → 1)'],['يُطلب من المحيل استكمال التقارير ثم يُعاد التقييم.','The referrer completes the reports, then eligibility is reassessed.'],['d-review',V])+
+      br('exit','x',['خروج: غير مؤهل أو لم يُعتمد (2، 3)','Exit: not eligible or not approved (2, 3)'],['إبلاغ المحيل أو المريض بالسبب، واقتراح البديل المناسب.','The referrer or patient is told why and offered an alternative.'],['d-review',V])+
+      br('exit','x',['خروج: رفض الخدمة أو لم تُوقَّع الموافقة (4، 5)','Exit: declined or no consent (4, 5)'],['يوثّق القرار ويُبلغ المحيل، ويمكن التقديم لاحقاً.','The decision is recorded and shared; the patient can re-apply.'],['p-consent',V])+
+    '</div></section>'+
+
+    '<section class="phase" aria-labelledby="ph2"><div class="row between"><h2 id="ph2" class="h3">'+t('المرحلة 2 · الرعاية في المنزل حتى الخروج','Phase 2 · Care at home through discharge')+'</h2><span class="badge b-green">'+t('الخطوات 8–13','Steps 8–13')+'</span></div><ol class="steps">'+
+      step('8',['بدء الرعاية في المنزل','Home care initiation'],['الزيارة الأولى: تقييم وبدء العلاج وتثقيف الأسرة','First visit: assessment, treatment, education'],['الفريق الميداني','Field team'],'',['s-visit',V])+
+      step('9',['المتابعة المستمرة','Continuous monitoring'],['زيارات ومراقبة عن بعد بإشراف غرفة التحكم','Visits and remote monitoring with command center'],['الفريق وغرفة التحكم','Team + command center'],'',['command',V])+
+      step('10',['إعادة التقييم السريري','Clinical reassessment'],['مراجعة دورية للتقدم والاستجابة والأهداف','Periodic review of progress and goals'],['الطبيب المشرف · [الدورية]','Supervising physician · [Interval]'],'',['d-reassess',V])+
+    '</ol><div class="grid-2">'+
+      br('loop','route',['مستقر: استمرار (10 ← 9)','Stable: continue (10 → 9)'],['تستمر المتابعة دون تغيير حتى إعادة التقييم القادمة.','Monitoring continues unchanged until the next review.'],['d-reassess',V])+
+      br('loop','route',['تعديل الخطة (10 ← 7)','Modify plan (10 → 7)'],['تُحدّث الخطة ويُبلغ المريض والمحيل، ثم تستمر المتابعة.','Plan updated, patient and referrer informed, monitoring continues.'],['d-reassess',V])+
+      br('risk','alert',['تدهور تدريجي: تصعيد سريري','Gradual deterioration: escalation'],['مراجعة عاجلة؛ إذا استقرت الحالة تعود للخطوة 9، وإلا تُنقل للمستشفى.','Urgent review; if stabilised back to step 9, otherwise transfer.'],['d-reassess',V])+
+      br('risk','alert',['حالة طارئة (في أي وقت)','Emergency (any time)'],['اتصال 997 ونقل فوري، وإبلاغ غرفة التحكم.','Call 997, transfer immediately, alert the command center.'],['command',V])+
+    '</div><ol class="steps">'+
+      step('11',['التخطيط للخروج','Discharge planning'],['تثقيف المريض والأسرة وترتيب الأدوية والمواعيد','Education, medication and appointments'],['الطبيب والمنسّق','Physician + coordinator'],'good',['d-reassess',V])+
+      step('12',['الخروج وإغلاق الملف','Discharge & closure'],['تقرير خروج للمريض وللطبيب المحيل','Discharge report to patient and referrer'],['الطبيب المشرف','Supervising physician'],'good',['r-case',V])+
+      step('13',['متابعة ما بعد الخروج','Post-discharge follow-up'],['اتصال متابعة وقياس الرضا والنتائج السريرية','Follow-up call, satisfaction and outcomes'],['منسّق الرعاية','Care coordinator'],'good',null)+
+    '</ol></section>'+
+
+    '<section class="phase" style="background:var(--red-soft)" aria-labelledby="ph3"><div class="row between"><h2 id="ph3" class="h3" style="color:var(--red-text)">'+t('المرحلة 3 · النقل للمستشفى والعودة','Phase 3 · Transfer to hospital & return')+'</h2></div><ol class="steps">'+
+      step('↯',['النقل الآمن للمستشفى','Safe transfer to hospital'],['تسليم طبي موثق، وإبلاغ المحيل والأسرة بتنسيق غرفة التحكم','Documented handover; referrer and family notified'],['غرفة التحكم','Command center'],'risk',['command',V])+
+      step('↺',['العودة إلى تاب هوم','Return to Tabhome'],['بعد الاستقرار يمكن للمستشفى إعادة إحالة المريض (الخطوة 1)','Once stable, the hospital can re-refer (step 1)'],['المستشفى المحيل','Referring hospital'],'',['r-list',V])+
+    '</ol></section>'+
+    '<p class="small muted">'+t('[المدة] = الزمن المستهدف لكل مرحلة، يُحدَّد لاحقاً حسب سياسة المستشفى.','[SLA] = target time per stage, to be set by hospital policy.')+'</p>'+
+  '</div></main>'+siteFooter();
+}
+
+/* ---------- PORTALS HUB ---------- */
+function pagePortals(){
+  function group(icon, title, desc, links, tone){
+    return '<section class="card stack" style="gap:14px"><div class="row" style="flex-wrap:nowrap;gap:14px"><span class="icobox" style="width:52px;height:52px;'+(tone||'')+'">'+ic(icon,26)+'</span><span><h2 class="h3">'+tt(title)+'</h2><span class="muted small">'+tt(desc)+'</span></span></div>'+
+      '<ul class="stack" style="list-style:none;margin:0;padding:0;gap:0">'+links.map(function(l){ return '<li><a href="#'+l[0]+'" class="row between" style="flex-wrap:nowrap;padding:12px 0;border-top:1px solid var(--line);text-decoration:none;color:var(--ink)"><span class="stack" style="gap:0"><strong>'+tt(l[1])+'</strong><span class="tiny muted">'+tt(l[2])+'</span></span><span style="color:var(--brand-text)">'+ic('chev')+'</span></a></li>'; }).join('')+'</ul></section>';
+  }
+  return siteHeader()+'<main class="section" style="padding-top:40px"><div class="wrap stack" style="gap:28px">'+
+    '<div class="stack" style="gap:10px;max-width:720px"><span class="eyebrow">'+t('كل الواجهات','All interfaces')+'</span><h1 class="h1" style="font-size:clamp(30px,4.4vw,46px)">'+t('منظومة تاب هوم في مكان واحد','The whole Tabhome system in one place')+'</h1><p class="muted" style="font-size:18px">'+t('اختر الواجهة التي تريد تجربتها. تستطيع التنقل بين الواجهات في أي وقت من الشريط العلوي، وتبديل اللغة.','Choose an interface to try. You can switch between interfaces at any time from the top bar, and change language.')+'</p></div>'+
+    '<div class="grid-2">'+
+      group('user',['واجهة المريض','Patient app'],['تطبيق جوال للمريض وأسرته','Mobile app for patients and families'],[['p-home',['الرئيسية','Home'],['الزيارة القادمة وخطة الرعاية','Next visit and care plan']],['p-consent',['التعريف بالخدمة والموافقة','Introduction & consent'],['المرحلتان 4 و5','Stages 4 and 5']],['p-request',['طلب زيارة','Request a visit'],['الخدمة واليوم والفترة','Service, day and time']],['p-visits',['زياراتي','My visits'],['تتبع وصول الفريق','Track the team’s arrival']],['p-care',['خطتي الطبية','My care plan'],['الأهداف والأدوية والتقارير','Goals, medication, reports']]])+
+      group('hospital',['المستشفى المحيل','Referring hospital'],['بوابة ويب للمستشفيات والأطباء','Web portal for hospitals and physicians'],[['r-list',['قائمة الإحالات','Referrals'],['الحالة والمرحلة لكل إحالة','Status and stage of each referral']],['r-case',['ملف المريض','Patient file'],['المراحل والتقارير والمراسلة','Stages, reports and messages']],['home',['إرسال إحالة جديدة','Send a new referral'],['نموذج الإحالة في الموقع','Referral form on the website']]],'background:var(--blue-soft);color:var(--blue-text)')+
+      group('users',['طاقم العمل','Staff'],['نظام الطاقم وتطبيق الفريق الميداني','Staff system and field team app'],[['d-inbox',['صندوق الطلبات','Intake inbox'],['استلام الحالات وإسنادها','Receive and assign cases']],['d-review',['الأهلية واللجنة الطبية','Eligibility & committee'],['المرحلتان 2 و3','Stages 2 and 3']],['d-reassess',['إعادة التقييم','Reassessment'],['استمرار، تعديل، خروج، تصعيد، نقل','Continue, modify, discharge, escalate, transfer']],['s-today',['زيارات اليوم (جوال)','Today’s visits (mobile)'],['جدول الفريق الميداني','Field team schedule']],['s-visit',['تنفيذ الزيارة (جوال)','Visit in progress (mobile)'],['المهام والعلامات الحيوية','Tasks and vital signs']]])+
+      group('monitor',['غرفة التحكم والقيادة','Command center'],['شاشة عرض للمتابعة اللحظية','Live operations display'],[['command',['شاشة العمليات','Operations display'],['التنبيهات والخريطة والفرق','Alerts, map and teams']],['journey',['رحلة المريض','Patient journey'],['المسارات كاملة','Every path']]],'background:#13221E;color:#7FD4BA')+
+    '</div></div></main>'+siteFooter();
+}
+
+/* ---------- PATIENT APP ---------- */
+function patientNav(cur){
+  var items = [['p-home','home',['الرئيسية','Home']],['p-visits','cal',['زياراتي','My visits']],['p-request','pluscircle',['طلب جديد','New request']],['p-care','list',['خطتي','My plan']]];
+  return '<nav class="tabbar" aria-label="'+t('التنقل','Navigation')+'"><span class="tb-brand">'+logo(32)+t('تاب هوم · المريض','Tabhome · Patient')+'</span>'+items.map(function(i){ return '<a href="#'+i[0]+'"'+(cur===i[0]?' aria-current="page"':'')+'>'+ic(i[1],24)+tt(i[2])+'</a>'; }).join('')+'</nav>';
+}
+function phHead(title, back, extra){ return '<header class="ph-head">'+(back?'<a class="iconbtn" href="#'+back+'" aria-label="'+t('رجوع','Back')+'" style="border:0">'+ic('back',22,2)+'</a>':'')+'<strong style="font-size:18px;flex:1 1 auto">'+title+'</strong>'+(extra||'')+'</header>'; }
+function pHome(){
+  return '<div class="appwrap"><div class="phone"><div class="ph-body dash">'+
+    '<div class="row between span" style="flex-wrap:nowrap"><div class="row" style="flex-wrap:nowrap">'+logo(40)+'<span class="stack" style="gap:0;line-height:1.3"><span class="tiny muted">'+t('مرحباً','Hello')+'</span><strong style="font-size:18px">'+t('[اسم المريض]','[Patient name]')+'</strong></span></div><button type="button" class="iconbtn" '+A('soon')+' aria-label="'+t('الإشعارات','Notifications')+'">'+ic('bell',22)+'</button></div>'+
+    '<div class="hero-card"><span class="small" style="color:var(--mint);font-weight:600">'+t('زيارتك القادمة','Your next visit')+'</span><span><strong style="font-size:22px;display:block">'+t('تمريض منزلي','Home nursing')+'</strong><span class="sub">'+t('الثلاثاء · 10:00 صباحاً','Tuesday · 10:00 am')+'</span></span>'+
+      '<div class="row" style="flex-wrap:nowrap;background:var(--deep-card);border-radius:12px;padding:10px 12px"><span class="avatar" style="background:var(--mint);color:#0B3D33;width:36px;height:36px">'+t('م','N')+'</span><span class="stack" style="gap:0;line-height:1.3"><strong class="small">'+t('[اسم الممرضة]','[Nurse name]')+'</strong><span class="tiny sub">'+t('ممرضة الرعاية المنزلية','Home care nurse')+'</span></span></div>'+
+      '<a class="btn" style="background:#fff;color:#0B3D33" href="#p-visits">'+t('تفاصيل الزيارة','Visit details')+'</a></div>'+
+    '<div class="qa"><a href="#p-request"><span class="icobox">'+ic('plus',22)+'</span>'+t('طلب زيارة جديدة','Request a visit')+'</a><a href="#p-visits"><span class="icobox">'+ic('cal',22)+'</span>'+t('زياراتي','My visits')+'</a><a href="#p-care"><span class="icobox">'+ic('flask',22)+'</span>'+t('التقارير والتحاليل','Reports & labs')+'</a><button type="button" '+A('soon')+'><span class="icobox">'+ic('chat',22)+'</span>'+t('راسل منسّق الرعاية','Message coordinator')+'</button></div>'+
+    '<a href="#p-care" class="card stack" style="gap:10px;text-decoration:none;color:var(--ink);padding:18px"><span class="row between"><strong>'+t('خطة الرعاية','Care plan')+'</strong><span class="tiny muted">'+t('علاج طبيعي','Physiotherapy')+'</span></span><span class="progress"><span style="width:50%"></span></span><span class="small muted">'+t('أُنجزت 6 من 12 جلسة · القادمة الخميس','6 of 12 sessions done · next Thursday')+'</span></a>'+
+    '<div class="note note-red small span">'+ic('info',18)+'<span>'+t('للحالات الطارئة اتصل على 997 فوراً.','In an emergency, call 997 immediately.')+'</span></div>'+
+  '</div>'+patientNav('p-home')+'</div></div>';
+}
+function pRequest(){
+  var Q = S.preq;
+  var svcs = [['doctor',['زيارة طبيب','Doctor visit'],['كشف وتشخيص في المنزل','Examination at home']],['nursing',['تمريض منزلي','Home nursing'],['أدوية وحقن وعلامات حيوية','Medication, injections, vitals']],['physio',['علاج طبيعي','Physiotherapy'],['جلسات تأهيل في المنزل','Rehab sessions at home']],['lab',['تحاليل منزلية','Home lab tests'],['سحب العينات وإرسال النتائج','Samples and online results']],['wound',['العناية بالجروح','Wound care'],['تغيير الضمادات والمتابعة','Dressings and follow-up']]];
+  var days = [['sun',['الأحد','Sun'],'4'],['mon',['الإثنين','Mon'],'5'],['tue',['الثلاثاء','Tue'],'6'],['wed',['الأربعاء','Wed'],'7'],['thu',['الخميس','Thu'],'8']];
+  var slots = [['morning',['صباحاً','Morning']],['afternoon',['ظهراً','Afternoon']],['evening',['مساءً','Evening']]];
+  function f(list,id){ return list.filter(function(x){return x[0]===id;})[0]||list[0]; }
+  var sum = tt(f(svcs,Q.service)[1])+' · '+tt(f(days,Q.day)[1])+' '+f(days,Q.day)[2]+' · '+tt(f(slots,Q.slot)[1]);
+  return '<div class="appwrap"><div class="phone">'+phHead(t('طلب زيارة منزلية','Request a home visit'),'p-home')+'<div class="ph-body" style="gap:22px">'+
+    '<fieldset class="stack" style="gap:8px"><legend style="font-size:17px">'+t('ما الخدمة التي تحتاجها؟','Which service do you need?')+'</legend>'+svcs.map(function(s){ var on=Q.service===s[0]; return '<button type="button" class="choice" '+pressed(on)+' '+A('preq','service:'+s[0])+'><span class="stack" style="gap:0;flex:1 1 auto;line-height:1.35"><strong>'+tt(s[1])+'</strong><span class="tiny muted">'+tt(s[2])+'</span></span><span class="box radio">'+(on?ic('check',14,3):'')+'</span></button>'; }).join('')+'</fieldset>'+
+    '<fieldset><legend style="font-size:17px">'+t('اليوم المفضل','Preferred day')+'</legend><div class="row" style="flex-wrap:nowrap;gap:6px">'+days.map(function(d){ return '<button type="button" class="daybtn" '+pressed(Q.day===d[0])+' '+A('preq','day:'+d[0])+'><span class="tiny">'+tt(d[1])+'</span><strong class="tnum" style="font-size:18px">'+d[2]+'</strong></button>'; }).join('')+'</div></fieldset>'+
+    '<fieldset><legend style="font-size:17px">'+t('الفترة','Time of day')+'</legend><div class="row" style="flex-wrap:nowrap;gap:8px">'+slots.map(function(s){ return '<button type="button" class="pill" style="flex:1 1 0;border-radius:12px;min-height:52px" '+pressed(Q.slot===s[0])+' '+A('preq','slot:'+s[0])+'>'+tt(s[1])+'</button>'; }).join('')+'</div></fieldset>'+
+    '<div class="card row" style="flex-wrap:nowrap;padding:14px"><span style="color:var(--brand-text)">'+ic('pin',22)+'</span><span class="stack" style="gap:0;flex:1 1 auto"><span class="tiny muted">'+t('العنوان','Address')+'</span><strong class="small">'+t('[العنوان المحفوظ]','[Saved address]')+'</strong></span><button type="button" class="linkbtn small" '+A('soon')+'>'+t('تغيير','Change')+'</button></div>'+
+  '</div><div class="ph-foot"><span class="tiny muted" style="text-align:center">'+sum+'</span><button type="button" class="btn btn-pri btn-block" '+A('preqSend')+'>'+t('إرسال الطلب','Send request')+'</button></div></div></div>';
+}
+function pVisits(){
+  return '<div class="appwrap"><div class="phone">'+phHead(t('زياراتي','My visits'))+'<div class="ph-body dash">'+
+    '<div class="card stack" style="gap:16px"><div class="row between"><span class="badge b-green">'+t('اليوم · تمريض منزلي','Today · Home nursing')+'</span><span class="tiny muted tnum">10:00</span></div>'+
+      '<span><strong style="font-size:20px;display:block">'+t('الفريق في الطريق إليك','Your team is on the way')+'</strong><span class="muted small">'+t('الوصول المتوقع: [الوقت]','Estimated arrival: [TIME]')+'</span></span>'+
+      '<ol class="tracker"><li class="done"><span class="dot">'+ic('check',14,3)+'</span>'+t('تم التأكيد','Confirmed')+'</li><li class="cur"><span class="dot"></span>'+t('في الطريق','On the way')+'</li><li><span class="dot"></span>'+t('الوصول','Arrived')+'</li><li><span class="dot"></span>'+t('اكتملت','Completed')+'</li></ol>'+
+      '<div class="row" style="flex-wrap:nowrap;border-top:1px solid var(--line);padding-top:14px"><span class="avatar">'+t('م','N')+'</span><span class="stack" style="gap:0;flex:1 1 auto"><strong class="small">'+t('[اسم الممرضة]','[Nurse name]')+'</strong><span class="tiny muted">'+t('ممرضة الرعاية المنزلية','Home care nurse')+'</span></span><button type="button" class="iconbtn" style="background:var(--brand-bg);color:#fff;border:0" '+A('soon')+' aria-label="'+t('اتصال بالممرضة','Call the nurse')+'">'+ic('phone')+'</button></div></div>'+
+    '<section class="stack" style="gap:10px"><h2 style="font-size:16px">'+t('الزيارات القادمة','Upcoming visits')+'</h2>'+visitRow(['الخميس','Thu'],'8',['علاج طبيعي · الجلسة 7','Physiotherapy · session 7'],['صباحاً · [اسم الأخصائي]','Morning · [Therapist]'],false)+visitRow(['الأحد','Sun'],'11',['زيارة طبيب · مراجعة الخطة','Doctor visit · plan review'],['ظهراً · د. [اسم الطبيب]','Afternoon · Dr. [Doctor]'],false)+'</section>'+
+    '<section class="stack" style="gap:10px"><h2 style="font-size:16px">'+t('الزيارات السابقة','Past visits')+'</h2>'+visitRow(['الخميس','Thu'],'1',['علاج طبيعي · الجلسة 6','Physiotherapy · session 6'],['اكتملت','Completed'],true)+'</section>'+
+  '</div>'+patientNav('p-visits')+'</div></div>';
+}
+function visitRow(day, num, title, sub, past){ return '<div class="card row" style="flex-wrap:nowrap;padding:14px"><span class="stack" style="gap:0;width:52px;text-align:center;line-height:1.2;color:'+(past?'var(--muted)':'var(--brand-text)')+'"><span class="tiny">'+tt(day)+'</span><strong class="tnum" style="font-size:20px">'+num+'</strong></span><span class="stack" style="gap:0;flex:1 1 auto"><strong class="small">'+tt(title)+'</strong><span class="tiny muted">'+tt(sub)+'</span></span>'+(past?'<a class="linkbtn small" href="#p-care">'+t('التقرير','Report')+'</a>':'')+'</div>'; }
+function pCare(){
+  var tab = S.pcare.tab, body = '';
+  if (tab === 'plan') {
+    body = '<div class="card stack" style="gap:6px"><span class="tiny muted">'+t('سبب الرعاية','Reason for care')+'</span><strong style="font-size:17px">'+t('تأهيل بعد عملية استبدال مفصل الركبة','Rehabilitation after knee replacement')+'</strong><span class="small muted">'+t('بإحالة من: [المستشفى المحيل]','Referred by: [Referring hospital]')+'</span></div>'+
+      '<div class="card stack" style="gap:12px"><strong>'+t('أهداف الخطة','Plan goals')+'</strong>'+
+      [[2,['المشي داخل المنزل دون مساعدة','Walk indoors without help']],[1,['صعود الدرج بأمان','Climb stairs safely']],[0,['العودة للأنشطة اليومية','Return to daily activities']]].map(function(g){ return '<span class="row" style="flex-wrap:nowrap;align-items:flex-start;gap:10px"><span class="box radio" style="'+(g[0]===2?'background:var(--brand-bg);border-color:var(--brand-bg);color:#fff':g[0]===1?'border-color:var(--brand-text)':'')+'">'+(g[0]===2?ic('check',12,3):'')+'</span><span>'+tt(g[1])+'</span></span>'; }).join('')+'</div>'+
+      '<div class="card stack" style="gap:12px"><strong>'+t('فريق الرعاية','Care team')+'</strong>'+
+      [[['د','D'],['د. [اسم الطبيب]','Dr. [Doctor]'],['الطبيب المشرف · زيارة كل أسبوعين','Supervising physician · every 2 weeks']],[['أ','T'],['[اسم الأخصائي]','[Therapist]'],['علاج طبيعي · 3 جلسات أسبوعياً','Physiotherapy · 3 sessions a week']],[['م','N'],['[اسم الممرضة]','[Nurse]'],['تمريض · الجرح والأدوية','Nursing · wound and medication']]].map(function(m){ return '<span class="row" style="flex-wrap:nowrap"><span class="avatar">'+tt(m[0])+'</span><span class="stack" style="gap:0"><strong class="small">'+tt(m[1])+'</strong><span class="tiny muted">'+tt(m[2])+'</span></span></span>'; }).join('')+'</div>';
+  } else if (tab === 'meds') {
+    body = [[['[اسم الدواء 1]','[Medication 1]'],['قرص · بعد الفطور','1 tablet · after breakfast'],'8:00'],[['[اسم الدواء 2]','[Medication 2]'],['حقنة · يومياً','Injection · daily'],'14:00'],[['[اسم الدواء 3]','[Medication 3]'],['قرص · قبل النوم','1 tablet · bedtime'],'22:00']].map(function(m){ return '<div class="card row" style="flex-wrap:nowrap;padding:14px"><span class="icobox">'+ic('band',22)+'</span><span class="stack" style="gap:0;flex:1 1 auto"><strong>'+tt(m[0])+'</strong><span class="tiny muted">'+tt(m[1])+'</span></span><span class="badge b-green tnum">'+m[2]+'</span></div>'; }).join('')+'<p class="tiny muted">'+t('لا تغيّر أي دواء دون الرجوع لطبيبك.','Don’t change any medication without your doctor.')+'</p>';
+  } else {
+    body = [[['تقرير جلسة العلاج الطبيعي 6','Physiotherapy session 6 report'],['الخميس 1 أكتوبر','Thu, Oct 1']],[['نتائج تحاليل الدم','Blood test results'],['الإثنين 28 سبتمبر','Mon, Sep 28']],[['تقرير التقييم الأولي','Initial assessment report'],['الأحد 20 سبتمبر','Sun, Sep 20']]].map(function(r){ return '<button type="button" class="card row" style="flex-wrap:nowrap;padding:14px;text-align:start;width:100%" '+A('soon')+'><span class="icobox" style="background:var(--surface2);color:var(--muted)">'+ic('doc',22)+'</span><span class="stack" style="gap:0;flex:1 1 auto"><strong>'+tt(r[0])+'</strong><span class="tiny muted">'+tt(r[1])+'</span></span><span class="muted">'+ic('chev',18)+'</span></button>'; }).join('');
+  }
+  var tabs = [['plan',['الخطة','Plan']],['meds',['الأدوية','Medication']],['reports',['التقارير','Reports']]];
+  return '<div class="appwrap"><div class="phone"><header class="ph-head" style="flex-direction:column;align-items:stretch;padding-bottom:0"><div class="row" style="flex-wrap:nowrap;gap:8px"><a class="iconbtn" href="#p-home" style="border:0" aria-label="'+t('رجوع','Back')+'">'+ic('back',22,2)+'</a><strong style="font-size:18px">'+t('خطتي الطبية','My care plan')+'</strong></div><div class="seg" role="tablist">'+tabs.map(function(x){ return '<button type="button" role="tab" aria-selected="'+(tab===x[0])+'" '+A('pcare',x[0])+'>'+tt(x[1])+'</button>'; }).join('')+'</div></header><div class="ph-body">'+body+'</div>'+patientNav('p-care')+'</div></div>';
+}
+function pConsent(){
+  var C = S.cons;
+  var items = [['care',['أوافق على تلقي الرعاية الطبية في المنزل وفق الخطة','I consent to medical care at home according to the plan']],['data',['أوافق على مشاركة بياناتي الطبية مع الجهة المحيلة وفريق الرعاية','I consent to sharing my medical data with the referrer and care team']],['transfer',['أوافق على نقلي للمستشفى عند الحاجة الطبية','I consent to transfer to hospital when medically needed']],['comm',['أوافق على التواصل عبر التطبيق والهاتف والمراقبة عن بعد','I consent to contact via app and phone, and remote monitoring']]];
+  var agreed = items.filter(function(i){ return C.agreed[i[0]]; }).length, ready = agreed === items.length && C.signed;
+  var stepNo = C.step === 'intro' ? 1 : C.step === 'consent' ? 2 : 3;
+  var title = C.step === 'intro' ? t('التعريف بالخدمة','Service introduction') : C.step === 'consent' ? t('الموافقة المستنيرة','Informed consent') : C.step === 'done' ? t('التسجيل','Enrolment') : t('قرارك','Your decision');
+  var head = '<header class="ph-head" style="flex-direction:column;align-items:stretch;gap:10px"><div class="row between"><strong style="font-size:18px">'+title+'</strong>'+(C.step==='declined'?'':'<span class="tiny muted">'+t('الخطوة ','Step ')+stepNo+t(' من 3',' of 3')+'</span>')+'</div><div class="bars" aria-hidden="true"><span class="on"></span><span class="'+(stepNo>=2&&C.step!=='declined'?'on':'')+'"></span><span class="'+(stepNo>=3&&C.step!=='declined'?'on':'')+'"></span></div></header>';
+  var body;
+  if (C.step === 'intro') {
+    body = '<div class="ph-body"><div class="hero-card"><span class="small" style="color:var(--mint);font-weight:600">'+t('اعتمدت اللجنة الطبية رعايتك في المنزل','The medical committee approved your home care')+'</span><strong style="font-size:19px">'+t('مرحباً [اسم المريض]، هذا ما سيحدث','Hello [Patient name], here is what happens next')+'</strong></div>'+
+      '<div class="card stack" style="gap:14px">'+[['homeplus',['نموذج الرعاية','Care model'],['رعاية بمستوى المستشفى في منزلك: زيارات ومراقبة عن بعد وفريق متاح عند الحاجة.','Hospital-level care at home: visits, remote monitoring and a team on call.']],['list',['خطتك المقترحة','Your proposed plan'],['تمريض يومي أول أسبوع، زيارة طبيب أسبوعياً، وأكسجين منزلي.','Daily nursing in week one, a weekly doctor visit, and home oxygen.']],['clock',['المدة المتوقعة','Expected duration'],['[المدة] تقريباً، وتُراجع في كل إعادة تقييم.','About [Duration], reviewed at each reassessment.']],['users',['دورك ودور أسرتك','Your role and your family’s'],['وجود مرافق، والالتزام بالخطة، والإبلاغ فوراً عن أي تغيير.','A caregiver present, following the plan, and reporting changes right away.']]].map(function(x){ return '<div class="row" style="flex-wrap:nowrap;align-items:flex-start"><span class="icobox" style="width:36px;height:36px;border-radius:10px">'+ic(x[0],20)+'</span><span class="stack" style="gap:0"><strong>'+tt(x[1])+'</strong><span class="small muted">'+tt(x[2])+'</span></span></div>'; }).join('')+'</div>'+
+      '<div class="note note-red small">'+ic('info',18)+'<span>'+t('عند أي تدهور قد تُنقل للمستشفى لسلامتك، وفي الطوارئ اتصل على 997.','If your condition worsens you may be transferred to hospital. In an emergency, call 997.')+'</span></div></div>'+
+      '<div class="ph-foot"><button type="button" class="btn btn-pri btn-block" '+A('cons','step:consent')+'>'+t('أوافق على الخدمة · متابعة','I accept the service · continue')+'</button><button type="button" class="linkbtn" style="justify-content:center;color:var(--red-text)" '+A('cons','step:declined')+'>'+t('لا أرغب في الخدمة','I don’t want the service')+'</button></div>';
+  } else if (C.step === 'consent') {
+    body = '<div class="ph-body"><fieldset><legend>'+t('من يوقّع؟','Who is signing?')+'</legend><div class="row" style="flex-wrap:nowrap;gap:8px">'+[['self',['المريض','Patient']],['rep',['ممثل مفوّض','Authorised rep.']]].map(function(g){ return '<button type="button" class="pill" style="flex:1 1 0;border-radius:12px;min-height:52px" '+pressed(C.signer===g[0])+' '+A('cons','signer:'+g[0])+'>'+tt(g[1])+'</button>'; }).join('')+'</div></fieldset>'+
+      (C.signer==='rep' ? '<div class="card stack" style="gap:10px;padding:14px"><label class="field small">'+t('اسم الممثل المفوّض','Representative’s name')+'<input '+keep('c-rep')+'></label><label class="field small">'+t('صلته بالمريض','Relation to patient')+'<select '+keep('c-rel')+'><option>'+t('ابن / ابنة','Son / daughter')+'</option><option>'+t('زوج / زوجة','Spouse')+'</option><option>'+t('ولي أمر','Guardian')+'</option><option>'+t('وكيل نظامي','Legal agent')+'</option></select></label><label class="field small">'+t('مستند التفويض','Authorisation document')+'<input id="c-doc" type="file"></label></div>' : '')+
+      '<fieldset class="stack" style="gap:8px"><legend>'+t('الموافقات · ','Consents · ')+agreed+t(' من ',' of ')+items.length+'</legend>'+items.map(function(i){ var on=!!C.agreed[i[0]]; return '<button type="button" class="choice" role="checkbox" aria-checked="'+on+'" '+A('cons','agree:'+i[0])+'><span class="box">'+(on?ic('check',14,3):'')+'</span><span class="small">'+tt(i[1])+'</span></button>'; }).join('')+'<button type="button" class="linkbtn small" '+A('soon')+'>'+t('قراءة نص الموافقة الكامل','Read the full consent text')+'</button></fieldset>'+
+      '<div class="stack" style="gap:6px"><strong>'+t('التوقيع','Signature')+'</strong>'+(C.signed ? '<div class="sig done"><svg width="120" height="36" viewBox="0 0 120 36" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 28c10-20 18-20 20-6s10 10 18-8 14 4 22 10 18-14 26-6 12 8 26 2"/></svg><span class="tiny">'+t('وُقّع إلكترونياً · 4 أكتوبر','Signed electronically · Oct 4')+'</span></div>' : '<button type="button" class="sig" '+A('cons','sign')+'>'+t('اضغط هنا للتوقيع','Tap here to sign')+'</button>')+'</div></div>'+
+      '<div class="ph-foot"><button type="button" class="btn btn-purple btn-block" '+(ready?A('cons','step:done'):'disabled')+'>'+(ready?t('اعتماد الموافقة وإكمال التسجيل','Confirm consent and enrol'):t('أكمل الموافقات والتوقيع للمتابعة','Complete all consents and sign to continue'))+'</button><button type="button" class="linkbtn" style="justify-content:center;color:var(--red-text)" '+A('cons','step:declined')+'>'+t('لا أوافق','I do not consent')+'</button></div>';
+  } else if (C.step === 'done') {
+    body = '<div class="ph-body" role="status" style="align-items:center;text-align:center;justify-content:center"><span class="icobox" style="width:72px;height:72px;border-radius:999px">'+ic('check',36,2)+'</span><h2 class="h3">'+t('تم تسجيلك في تاب هوم','You’re enrolled in Tabhome')+'</h2><p class="muted">'+t('يعدّ الفريق خطة رعايتك ويجدول الزيارة الأولى.','The team is preparing your plan and scheduling the first visit.')+'</p>'+
+      '<div class="card stack small" style="gap:8px;width:100%;text-align:start"><span class="row" style="color:var(--brand-text);font-weight:600">'+ic('check',18,2.5)+t('الموافقة موثقة في ملفك','Consent recorded in your file')+'</span><span class="row muted"><span class="box radio" style="border-color:var(--brand-text);width:18px;height:18px"></span>'+t('خطة الرعاية والجدولة (7)','Care plan & scheduling (7)')+'</span><span class="row muted"><span class="box radio" style="width:18px;height:18px"></span>'+t('الزيارة الأولى (8)','First home visit (8)')+'</span></div>'+
+      '<a class="btn btn-pri" href="#p-home">'+t('الانتقال للتطبيق','Go to the app')+'</a><button type="button" class="linkbtn small" '+A('cons','reset')+'>'+t('إعادة العرض','Restart demo')+'</button></div>';
+  } else {
+    body = '<div class="ph-body" role="status" style="align-items:center;text-align:center;justify-content:center"><span class="icobox" style="width:72px;height:72px;border-radius:999px;background:var(--gray-soft);color:var(--gray-text)">'+ic('x',32,2)+'</span><h2 class="h3">'+t('تم تسجيل قرارك','Your decision is recorded')+'</h2><p class="muted">'+t('لن تبدأ الخدمة، وسنبلغ الجهة المحيلة لمتابعة رعايتك. يمكنك التقديم مرة أخرى في أي وقت.','The service won’t start; we’ll tell the referrer so your care continues. You can apply again any time.')+'</p><button type="button" class="btn btn-sec" '+A('cons','reset')+'>'+t('غيّرت رأيي','I changed my mind')+'</button></div>';
+  }
+  return '<div class="appwrap"><div class="phone">'+head+body+'</div></div>';
+}
+
+/* ---------- REFERRER PORTAL ---------- */
+var RSTAT = {
+  received:{l:['تم الاستلام','Received'],s:['المرحلة 1','Stage 1'],g:'progress',c:'b-amber'},
+  eligibility:{l:['تقييم الأهلية','Eligibility review'],s:['المرحلة 2','Stage 2'],g:'progress',c:'b-amber'},
+  committee:{l:['لدى اللجنة الطبية','With committee'],s:['المرحلة 3','Stage 3'],g:'progress',c:'b-amber'},
+  consent:{l:['بانتظار موافقة المريض','Awaiting consent'],s:['المرحلة 5','Stage 5'],g:'progress',c:'b-purple'},
+  care:{l:['قيد الرعاية','In care'],s:['المرحلة 9','Stage 9'],g:'care',c:'b-green'},
+  transferred:{l:['نُقل للمستشفى','Transferred'],s:['يمكن إعادة الإحالة','Re-referral possible'],g:'transfer',c:'b-red'},
+  done:{l:['خرج بعد التعافي','Discharged'],s:['المرحلة 13','Stage 13'],g:'done',c:'b-blue'},
+  exit:{l:['غير مؤهل','Not eligible'],s:['أُبلغتم بالسبب والبديل','Reason & alternative sent'],g:'exit',c:'b-gray'},
+  declined:{l:['رفض المريض الخدمة','Patient declined'],s:['أُبلغتم بالقرار','Decision shared'],g:'exit',c:'b-gray'}
+};
+var RDATA = [
+  ['TH-1052',['م. ر.','M. R.'],['رعاية ما بعد الخروج','Post-discharge care'],['الباطنية','Internal Medicine'],['4 أكتوبر','Oct 4'],'received'],
+  ['TH-1050',['ج. ع.','J. A.'],['العناية بالجروح','Wound care'],['الجراحة العامة','General Surgery'],['4 أكتوبر','Oct 4'],'eligibility'],
+  ['TH-1048',['ع. س.','A. S.'],['رعاية ما بعد الخروج','Post-discharge care'],['الباطنية','Internal Medicine'],['3 أكتوبر','Oct 3'],'committee'],
+  ['TH-1047',['ن. م.','N. M.'],['علاج طبيعي','Physiotherapy'],['العظام','Orthopedics'],['2 أكتوبر','Oct 2'],'consent'],
+  ['TH-1045',['ف. ح.','F. H.'],['العناية بالجروح','Wound care'],['الجراحة العامة','General Surgery'],['30 سبتمبر','Sep 30'],'care'],
+  ['TH-1043',['س. ع.','S. A.'],['تمريض منزلي','Home nursing'],['القلب','Cardiology'],['28 سبتمبر','Sep 28'],'transferred'],
+  ['TH-1041',['ك. ب.','K. B.'],['رعاية كبار السن','Elderly care'],['الباطنية','Internal Medicine'],['25 سبتمبر','Sep 25'],'exit'],
+  ['TH-1040',['ر. ح.','R. H.'],['علاج طبيعي','Physiotherapy'],['العظام','Orthopedics'],['23 سبتمبر','Sep 23'],'declined'],
+  ['TH-1039',['خ. ر.','K. R.'],['متابعة الأمراض المزمنة','Chronic disease'],['الباطنية','Internal Medicine'],['21 سبتمبر','Sep 21'],'done']
+];
+function rShell(cur, main){
+  var nav = [['r-list','list',['الإحالات','Referrals']],['new','pluscircle',['إحالة جديدة','New referral']],['soon','pulse',['تقارير المتابعة','Follow-up reports']],['soon','chat',['الرسائل','Messages']]];
+  return '<div class="rp"><aside class="rp-side"><div class="row" style="flex-wrap:nowrap;padding-inline:8px">'+logo(38)+'<span class="stack" style="gap:0;line-height:1.3"><strong style="color:#fff">'+t('تاب هوم','Tabhome')+'</strong><span class="tiny">'+t('بوابة الجهات المحيلة','Referrer portal')+'</span></span></div>'+
+    '<nav aria-label="'+t('قائمة البوابة','Portal menu')+'">'+nav.map(function(n){ if (n[0]==='r-list') return '<a href="#r-list"'+((cur==='r-list'||cur==='r-case')?' aria-current="page"':'')+'>'+ic(n[1])+tt(n[2])+'</a>'; if (n[0]==='new') return '<button type="button" '+A('startRequest','referral')+'>'+ic(n[1])+tt(n[2])+'</button>'; return '<button type="button" '+A('soon')+'>'+ic(n[1])+tt(n[2])+'</button>'; }).join('')+'</nav>'+
+    '<div class="rp-user" style="margin-top:auto;background:#22332E;border-radius:12px;padding:14px"><strong style="color:#fff;display:block" class="small">'+t('[اسم المستشفى]','[Hospital name]')+'</strong><span class="tiny">'+t('د. [اسم المستخدم]','Dr. [User name]')+'</span></div></aside><main class="rp-main">'+main+'</main></div>';
+}
+function rList(){
+  var f = S.rlist.filter;
+  function cnt(g){ return RDATA.filter(function(r){ return RSTAT[r[5]].g===g; }).length; }
+  var filters = [['all',['الكل','All'],RDATA.length],['progress',['قيد الإجراء','In progress'],cnt('progress')],['care',['قيد الرعاية','In care'],cnt('care')],['transfer',['نُقلت للمستشفى','Transferred'],cnt('transfer')],['done',['مكتملة','Discharged'],cnt('done')],['exit',['خرجت من المسار','Exited'],cnt('exit')]];
+  var rows = RDATA.filter(function(r){ return f==='all' || RSTAT[r[5]].g===f; });
+  var main = '<div class="row between"><div class="stack" style="gap:2px"><h1 class="h2" style="font-size:28px">'+t('الإحالات','Referrals')+'</h1><span class="muted">'+t('تابع مرحلة كل مريض أحلته إلى تاب هوم','Track the stage of every patient you referred')+'</span></div><button type="button" class="btn btn-blue" '+A('startRequest','referral')+'>'+ic('plus',18,2)+t('إحالة جديدة','New referral')+'</button></div>'+
+    '<div class="row" style="align-items:stretch">'+[[['قيد الإجراء (1–7)','In progress (1–7)'],cnt('progress'),'var(--amber-text)'],[['قيد الرعاية (8–10)','In care (8–10)'],cnt('care'),'var(--brand-text)'],[['نُقلت للمستشفى','Transferred'],cnt('transfer'),'var(--red-text)'],[['مكتملة بالخروج','Discharged'],cnt('done'),'var(--blue-text)'],[['خرجت من المسار','Exited pathway'],cnt('exit'),'var(--gray-text)']].map(function(k){ return '<div class="tile"><span class="small muted">'+tt(k[0])+'</span><strong class="tnum" style="color:'+k[2]+'">'+k[1]+'</strong></div>'; }).join('')+'</div>'+
+    '<div class="card" style="padding:0;overflow:hidden"><div class="row between" style="padding:14px 16px;border-bottom:1px solid var(--line)"><div class="row" role="group" aria-label="'+t('تصفية حسب الحالة','Filter by status')+'" style="gap:6px">'+filters.map(function(x){ return '<button type="button" class="pill" style="min-height:40px" '+pressed(f===x[0])+' '+A('rfilter',x[0])+'>'+tt(x[1])+' · <span class="tnum">'+x[2]+'</span></button>'; }).join('')+'</div><label style="flex:0 1 280px;min-width:0"><span class="sr">'+t('بحث','Search')+'</span><input id="rq" type="search" placeholder="'+t('ابحث برقم الإحالة أو المريض','Search by ID or patient')+'"></label></div>'+
+    '<div class="tablebox rtable"><table style="min-width:820px"><thead><tr><th scope="col">'+t('رقم الإحالة','Referral ID')+'</th><th scope="col">'+t('المريض','Patient')+'</th><th scope="col">'+t('الخدمة','Service')+'</th><th scope="col">'+t('القسم المحيل','Referring dept.')+'</th><th scope="col">'+t('التاريخ','Date')+'</th><th scope="col">'+t('الحالة','Status')+'</th><th scope="col"><span class="sr">'+t('إجراء','Action')+'</span></th></tr></thead><tbody>'+
+    rows.map(function(r){ var st = RSTAT[r[5]]; return '<tr data-search="'+esc((r[0]+' '+r[1].join(' ')).toLowerCase())+'"><td data-label="'+t('رقم الإحالة','Referral ID')+'" class="tnum" style="font-family:var(--font-en)"><span dir="ltr">'+r[0]+'</span></td><td data-label="'+t('المريض','Patient')+'" style="font-weight:600">'+tt(r[1])+'</td><td data-label="'+t('الخدمة','Service')+'">'+tt(r[2])+'</td><td data-label="'+t('القسم المحيل','Dept.')+'" class="muted">'+tt(r[3])+'</td><td data-label="'+t('التاريخ','Date')+'" class="muted">'+tt(r[4])+'</td><td data-label="'+t('الحالة','Status')+'"><span class="stack" style="gap:2px;align-items:flex-start"><span class="badge '+st.c+'">'+tt(st.l)+'</span><span class="tiny muted">'+tt(st.s)+'</span></span></td><td data-label=""><a class="linkbtn small" href="#r-case" style="white-space:nowrap">'+t('عرض الملف','View file')+'</a></td></tr>'; }).join('')+
+    '</tbody></table></div></div><p class="tiny muted">'+t('بيانات تجريبية للعرض فقط.','Sample data for demonstration only.')+'</p>';
+  return rShell('r-list', main);
+}
+function rCase(){
+  var C = S.rcase;
+  var stages = [['الإحالة','Referral'],['الأهلية','Eligibility'],['اللجنة','Committee'],['التعريف','Introduction'],['الموافقة','Consent'],['التسجيل','Enrolment'],['الخطة','Care plan'],['بدء الرعاية','Care start'],['المتابعة','Monitoring'],['إعادة التقييم','Reassessment'],['التخطيط للخروج','Discharge plan'],['الخروج','Discharge'],['ما بعد الخروج','Follow-up']];
+  var msgs = [[['منسّق الرعاية · تاب هوم','Care coordinator · Tabhome'],['تم التقييم الأولي، والجرح يتحسن. التقرير مرفق.','Initial assessment done; the wound is improving. Report attached.']],[['د. [اسم الطبيب] · المستشفى المحيل','Dr. [Doctor] · Referring hospital'],['شكراً، نرجو المتابعة بتحليل الدم يوم الأحد.','Thank you. Please follow up with a blood test on Sunday.']]];
+  var main = '<nav aria-label="'+t('مسار التنقل','Breadcrumb')+'" class="small muted row" style="gap:8px"><a href="#r-list" style="text-decoration:none">'+t('الإحالات','Referrals')+'</a><span aria-hidden="true">/</span><span dir="ltr">TH-1045</span></nav>'+
+    '<div class="row between"><div class="row" style="flex-wrap:nowrap"><span class="avatar" style="width:56px;height:56px;font-size:20px">'+t('ف','F')+'</span><span class="stack" style="gap:2px"><span class="row" style="gap:10px"><h1 style="font-size:26px">'+t('ف. ح.','F. H.')+'</h1><span class="badge b-green">'+t('قيد الرعاية','In care')+'</span></span><span class="muted small">'+t('العناية بالجروح · من الجراحة العامة · 30 سبتمبر','Wound care · from General Surgery · Sep 30')+'</span></span></div>'+
+    '<div class="row"><button type="button" class="btn btn-sec" style="color:var(--blue-text);border-color:var(--blue-text)" '+A('rask')+'>'+t('طلب تقرير محدّث','Request updated report')+'</button><button type="button" class="btn btn-red" '+A('toastMsg',t('أُرسل طلب إعادة المريض إلى غرفة التحكم','Readmission request sent to the command center'))+'>'+t('طلب إعادة المريض للمستشفى','Request readmission')+'</button></div></div>'+
+    (C.asked ? '<div role="status" class="note" style="background:var(--blue-soft);color:var(--blue-text)">'+ic('check',20,2)+t('أُرسل طلب التقرير إلى منسّق الرعاية في تاب هوم.','Your report request was sent to the Tabhome care coordinator.')+'</div>' : '')+
+    '<section class="card stack"><div class="row between"><h2 class="h3" style="font-size:18px">'+t('رحلة المريض','Patient journey')+'</h2><span class="tiny muted">'+t('المرحلة الحالية: 9 · المتابعة المستمرة','Current stage: 9 · Continuous monitoring')+'</span></div><ol class="stages">'+stages.map(function(s,i){ var n=i+1; return '<li class="'+(n<9?'done':n===9?'cur':'')+'"'+(n===9?' aria-current="step"':'')+'><strong class="tnum">'+n+'</strong>'+tt(s)+'</li>'; }).join('')+'</ol><a class="linkbtn small" href="#journey">'+t('ما معنى كل مرحلة؟','What does each stage mean?')+ic('chev',16)+'</a></section>'+
+    '<div class="cols"><div class="stack" style="flex:3 1 460px;gap:20px">'+
+      '<section class="card stack"><h2 style="font-size:18px">'+t('بيانات الإحالة','Referral details')+'</h2><dl class="grid-2" style="margin:0;gap:14px 24px">'+[[['الطبيب المحيل','Referring physician'],['د. [اسم الطبيب]','Dr. [Doctor]']],[['تاريخ الخروج','Discharge date'],['1 أكتوبر','Oct 1']],[['الخدمة الأساسية','Primary service'],['العناية بالجروح','Wound care']],[['خدمات إضافية','Additional services'],['تمريض منزلي · تحاليل','Home nursing · labs']]].map(function(d){ return '<div><dt class="tiny muted">'+tt(d[0])+'</dt><dd style="margin:0;font-weight:600">'+tt(d[1])+'</dd></div>'; }).join('')+'</dl><div style="border-top:1px solid var(--line);padding-top:12px"><span class="tiny muted">'+t('ملخص الحالة','Case summary')+'</span><p>'+t('[ملخص التشخيص كما ورد في خطاب الإحالة]','[Diagnosis summary as stated in the referral letter]')+'</p></div></section>'+
+      '<section class="card stack"><h2 style="font-size:18px">'+t('مسار الرعاية','Care timeline')+'</h2><ol class="timeline">'+[[['استلام الإحالة وتأكيدها','Referral received and confirmed'],['30 سبتمبر · منسّق الرعاية','Sep 30 · Care coordinator']],[['تقييم الأهلية واعتماد اللجنة','Eligibility and committee approval'],['1 أكتوبر','Oct 1']],[['موافقة المريض والتسجيل','Patient consent and enrolment'],['1 أكتوبر','Oct 1']],[['الزيارة الأولى ووضع الخطة','First visit and care plan'],['2 أكتوبر · د. [اسم الطبيب]','Oct 2 · Dr. [Doctor]']],[['زيارة تمريض · تغيير ضماد','Nursing visit · dressing change'],['3 أكتوبر','Oct 3']],[['الزيارة القادمة · تمريض','Next visit · nursing'],['5 أكتوبر · صباحاً','Oct 5 · morning']]].map(function(e,i,arr){ var last=i===arr.length-1; return '<li class="'+(last?'open':'')+'"><span class="rail"><i></i>'+(last?'':'<b></b>')+'</span><span class="stack" style="gap:0;padding-bottom:16px"><strong>'+tt(e[0])+'</strong><span class="small muted">'+tt(e[1])+'</span></span></li>'; }).join('')+'</ol></section>'+
+    '</div><div class="stack" style="flex:2 1 300px;gap:20px">'+
+      '<section class="card stack"><h2 style="font-size:18px">'+t('تقارير المتابعة','Follow-up reports')+'</h2>'+[[['تقرير التقييم الأولي','Initial assessment'],['2 أكتوبر · PDF','Oct 2 · PDF']],[['متابعة الجرح مع صور','Wound follow-up with photos'],['3 أكتوبر · PDF','Oct 3 · PDF']]].map(function(r){ return '<button type="button" class="row" style="flex-wrap:nowrap;border:1px solid var(--line);border-radius:12px;padding:12px;background:var(--surface);text-align:start;width:100%" '+A('soon')+'><span style="color:var(--blue-text)">'+ic('doc',22)+'</span><span class="stack" style="gap:0"><strong class="small">'+tt(r[0])+'</strong><span class="tiny muted">'+tt(r[1])+'</span></span></button>'; }).join('')+'</section>'+
+      '<section class="card stack"><h2 style="font-size:18px">'+t('التواصل مع فريق تاب هوم','Message the Tabhome team')+'</h2>'+msgs.map(function(m){ return '<div class="msg"><span class="tiny muted">'+tt(m[0])+'</span><p>'+tt(m[1])+'</p></div>'; }).join('')+C.msgs.map(function(m){ return '<div class="msg" style="background:var(--blue-soft)"><span class="tiny muted">'+t('أنت','You')+'</span><p>'+esc(m)+'</p></div>'; }).join('')+
+      '<label class="field small">'+t('رسالة جديدة','New message')+'<textarea '+keep('rmsg')+' rows="2" placeholder="'+t('اكتب رسالتك للفريق المعالج','Write to the treating team')+'"></textarea></label><button type="button" class="btn btn-blue" style="align-self:flex-start" '+A('rsend')+'>'+t('إرسال','Send')+'</button></section>'+
+    '</div></div><p class="tiny muted">'+t('بيانات تجريبية للعرض فقط.','Sample data for demonstration only.')+'</p>';
+  return rShell('r-case', main);
+}
+
+/* ---------- STAFF DESK ---------- */
+function deskShell(cur, main, who){
+  var nav = [['d-inbox',['صندوق الطلبات','Intake inbox']],['d-review',['الأهلية واللجنة','Eligibility & committee']],['d-reassess',['إعادة التقييم','Reassessment']],['s-today',['تطبيق الميدان','Field app']],['command',['غرفة التحكم','Command center']]];
+  return '<header class="desk-head"><div class="wrap"><span class="row" style="flex-wrap:nowrap">'+logo(36)+'<strong>'+t('تاب هوم · نظام الطاقم','Tabhome · Staff system')+'</strong></span><nav class="desknav" aria-label="'+t('أقسام النظام','System sections')+'">'+nav.map(function(n){ return '<a href="#'+n[0]+'"'+(cur===n[0]?' aria-current="page"':'')+'>'+tt(n[1])+'</a>'; }).join('')+'</nav><span class="row small" style="flex-wrap:nowrap;gap:10px"><span class="avatar" style="width:36px;height:36px">'+tt(who[0])+'</span>'+tt(who[1])+'</span></div></header><main class="desk-main">'+main+'</main>';
+}
+var QUEUE = [
+  {id:'TH-1048',k:['إحالة','Referral'],p:['ع. س.','A. S.'],a:['72 سنة','72 yrs'],s:['رعاية ما بعد الخروج','Post-discharge care'],src:['[مستشفى محيل]','[Referring hospital]'],ar:['الدمام','Dammam'],u:true,sum:['خروج بعد التهاب رئوي، يحتاج أكسجين منزلي ومتابعة تمريضية يومية لمدة أسبوع.','Discharged after pneumonia; needs home oxygen and daily nursing for a week.']},
+  {id:'R-2213',k:['طلب شخصي','Personal request'],p:['ل. م.','L. M.'],a:['65 سنة','65 yrs'],s:['علاج طبيعي','Physiotherapy'],src:['طلب من الابن','Requested by son'],ar:['الخبر','Khobar'],u:false,sum:['آلام مزمنة في أسفل الظهر وصعوبة في الحركة.','Chronic lower back pain and limited mobility.']},
+  {id:'TH-1050',k:['إحالة','Referral'],p:['ج. ع.','J. A.'],a:['58 سنة','58 yrs'],s:['العناية بالجروح','Wound care'],src:['[مستشفى محيل]','[Referring hospital]'],ar:['الظهران','Dhahran'],u:false,sum:['قرحة قدم سكري، تحتاج تغيير ضماد مرتين أسبوعياً ومتابعة السكر.','Diabetic foot ulcer; dressings twice a week and glucose monitoring.']},
+  {id:'R-2214',k:['طلب شخصي','Personal request'],p:['ه. أ.','H. A.'],a:['81 سنة','81 yrs'],s:['رعاية كبار السن','Elderly care'],src:['طلب من الابنة','Requested by daughter'],ar:['الدمام','Dammam'],u:false,sum:['مريضة طريحة الفراش، تحتاج تقييماً ورعاية تمريضية يومية.','Bedbound patient; needs assessment and daily nursing.']}
+];
+var STAFF = [['n1',['[ممرضة 1]','[Nurse 1]'],['تمريض · 4 زيارات اليوم','Nursing · 4 visits today']],['n2',['[ممرض 2]','[Nurse 2]'],['تمريض · 6 زيارات اليوم','Nursing · 6 visits today']],['p1',['[أخصائي 1]','[Therapist 1]'],['علاج طبيعي · 3 زيارات','Physiotherapy · 3 visits']],['d1',['د. [طبيب 1]','Dr. [Doctor 1]'],['طبيب · زيارتان','Physician · 2 visits']]];
+function dInbox(){
+  var I = S.inbox, cur = QUEUE.filter(function(q){ return q.id===I.sel; })[0] || QUEUE[0];
+  var open = QUEUE.filter(function(q){ return !I.assigned[q.id]; }).length;
+  var assignee = I.assigned[cur.id] ? tt((STAFF.filter(function(s){ return s[0]===I.assigned[cur.id]; })[0]||STAFF[0])[1]) : '';
+  var main = '<div class="cols"><section class="card" style="flex:1 1 340px;padding:0;overflow:hidden" aria-labelledby="qt"><div class="row between" style="padding:16px 18px;border-bottom:1px solid var(--line)"><h1 id="qt" style="font-size:19px">'+t('طلبات وإحالات جديدة','New requests & referrals')+'</h1><span class="tiny muted">'+open+t(' بانتظار الإجراء',' awaiting action')+'</span></div><div class="queue">'+
+    QUEUE.map(function(q){ return '<button type="button" '+pressed(q.id===I.sel)+' '+A('isel',q.id)+'><span class="row between" style="width:100%"><strong>'+tt(q.p)+'</strong><span class="tiny muted">'+tt(q.a)+'</span></span><span class="small muted">'+tt(q.s)+' · '+tt(q.src)+'</span><span class="row" style="gap:6px">'+(q.u?'<span class="badge" style="background:var(--red-bg);color:#fff">'+t('أولوية عالية','High priority')+'</span>':'')+(I.assigned[q.id]?'<span class="badge b-green">'+t('تم الإسناد','Assigned')+'</span>':'')+'</span></button>'; }).join('')+'</div></section>'+
+    '<div class="stack" style="flex:2 1 520px;gap:20px"><section class="card stack"><div class="row between" style="align-items:flex-start"><span class="stack" style="gap:2px"><span class="tiny muted">'+tt(cur.k)+' · <span dir="ltr">'+cur.id+'</span></span><h2 style="font-size:24px">'+tt(cur.p)+'</h2><span class="muted small">'+tt(cur.s)+' · '+tt(cur.src)+' · '+tt(cur.ar)+'</span></span><a class="linkbtn small" href="#r-case">'+t('الملف الكامل','Full file')+'</a></div><div class="msg"><span class="tiny muted">'+t('ملخص الحالة','Case summary')+'</span><p>'+tt(cur.sum)+'</p></div>'+
+      '<div class="note note-amber small">'+ic('route',18)+'<span>'+t('الخطوة التالية في الرحلة: تقييم الأهلية واعتماد اللجنة قبل أي زيارة.','Next in the journey: eligibility review and committee approval before any visit.')+' <a href="#d-review">'+t('افتح المراجعة','Open review')+'</a></span></div></section>'+
+    '<section class="card stack"><h3 style="font-size:18px">'+t('إسناد الفريق وجدولة الزيارة الأولى (الخطوة 7)','Assign team and schedule the first visit (step 7)')+'</h3><fieldset><legend>'+t('الطاقم المتاح في المنطقة','Available staff in the area')+'</legend><div class="grid-2" style="gap:10px">'+STAFF.map(function(s){ return '<button type="button" class="choice" style="flex-direction:column;gap:0" '+pressed(I.staff===s[0])+' '+A('istaff',s[0])+'><strong>'+tt(s[1])+'</strong><span class="tiny muted">'+tt(s[2])+'</span></button>'; }).join('')+'</div></fieldset>'+
+      '<div class="row" style="align-items:stretch"><label class="field">'+t('تاريخ الزيارة الأولى','First visit date')+'<input '+keep('i-date')+' type="date"></label><label class="field">'+t('الفترة','Time')+'<select '+keep('i-slot')+'><option>'+t('صباحاً','Morning')+'</option><option>'+t('ظهراً','Afternoon')+'</option><option>'+t('مساءً','Evening')+'</option></select></label></div>'+
+      '<div class="row"><button type="button" class="btn btn-pri" '+A('iassign')+'>'+t('إسناد وجدولة','Assign & schedule')+'</button><button type="button" class="btn btn-ghost" '+A('toastMsg',t('أُرسل طلب معلومات للجهة المحيلة','Information request sent to the referrer'))+'>'+t('طلب معلومات إضافية','Request more info')+'</button></div>'+
+      (I.assigned[cur.id] ? '<div role="status" class="note note-green">'+ic('check',20,2)+'<span>'+t('أُسندت الحالة إلى ','Case assigned to ')+'<strong>'+assignee+'</strong>'+t('، وأُبلغ المريض والجهة المحيلة.',' — patient and referrer notified.')+'</span></div>' : '')+'</section></div></div>'+
+    '<p class="tiny muted">'+t('بيانات تجريبية للعرض فقط.','Sample data for demonstration only.')+'</p>';
+  return deskShell('d-inbox', main, [['ن','C'],['[اسم المنسّقة] · منسّقة الرعاية','[Coordinator] · Care coordinator']]);
+}
+function dReview(){
+  var R = S.review;
+  var crit = [['dx',['التشخيص مناسب للرعاية في المنزل','Diagnosis suitable for home care'],['ضمن قائمة الحالات المعتمدة','On the approved conditions list']],['stable',['الحالة السريرية مستقرة','Clinically stable'],['علامات حيوية ضمن الحدود آخر 24 ساعة','Vitals within limits for 24 hrs']],['home',['المنزل مناسب','Home is suitable'],['كهرباء مستقرة، وصول آمن، مساحة للأجهزة','Stable power, safe access, space for equipment']],['carer',['وجود مرافق أو مقدم رعاية','Caregiver available'],['متوفر خلال فترات الحاجة','Present when needed']],['area',['ضمن نطاق الخدمة','Within service area'],['الدمام والخبر والظهران','Dammam, Khobar, Dhahran']],['cover',['التغطية أو الموافقة المالية','Coverage or payer approval'],['[التأمين أو جهة الدفع]','[Insurer or payer]']]];
+  var met = crit.filter(function(c){ return R.met[c[0]]; }).length;
+  var curIdx = R.stage==='committee' ? 2 : R.stage==='approved' ? 3 : 1, closed = R.stage==='notEligible' || R.stage==='rejected';
+  var labels = [['الإحالة','Referral'],['الأهلية','Eligibility'],['اللجنة','Committee'],['التعريف','Introduction'],['الموافقة','Consent'],['التسجيل','Enrolment'],['الخطة','Care plan']];
+  var panel = '';
+  if (R.stage === 'eligibility') panel = '<section class="card stack" style="gap:16px"><div class="row between"><h2 style="font-size:20px">'+t('2 · تقييم الأهلية السريرية','2 · Clinical eligibility')+'</h2><span class="small muted">'+t('مستوفى ','')+met+t(' من ',' of ')+crit.length+t(' معايير',' criteria met')+'</span></div><div class="grid-2" style="gap:10px">'+crit.map(function(c){ var on=!!R.met[c[0]]; return '<button type="button" class="choice" '+pressed(on)+' '+A('crit',c[0])+'><span class="box">'+(on?ic('check',14,3):'')+'</span><span class="stack" style="gap:0;line-height:1.4"><strong>'+tt(c[1])+'</strong><span class="tiny muted">'+tt(c[2])+'</span></span></button>'; }).join('')+'</div><label class="field">'+t('ملاحظات الطبيب','Physician notes')+'<textarea '+keep('rv-notes')+' rows="2"></textarea></label><div class="row"><button type="button" class="btn btn-pri" '+A('rstage','committee')+'>'+t('مؤهل · إحالة للجنة','Eligible · send to committee')+'</button><button type="button" class="btn btn-ghost" '+A('rstage','info')+'>'+t('طلب معلومات من المحيل','Request info from referrer')+'</button><button type="button" class="btn btn-warn" '+A('rstage','notEligible')+'>'+t('غير مؤهل','Not eligible')+'</button>'+(met===crit.length?'<span class="small" style="color:var(--brand-text);font-weight:600">'+t('كل المعايير مستوفاة','All criteria met')+'</span>':'')+'</div></section>';
+  else if (R.stage === 'committee') panel = '<section class="card stack" style="gap:16px"><div class="row between"><h2 style="font-size:20px">'+t('3 · قرار اللجنة الطبية','3 · Medical committee decision')+'</h2><span class="small muted">'+t('جلسة [التاريخ]','Session [Date]')+'</span></div><div class="grid-2" style="gap:10px">'+[[['د. [عضو 1]','Dr. [Member 1]'],['موافق','Approves'],true],[['د. [عضو 2]','Dr. [Member 2]'],['موافق بشرط توفر الأكسجين','Approves if oxygen in place'],true],[['[عضو 3] · التمريض','[Member 3] · Nursing'],['لم يصوّت بعد','Not voted yet'],false]].map(function(m){ return '<div class="card stack" style="gap:0;padding:12px 14px"><strong>'+tt(m[0])+'</strong><span class="tiny" style="font-weight:600;color:'+(m[2]?'var(--brand-text)':'var(--muted)')+'">'+tt(m[1])+'</span></div>'; }).join('')+'</div><label class="field">'+t('شروط أو توصيات اللجنة','Committee conditions')+'<textarea '+keep('rv-cond')+' rows="2"></textarea></label><div class="row"><button type="button" class="btn btn-pri" '+A('rstage','approved')+'>'+t('اعتماد الرعاية في المنزل','Approve home care')+'</button><button type="button" class="btn btn-ghost" '+A('rstage','info')+'>'+t('تأجيل لطلب معلومات','Defer for info')+'</button><button type="button" class="btn btn-warn" '+A('rstage','rejected')+'>'+t('عدم الاعتماد','Do not approve')+'</button></div></section>';
+  else if (R.stage === 'approved') panel = '<div role="status" class="card stack" style="background:var(--brand-soft);border-color:var(--brand-text)"><strong style="font-size:18px;color:var(--brand-ink)">'+t('اعتُمدت الحالة للرعاية في المنزل','Approved for home care')+'</strong><span>'+t('التالي: التعريف بالخدمة والموافقة المستنيرة (4 و5). أُرسل الرابط للمريض أو ممثله، وأُبلغ المحيل.','Next: service introduction and informed consent (4 and 5). The link went to the patient or representative; the referrer was notified.')+'</span><div class="row"><a class="btn btn-pri" href="#p-consent">'+t('معاينة شاشة الموافقة لدى المريض','Preview patient consent screen')+'</a><button type="button" class="btn btn-ghost" '+A('rstage','eligibility')+'>'+t('إعادة العرض','Restart demo')+'</button></div></div>';
+  else if (closed) panel = '<div role="status" class="card stack note-gray" style="border-radius:16px"><strong style="font-size:18px">'+(R.stage==='rejected'?t('لم تعتمد اللجنة الحالة · خروج من المسار','Not approved by committee · exit'):t('غير مؤهل للرعاية في المنزل · خروج من المسار','Not eligible for home care · exit'))+'</strong><div class="row" style="align-items:stretch"><label class="field">'+t('السبب (يُرسل للمحيل)','Reason (sent to referrer)')+'<select '+keep('rv-reason')+'><option>'+t('الحالة غير مستقرة للرعاية المنزلية','Not stable enough for home care')+'</option><option>'+t('المنزل غير مناسب حالياً','Home not suitable yet')+'</option><option>'+t('لا يوجد مرافق','No caregiver')+'</option><option>'+t('خارج نطاق الخدمة','Outside service area')+'</option></select></label><label class="field">'+t('البديل المقترح','Suggested alternative')+'<select '+keep('rv-alt')+'><option>'+t('البقاء في المستشفى لحين الاستقرار','Stay in hospital until stable')+'</option><option>'+t('مرفق رعاية ممتدة','Extended-care facility')+'</option><option>'+t('متابعة في العيادة الخارجية','Outpatient follow-up')+'</option><option>'+t('إعادة التقييم بعد [المدة]','Reassess after [period]')+'</option></select></label></div><div class="row"><button type="button" class="btn" style="background:var(--ink);color:var(--bg)" '+A('toastMsg',t('أُبلغت الجهة المحيلة وأُغلق الطلب','Referrer notified; request closed'))+'>'+t('إبلاغ المحيل وإغلاق الطلب','Notify referrer and close')+'</button><button type="button" class="btn btn-ghost" '+A('rstage','eligibility')+'>'+t('إعادة العرض','Restart demo')+'</button></div></div>';
+  else panel = '<div role="status" class="card stack note-amber" style="border-radius:16px"><strong style="font-size:18px">'+t('بانتظار معلومات إضافية من الجهة المحيلة','Waiting for more information from the referrer')+'</strong><label class="field" style="color:var(--ink)">'+t('المطلوب','What is needed')+'<textarea '+keep('rv-need')+' rows="2" placeholder="'+t('مثال: آخر صورة أشعة، قائمة أدوية الخروج','e.g. Latest X-ray, discharge medication list')+'"></textarea></label><div class="row"><button type="button" class="btn btn-pri" '+A('toastMsg',t('أُرسل الطلب للجهة المحيلة','Request sent to the referrer'))+'>'+t('إرسال الطلب للمحيل','Send to referrer')+'</button><button type="button" class="btn btn-ghost" '+A('rstage','eligibility')+'>'+t('إعادة العرض','Restart demo')+'</button></div></div>';
+  var main = '<section class="card stack" style="gap:14px"><div class="row between" style="align-items:flex-start"><span class="stack" style="gap:2px"><span class="tiny muted">'+t('إحالة','Referral')+' · <span dir="ltr">TH-1048</span> · '+t('من [مستشفى محيل]','from [Referring hospital]')+'</span><h1 style="font-size:26px">'+t('ع. س. · 72 سنة','A. S. · 72 yrs')+'</h1><span class="muted small">'+t('رعاية ما بعد الخروج · الدمام · يحتاج أكسجين منزلي','Post-discharge care · Dammam · needs home oxygen')+'</span></span><a class="linkbtn small" href="#r-case">'+t('خطاب الإحالة والتقارير','Referral letter & reports')+'</a></div>'+
+    '<ol class="stages" aria-label="'+t('مراحل الدخول','Intake stages')+'">'+labels.map(function(l,i){ var cls = closed && i>=curIdx ? 'stop' : i<curIdx ? 'done' : i===curIdx ? 'cur' : ''; return '<li class="'+cls+'"'+(cls==='cur'?' aria-current="step"':'')+'><strong class="tnum">'+(i+1)+'</strong>'+tt(l)+'</li>'; }).join('')+'</ol></section>'+panel+
+    '<p class="tiny muted">'+t('بيانات تجريبية. المعايير مثال قابل للتعديل حسب سياسة المستشفى.','Sample data. Criteria are an example, to adapt to hospital policy.')+'</p>';
+  return deskShell('d-review', main, [['د','D'],['د. [اسم الطبيب] · طبيب التقييم','Dr. [Doctor] · Assessing physician']]);
+}
+function dReassess(){
+  var R = S.reass;
+  var opts = [
+    ['stable',['مستقر · استمرار الخطة','Stable · continue'],['العودة للمتابعة (9)','Back to monitoring (9)'],'green',[['استمرار جدول الزيارات','Keep the visit schedule'],['تحديد موعد إعادة التقييم القادم','Set the next reassessment'],['تقرير متابعة دوري للطبيب المحيل','Periodic report to the referrer']]],
+    ['modify',['تعديل الخطة','Modify the plan'],['العودة للخطوة 7 ثم المتابعة','Back to step 7, then monitoring'],'blue',[['تعديل خطة ضبط السكر مع الطبيب','Adjust glucose management'],['زيارات تمريض يومية لمدة [المدة]','Daily nursing visits for [period]'],['تحديث المهام في تطبيق الطاقم وإبلاغ المريض','Update staff app tasks and inform the patient'],['إبلاغ الطبيب المحيل بالتعديل','Inform the referring physician']]],
+    ['goals',['تحققت الأهداف','Goals achieved'],['بدء التخطيط للخروج (11)','Start discharge planning (11)'],'green',[['تثقيف المريض والأسرة للعناية الذاتية','Educate for self-care'],['ترتيب الأدوية ومواعيد العيادة','Arrange medication and clinic visits'],['تقرير خروج للمريض والطبيب المحيل','Discharge report to patient and referrer'],['اتصال متابعة بعد الخروج وقياس الرضا','Post-discharge call and satisfaction survey']]],
+    ['escalate',['تدهور · تصعيد سريري','Deterioration · escalate'],['مراجعة عاجلة من الطبيب','Urgent physician review'],'red',[['زيارة طبيب عاجلة أو مراجعة عن بعد خلال [المدة]','Urgent visit or remote review within [period]'],['رفع مستوى المراقبة وإبلاغ غرفة التحكم','Raise monitoring and alert the command center'],['إبلاغ الأسرة والطبيب المحيل','Inform family and referrer'],['إذا لم تستقر الحالة: النقل للمستشفى','If not stabilised: transfer to hospital']]],
+    ['transfer',['نقل للمستشفى','Transfer to hospital'],['تسليم طبي آمن','Safe medical handover'],'red',[['تنسيق النقل عبر غرفة التحكم (997 للطوارئ)','Coordinate via the command center (997 in emergencies)'],['تسليم طبي موثق للمستشفى المستقبِل','Documented handover to receiving hospital'],['إبلاغ الأسرة والجهة المحيلة','Notify family and referrer'],['تعليق الخطة؛ يمكن إعادة الإحالة بعد الاستقرار','Suspend the plan; re-referral possible once stable']]]
+  ];
+  var cur = opts.filter(function(o){ return o[0]===R.pick; })[0] || opts[1];
+  var colors = {green:'var(--brand-text)',blue:'var(--blue-text)',red:'var(--red-text)'}, soft = {green:'var(--brand-soft)',blue:'var(--blue-soft)',red:'var(--red-soft)'};
+  var goal = function(l,s,c){ return '<div class="row between" style="border-bottom:1px solid var(--line);padding-bottom:10px"><span>'+tt(l)+'</span><span class="badge '+c+'">'+tt(s)+'</span></div>'; };
+  var main = '<section class="card row between" style="align-items:flex-start"><span class="stack" style="gap:2px"><span class="tiny muted">'+t('قيد الرعاية · اليوم 5 من الخطة','In care · day 5 of plan')+' · <span dir="ltr">TH-1045</span></span><h1 style="font-size:26px">'+t('ف. ح. · العناية بالجروح','F. H. · Wound care')+'</h1><span class="muted small">'+t('الدمام · بإحالة من الجراحة العامة','Dammam · referred by General Surgery')+'</span></span><span class="badge b-green" style="font-size:14px;padding:6px 14px">'+t('10 · إعادة التقييم الدورية','10 · Periodic reassessment')+'</span></section>'+
+    '<div class="cols"><section class="card stack" style="flex:1 1 360px"><h2 style="font-size:18px">'+t('أهداف الخطة','Plan goals')+'</h2>'+goal(['انخفاض مساحة الجرح','Wound area reducing'],['يتحسن','Improving'],'b-green')+goal(['عدم وجود علامات التهاب','No signs of infection'],['متحقق','Met'],'b-green')+goal(['السكر ضمن النطاق','Glucose within target'],['غير ثابت','Unstable'],'b-amber')+'<div class="row between"><span>'+t('قدرة الأسرة على العناية بالضماد','Family can manage dressings')+'</span><span class="badge b-gray">'+t('قيد التدريب','In training')+'</span></div></section>'+
+    '<section class="card stack" style="flex:2 1 480px"><h2 style="font-size:18px">'+t('آخر القراءات','Latest readings')+'</h2><div class="tablebox"><table style="min-width:520px"><thead><tr><th>'+t('التاريخ','Date')+'</th><th>'+t('الضغط','BP')+'</th><th>SpO₂</th><th>'+t('السكر','Glucose')+'</th><th>'+t('الألم','Pain')+'</th><th>'+t('الجرح','Wound')+'</th></tr></thead><tbody class="tnum">'+
+      [[['4 أكتوبر','Oct 4'],'128/82','97%','212',true,'2',['تحسن','Improving']],[['3 أكتوبر','Oct 3'],'132/84','96%','168',false,'3',['مستقر','Stable']],[['2 أكتوبر','Oct 2'],'135/88','97%','230',true,'4',['التقييم الأولي','Initial']]].map(function(r){ return '<tr><td>'+tt(r[0])+'</td><td dir="ltr" style="text-align:'+(rtl()?'right':'left')+'">'+r[1]+'</td><td>'+r[2]+'</td><td style="'+(r[4]?'color:var(--amber-text);font-weight:700':'')+'">'+r[3]+'</td><td>'+r[5]+'</td><td>'+tt(r[6])+'</td></tr>'; }).join('')+'</tbody></table></div><span class="tiny muted">'+t('قيم تجريبية.','Sample values.')+'</span></section></div>'+
+    '<section class="card stack" style="gap:16px"><h2 style="font-size:20px">'+t('نتيجة إعادة التقييم','Reassessment outcome')+'</h2><div class="grid-auto" role="radiogroup" style="grid-template-columns:repeat(auto-fill,minmax(min(100%,200px),1fr));gap:10px">'+opts.map(function(o){ var on=R.pick===o[0]; return '<button type="button" class="choice" role="radio" aria-checked="'+on+'" style="flex-direction:column;gap:2px;'+(on?'background:'+soft[o[3]]+';border-color:'+colors[o[3]]:'')+'" '+A('rpick',o[0])+'><strong style="color:'+(on?colors[o[3]]:'inherit')+'">'+tt(o[1])+'</strong><span class="tiny muted">'+tt(o[2])+'</span></button>'; }).join('')+'</div>'+
+      '<div class="msg stack" style="gap:8px;padding:16px"><strong>'+t('الإجراءات التالية · ','Next actions · ')+tt(cur[1])+'</strong><ul class="stack" style="list-style:none;margin:0;padding:0;gap:8px">'+cur[4].map(function(a){ return '<li class="row" style="flex-wrap:nowrap;align-items:flex-start;gap:10px"><span style="width:8px;height:8px;border-radius:999px;background:'+colors[cur[3]]+';margin-top:10px;flex:none"></span><span>'+tt(a)+'</span></li>'; }).join('')+'</ul></div>'+
+      '<label class="field">'+t('ملاحظات الطبيب','Physician notes')+'<textarea '+keep('ra-notes')+' rows="2"></textarea></label><div class="row"><button type="button" class="btn btn-pri" '+A('rconfirm')+'>'+t('اعتماد القرار','Confirm decision')+'</button>'+(R.confirmed?'<span role="status" style="color:var(--brand-text);font-weight:600">'+t('اعتُمد القرار وأُبلغ الفريق والمريض والمحيل وغرفة التحكم.','Decision confirmed; team, patient, referrer and command center notified.')+'</span>':'')+(R.confirmed && (R.pick==='escalate'||R.pick==='transfer') ? '<a class="btn btn-red" href="#command">'+t('متابعة في غرفة التحكم','Follow in command center')+'</a>' : '')+'</div></section>';
+  return deskShell('d-reassess', main, [['د','D'],['د. [اسم الطبيب] · الطبيب المشرف','Dr. [Doctor] · Supervising physician']]);
+}
+
+/* ---------- FIELD STAFF APP ---------- */
+var SVISITS = [['8:00',['س. ع.','S. A.'],['تمريض منزلي','Home nursing'],['الخبر','Khobar'],'done'],['9:00',['خ. ر.','K. R.'],['قياس ومتابعة','Monitoring'],['الدمام','Dammam'],'done'],['10:00',['ف. ح.','F. H.'],['العناية بالجروح','Wound care'],['الدمام','Dammam'],'next'],['12:00',['م. ك.','M. K.'],['سحب عينات','Lab samples'],['الدمام','Dammam'],'later'],['14:00',['ر. ن.','R. N.'],['تمريض منزلي','Home nursing'],['الظهران','Dhahran'],'later']];
+function staffNav(cur){
+  return '<nav class="tabbar" aria-label="'+t('التنقل','Navigation')+'"><span class="tb-brand">'+logo(32)+t('تاب هوم · الميدان','Tabhome · Field')+'</span><a href="#s-today"'+(cur==='s-today'?' aria-current="page"':'')+'>'+ic('cal',24)+t('اليوم','Today')+'</a><a href="#s-visit"'+(cur==='s-visit'?' aria-current="page"':'')+'>'+ic('list',24)+t('الزيارة','Visit')+'</a><button type="button" '+A('soon')+'>'+ic('chat',24)+t('الرسائل','Messages')+'</button><a href="#d-inbox">'+ic('grid',24)+t('النظام','System')+'</a></nav>';
+}
+function sToday(){
+  var done = SVISITS.filter(function(v){ return v[4]==='done'; }).length;
+  return '<div class="appwrap"><div class="phone"><header class="ph-head dark" style="flex-direction:column;align-items:stretch;gap:14px;padding:18px"><div class="row between" style="flex-wrap:nowrap"><span class="stack" style="gap:0;line-height:1.3"><span class="tiny" style="color:var(--bar-muted)">'+t('وردية الصباح · 8:00 – 4:00','Morning shift · 8:00 – 4:00')+'</span><strong style="font-size:19px">'+t('صباح الخير، [اسم الممرضة]','Good morning, [Nurse name]')+'</strong></span><button type="button" class="btn btn-red" style="min-height:44px;padding:0 14px" '+A('toastMsg',t('أُرسل طلب دعم عاجل لغرفة التحكم','Urgent support request sent to the command center'))+'>'+ic('alert',18,2)+t('تصعيد','Escalate')+'</button></div>'+
+    '<div class="staff-stats"><div><span>'+t('اليوم','Today')+'</span><strong class="tnum">'+SVISITS.length+'</strong></div><div><span>'+t('منجزة','Done')+'</span><strong class="tnum" style="color:var(--mint)">'+done+'</strong></div><div><span>'+t('متبقية','Left')+'</span><strong class="tnum">'+(SVISITS.length-done)+'</strong></div></div></header>'+
+    '<div class="ph-body dash"><div class="card stack" style="border:2px solid var(--brand-text);gap:12px;align-self:start"><div class="row between"><span class="badge b-green">'+t('الزيارة التالية · 10:00','Next visit · 10:00')+'</span><span class="tiny muted">'+t('[المسافة] · [المدة]','[Distance] · [ETA]')+'</span></div><span><strong style="font-size:19px;display:block">'+t('ف. ح.','F. H.')+'</strong><span class="muted small">'+t('العناية بالجروح · الدمام — [الحي]','Wound care · Dammam — [District]')+'</span></span><div class="note note-red small">'+ic('info',18)+t('حساسية: [الحساسية المسجلة]','Allergy: [Recorded allergy]')+'</div>'+
+      '<div class="row" style="flex-wrap:nowrap;gap:8px"><button type="button" class="btn btn-sec" style="flex:1 1 0" '+A('soon')+'>'+ic('nav',18,2)+t('الملاحة','Navigate')+'</button><a class="btn btn-pri" style="flex:1 1 0" href="#s-visit">'+t('بدء الزيارة','Start visit')+'</a></div></div>'+
+    '<section class="stack" style="gap:10px"><h2 style="font-size:16px">'+t('جدول اليوم','Today’s schedule')+'</h2>'+SVISITS.map(function(v){ var b = v[4]==='done'?'<span class="badge b-green">'+t('منجزة','Done')+'</span>':v[4]==='next'?'<span class="badge b-solid">'+t('التالية','Next')+'</span>':'<span class="badge b-gray">'+t('لاحقاً','Later')+'</span>'; return '<div class="card row" style="flex-wrap:nowrap;padding:12px 14px"><strong class="tnum small" style="width:48px">'+v[0]+'</strong><span class="stack" style="gap:0;flex:1 1 auto"><strong class="small">'+tt(v[1])+'</strong><span class="tiny muted">'+tt(v[2])+' · '+tt(v[3])+'</span></span>'+b+'</div>'; }).join('')+'</section></div>'+staffNav('s-today')+'</div></div>';
+}
+function sVisit(){
+  var V = S.svisit;
+  var tasks = [['verify',['التحقق من هوية المريض','Verify patient identity']],['vitals',['قياس العلامات الحيوية','Measure vital signs']],['wound',['تقييم الجرح وتغيير الضماد','Assess wound, change dressing']],['meds',['مراجعة الأدوية مع المريض','Review medication with patient']],['edu',['تثقيف المريض وأسرته','Educate patient and family']]];
+  var dn = tasks.filter(function(x){ return V.done[x[0]]; }).length;
+  var head = '<header class="ph-head dark"><a class="iconbtn" href="#s-today" aria-label="'+t('رجوع','Back')+'">'+ic('back',22,2)+'</a><span class="stack" style="gap:0;line-height:1.3;flex:1 1 auto"><strong>'+t('ف. ح. · العناية بالجروح','F. H. · Wound care')+'</strong><span class="tiny" style="color:var(--bar-muted)">'+t('بدأت 10:04 · ','Started 10:04 · ')+'<span dir="ltr">TH-1045</span></span></span></header>';
+  if (V.finished) return '<div class="appwrap"><div class="phone">'+head+'<div class="ph-body" role="status" style="align-items:center;justify-content:center;text-align:center"><span class="icobox" style="width:72px;height:72px;border-radius:999px">'+ic('check',36,2)+'</span><h2 class="h3">'+t('اكتملت الزيارة','Visit completed')+'</h2><p class="muted">'+t('أُرسل التقرير لملف المريض والطبيب المحيل.','The report was sent to the patient file and referring physician.')+'</p><a class="btn btn-pri" href="#s-today">'+t('الزيارة التالية','Next visit')+'</a><button type="button" class="linkbtn small" '+A('svreset')+'>'+t('إعادة العرض','Restart demo')+'</button></div>'+staffNav('s-visit')+'</div></div>';
+  return '<div class="appwrap"><div class="phone">'+head+'<div class="ph-body" style="gap:20px">'+
+    '<fieldset class="stack" style="gap:8px"><legend class="row between" style="width:100%"><span>'+t('مهام الزيارة','Visit tasks')+'</span><span class="tiny muted tnum">'+dn+' / '+tasks.length+'</span></legend>'+tasks.map(function(x){ var on=!!V.done[x[0]]; return '<button type="button" class="choice" role="checkbox" aria-checked="'+on+'" '+A('svtask',x[0])+'><span class="box">'+(on?ic('check',14,3):'')+'</span><span style="'+(on?'text-decoration:line-through;color:var(--brand-ink)':'')+'">'+tt(x[1])+'</span></button>'; }).join('')+'</fieldset>'+
+    '<fieldset><legend>'+t('العلامات الحيوية','Vital signs')+'</legend><div class="qa" style="gap:10px">'+[['v-bp',['الضغط (mmHg)','BP (mmHg)'],'120/80','text'],['v-hr',['النبض (/د)','Pulse (/min)'],'72','number'],['v-t',['الحرارة (°م)','Temp (°C)'],'37.0','number'],['v-o2',['الأكسجين (%)','SpO₂ (%)'],'98','number'],['v-g',['السكر (mg/dL)','Glucose (mg/dL)'],'110','number'],['v-p',['الألم (0–10)','Pain (0–10)'],'3','number']].map(function(f){ return '<label class="field tiny" style="flex:none">'+tt(f[1])+'<input '+keep(f[0])+' type="'+f[3]+'" inputmode="decimal" dir="ltr" placeholder="'+f[2]+'"></label>'; }).join('')+'</div><p class="tiny muted" style="margin-top:8px">'+t('القراءات خارج حدود الخطة ترسل تنبيهاً لغرفة التحكم.','Readings outside plan limits alert the command center.')+'</p></fieldset>'+
+    '<fieldset class="stack" style="gap:10px"><legend>'+t('صور وملاحظات','Photos & notes')+'</legend><label class="field small">'+t('صورة الجرح','Wound photo')+'<input id="v-photo" type="file" accept="image/*"></label><label class="field small">'+t('ملاحظات الزيارة','Visit notes')+'<textarea '+keep('v-notes')+' rows="3"></textarea></label></fieldset>'+
+  '</div><div class="ph-foot"><button type="button" class="btn btn-pri btn-block" '+A('svfinish')+'>'+t('إنهاء الزيارة وإرسال التقرير','Finish visit and send report')+'</button></div></div></div>';
+}
+
+/* ---------- COMMAND CENTER ---------- */
+function command(){
+  var alerts = [['a1','crit',['انخفاض تشبع الأكسجين','Low oxygen saturation'],['ع. س. · 88% · الدمام · [ممرضة 1] في الموقع','A. S. · 88% · Dammam · [Nurse 1] on site'],'09:38'],['a2','crit',['ضغط دم مرتفع','High blood pressure'],['ر. ن. · 182/110 · الخبر · بانتظار الطبيب','R. N. · 182/110 · Khobar · awaiting physician'],'09:31'],['a3','warn',['زيارة متأخرة','Late visit'],['م. ك. · تأخر 25 دقيقة','M. K. · 25 min late'],'09:20'],['a4','warn',['زيارة لم تُوثَّق','Visit not documented'],['س. ع. · انتهت 08:45 دون تقرير','S. A. · ended 08:45 with no report'],'09:05'],['a5','info',['إحالة جديدة عالية الأولوية','New high-priority referral'],['TH-1048 · ما بعد الخروج','TH-1048 · post-discharge'],'08:57']];
+  var visits = [['09:00',['ع. س.','A. S.'],['تمريض منزلي','Home nursing'],['[ممرضة 1]','[Nurse 1]'],['الدمام','Dammam'],'in'],['09:30',['ر. ن.','R. N.'],['زيارة طبيب','Doctor visit'],['د. [طبيب 1]','Dr. [Doctor 1]'],['الخبر','Khobar'],'in'],['09:30',['ن. م.','N. M.'],['علاج طبيعي','Physiotherapy'],['[أخصائي 1]','[Therapist 1]'],['الظهران','Dhahran'],'in'],['09:15',['م. ك.','M. K.'],['سحب عينات','Lab samples'],['[ممرض 2]','[Nurse 2]'],['الدمام','Dammam'],'late'],['10:00',['ف. ح.','F. H.'],['العناية بالجروح','Wound care'],['[ممرضة 3]','[Nurse 3]'],['الدمام','Dammam'],'route'],['10:00',['خ. ر.','K. R.'],['أمراض مزمنة','Chronic disease'],['[ممرضة 4]','[Nurse 4]'],['الظهران','Dhahran'],'route'],['09:45',['ه. أ.','H. A.'],['رعاية كبار السن','Elderly care'],['[ممرضة 5]','[Nurse 5]'],['الدمام','Dammam'],'in']];
+  var team = [[['م','N'],['[ممرضة 1]','[Nurse 1]'],['تمريض · الدمام','Nursing · Dammam'],'in'],[['د','D'],['د. [طبيب 1]','Dr. [Doctor 1]'],['طبيب · الخبر','Physician · Khobar'],'in'],[['أ','T'],['[أخصائي 1]','[Therapist 1]'],['علاج طبيعي · الظهران','Physio · Dhahran'],'in'],[['م','N'],['[ممرض 2]','[Nurse 2]'],['تمريض · الدمام','Nursing · Dammam'],'route'],[['م','N'],['[ممرضة 3]','[Nurse 3]'],['تمريض · الدمام','Nursing · Dammam'],'route'],[['م','N'],['[ممرضة 4]','[Nurse 4]'],['تمريض · الظهران','Nursing · Dhahran'],'route'],[['م','N'],['[ممرضة 5]','[Nurse 5]'],['تمريض · الدمام','Nursing · Dammam'],'in'],[['أ','T'],['[أخصائي 2]','[Therapist 2]'],['علاج طبيعي · المقر','Physio · Head office'],'free']];
+  var pending = [[['ع. س. · ما بعد الخروج','A. S. · Post-discharge'],['إحالة · [مستشفى محيل]','Referral · [Referring hospital]'],['منذ 45 د','45 min ago']],[['ل. م. · علاج طبيعي','L. M. · Physiotherapy'],['طلب شخصي','Personal request'],['منذ 1 س','1 hr ago']],[['ج. ع. · العناية بالجروح','J. A. · Wound care'],['إحالة · [مستشفى محيل]','Referral · [Referring hospital]'],['منذ 2 س','2 hrs ago']]];
+  var ack = S.cmd.acked, open = alerts.filter(function(a){ return !ack[a[0]]; }).length;
+  function k(l,v,c,cls){ return '<div class="kpi '+(cls||'')+'"><span class="small muted">'+tt(l)+'</span><strong class="tnum" style="color:'+(c||'var(--c-ink)')+'">'+v+'</strong></div>'; }
+  var cnt = function(s){ return visits.filter(function(v){ return v[5]===s; }).length; };
+  var stl = {in:['● في الزيارة','● On visit','st-in'],route:['● في الطريق','● En route','st-route'],late:['● متأخرة','● Late','st-late']};
+  var lab = function(v,a,b){ return rtl()?a:b; };
+  var mapLabels = rtl() ? ['الدمام','الخبر','الظهران','الخليج العربي'] : ['Dammam','Khobar','Dhahran','Arabian Gulf'];
+  var map = '<svg viewBox="0 0 900 440" role="img" aria-label="'+t('خريطة تخطيطية لمواقع الفرق والمرضى','Schematic map of teams and patients')+'"><rect width="900" height="440" fill="#13221E"/><path d="M900 0 L660 0 C640 60 690 110 650 170 C610 230 660 290 630 350 C615 390 640 420 620 440 L900 440 Z" fill="#0F2A33"/><g fill="none" stroke="#1F3530"><path d="M0 110 H640 M0 220 H620 M0 330 H630 M150 0 V440 M300 0 V440 M450 0 V440"/></g><g fill="#183029" stroke="#2A4A42" stroke-width="1.5"><path d="M330 40 C420 30 560 40 610 90 C640 140 600 190 520 200 C430 210 350 190 320 140 C300 100 300 50 330 40 Z"/><path d="M470 240 C540 230 610 250 625 300 C635 350 600 400 540 405 C480 410 440 380 435 330 C430 280 440 245 470 240 Z"/><path d="M140 230 C220 210 330 220 380 260 C410 300 390 360 320 375 C240 390 160 370 130 320 C110 285 115 245 140 230 Z"/></g><g font-family="IBM Plex Sans Arabic, IBM Plex Sans, sans-serif" font-size="18" font-weight="600" fill="#93A8A1" text-anchor="middle"><text x="460" y="125">'+mapLabels[0]+'</text><text x="530" y="330">'+mapLabels[1]+'</text><text x="255" y="305">'+mapLabels[2]+'</text><text x="780" y="230" fill="#4F7A86" font-size="15">'+mapLabels[3]+'</text></g><g fill="#E6EFEC"><circle cx="400" cy="90" r="5"/><circle cx="540" cy="150" r="5"/><circle cx="500" cy="300" r="5"/><circle cx="580" cy="360" r="5"/><circle cx="220" cy="280" r="5"/><circle cx="330" cy="330" r="5"/><circle cx="470" cy="170" r="5"/></g><g fill="#3FBF9B" stroke="#0C1714" stroke-width="2"><circle cx="410" cy="100" r="9"/><circle cx="520" cy="290" r="9"/><circle cx="240" cy="290" r="9"/><circle cx="560" cy="120" r="9"/></g><g fill="#7FA9E0" stroke="#0C1714" stroke-width="2"><circle cx="455" cy="180" r="9"/><circle cx="350" cy="320" r="9"/></g><g fill="none" stroke="#F0706A" stroke-width="3"><circle cx="540" cy="150" r="18"/><circle cx="580" cy="360" r="18"/></g></svg>';
+  return '<div class="cmd"><div class="row between"><div class="row" style="flex-wrap:nowrap">'+logo(40)+'<span class="stack" style="gap:0;line-height:1.25"><h1 style="font-size:22px">'+t('غرفة التحكم والقيادة','Command & Control Center')+'</h1><span class="tiny muted">'+t('تاب هوم · المنطقة الشرقية','Tabhome · Eastern Province')+'</span></span></div><div class="row small" style="gap:18px"><span class="row muted" style="gap:8px"><span style="width:10px;height:10px;border-radius:999px;background:var(--c-green)"></span>'+t('مباشر','Live')+'</span><span>'+t('الأحد 4 أكتوبر','Sunday, Oct 4')+' · <strong class="tnum">09:42</strong></span><span class="muted">'+t('المناوب: [المشرف]','On duty: [Supervisor]')+'</span></div></div>'+
+    '<div class="kpis">'+k(['زيارات جارية','Visits in progress'],cnt('in'))+k(['فرق في الطريق','Teams en route'],cnt('route'))+k(['زيارات متأخرة','Late visits'],cnt('late'),'var(--c-amber)')+k(['تنبيهات مفتوحة','Open alerts'],open,'var(--c-red)','alert')+k(['بانتظار الإسناد','Awaiting assignment'],pending.length,'var(--c-blue)')+k(['الطاقم في الوردية','Staff on shift'],team.length)+'</div>'+
+    '<div class="cgrid">'+
+      '<section class="cpanel" aria-labelledby="al"><header><h2 id="al" style="font-size:18px">'+t('التنبيهات','Alerts')+'</h2><span class="tiny muted">'+t('الأحدث أولاً','Newest first')+'</span></header><div class="stack" style="padding:12px;gap:10px">'+alerts.map(function(a){ var sv = {crit:['حرج','Critical'],warn:['تحذير','Warning'],info:['معلومة','Info']}[a[1]]; return '<div class="calert"><div class="row between" style="flex-wrap:nowrap"><span class="row" style="gap:8px"><span class="sev '+a[1]+'">'+tt(sv)+'</span><strong>'+tt(a[2])+'</strong></span><span class="tiny muted tnum">'+a[4]+'</span></div><span class="small" style="color:var(--c-soft)">'+tt(a[3])+'</span>'+(ack[a[0]]?'<span class="tiny" style="color:#7FD4BA">'+t('تم الاستلام · قيد المتابعة','Acknowledged · in follow-up')+'</span>':'<div class="row" style="gap:8px"><button type="button" class="cbtn go" '+A('ack',a[0])+'>'+t('استلام','Acknowledge')+'</button><button type="button" class="cbtn" '+A('toastMsg',t('جارٍ الاتصال بالفريق…','Calling the team…'))+'>'+t('اتصال بالفريق','Call team')+'</button>'+(a[0]==='a5'?'<a class="cbtn" style="display:inline-flex;align-items:center;text-decoration:none" href="#d-review">'+t('فتح المراجعة','Open review')+'</a>':'')+'</div>')+'</div>'; }).join('')+'</div></section>'+
+      '<div class="stack mapcol" style="gap:16px;min-width:0"><section class="mapbox" aria-labelledby="mp"><h2 id="mp" class="sr">'+t('خريطة العمليات','Operations map')+'</h2>'+map+'<div class="row tiny" style="padding:10px 14px;gap:14px;color:var(--c-soft)"><span class="row" style="gap:6px"><i style="width:12px;height:12px;border-radius:999px;background:#3FBF9B;display:inline-block"></i>'+t('فريق في زيارة','Team on visit')+'</span><span class="row" style="gap:6px"><i style="width:12px;height:12px;border-radius:999px;background:#7FA9E0;display:inline-block"></i>'+t('في الطريق','En route')+'</span><span class="row" style="gap:6px"><i style="width:10px;height:10px;border-radius:999px;background:#E6EFEC;display:inline-block"></i>'+t('مريض','Patient')+'</span><span class="row" style="gap:6px"><i style="width:14px;height:14px;border-radius:999px;border:2.5px solid #F0706A;display:inline-block"></i>'+t('تنبيه','Alert')+'</span><span class="muted">'+t('[الخريطة الحية تتطلب ربطاً بنظام المواقع]','[Live map needs a location system]')+'</span></div></section>'+
+      '<section class="cpanel" aria-labelledby="av"><header><h2 id="av" style="font-size:18px">'+t('الزيارات النشطة','Active visits')+'</h2><span class="tiny muted">'+t('بيانات تجريبية','Sample data')+'</span></header><div class="tablebox rtable"><table style="min-width:560px"><thead><tr><th>'+t('الموعد','Time')+'</th><th>'+t('المريض','Patient')+'</th><th>'+t('الخدمة','Service')+'</th><th>'+t('الفريق','Team')+'</th><th>'+t('المنطقة','Area')+'</th><th>'+t('الحالة','Status')+'</th></tr></thead><tbody>'+visits.map(function(v){ var s=stl[v[5]]; return '<tr><td data-label="'+t('الموعد','Time')+'" class="tnum">'+v[0]+'</td><td data-label="'+t('المريض','Patient')+'" class="p">'+tt(v[1])+'</td><td data-label="'+t('الخدمة','Service')+'">'+tt(v[2])+'</td><td data-label="'+t('الفريق','Team')+'">'+tt(v[3])+'</td><td data-label="'+t('المنطقة','Area')+'">'+tt(v[4])+'</td><td data-label="'+t('الحالة','Status')+'"><span class="'+s[2]+'">'+lab(0,s[0],s[1])+'</span></td></tr>'; }).join('')+'</tbody></table></div></section></div>'+
+      '<div class="stack" style="gap:16px;min-width:0"><section class="cpanel" aria-labelledby="tm"><header><h2 id="tm" style="font-size:18px">'+t('الطاقم الميداني','Field staff')+'</h2></header>'+team.map(function(m){ var tg = m[3]==='in'?'<span class="tag" style="color:var(--c-green);border-color:#2E6E5C">'+t('في زيارة','On visit')+'</span>':m[3]==='route'?'<span class="tag" style="color:var(--c-blue);border-color:#36557E">'+t('في الطريق','En route')+'</span>':'<span class="tag">'+t('متاح','Available')+'</span>'; return '<div class="trow"><span class="avatar" style="background:#22352F;color:var(--c-ink);width:36px;height:36px">'+tt(m[0])+'</span><span class="stack" style="gap:0;flex:1 1 auto;line-height:1.3"><strong class="small">'+tt(m[1])+'</strong><span class="tiny muted">'+tt(m[2])+'</span></span>'+tg+'</div>'; }).join('')+'</section>'+
+      '<section class="cpanel" aria-labelledby="pd"><header><h2 id="pd" style="font-size:18px">'+t('بانتظار الإسناد','Awaiting assignment')+'</h2><a class="small" href="#d-inbox" style="font-weight:600;text-decoration:none">'+t('مكتب التنسيق','Coordination desk')+'</a></header>'+pending.map(function(p){ return '<div class="trow" style="justify-content:space-between"><span class="stack" style="gap:0;line-height:1.3"><strong class="small">'+tt(p[0])+'</strong><span class="tiny muted">'+tt(p[1])+'</span></span><span class="tiny muted">'+tt(p[2])+'</span></div>'; }).join('')+'</section></div>'+
+    '</div></div>';
+}
+
+/* ---------- render & actions ---------- */
+var VIEWS = { home:pageHome, journey:pageJourney, portals:pagePortals, 'p-home':pHome, 'p-request':pRequest, 'p-visits':pVisits, 'p-care':pCare, 'p-consent':pConsent, 'r-list':rList, 'r-case':rCase, 'd-inbox':dInbox, 'd-review':dReview, 'd-reassess':dReassess, 's-today':sToday, 's-visit':sVisit, command:command };
+function render(){
+  var root = document.documentElement; root.lang = S.lang; root.dir = rtl() ? 'rtl' : 'ltr';
+  var info = routeInfo(S.route);
+  document.title = 'index';
+  var html = (info && info[2] !== 'site' ? protoBar() : '') + VIEWS[S.route]();
+  var app = document.getElementById('app'); app.innerHTML = html;
+  app.querySelectorAll('[data-keep]').forEach(function(el){ if (S.f[el.id] != null) el.value = S.f[el.id]; });
+}
+function go(r, scrollId){
+  S.menu = false;
+  if (location.hash !== '#'+r) { S._scroll = scrollId || null; location.hash = r; }
+  else { S.route = r; render(); if (scrollId) scrollToId(scrollId); }
+}
+function scrollToId(id){ var el = document.getElementById(id); if (el) el.scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' }); }
+function fromHash(){
+  var h = (location.hash || '').replace('#','');
+  if (VIEWS[h]) { S.route = h; S.menu = false; render(); if (S._scroll) { var s = S._scroll; S._scroll = null; setTimeout(function(){ scrollToId(s); }, 30); } else window.scrollTo(0,0); }
+  else if (!h) { S.route = 'home'; render(); }
+}
+var ACT = {
+  lang: function(){ S.lang = rtl() ? 'en' : 'ar'; try { localStorage.setItem('tabhome-lang', S.lang); } catch(e) {} },
+  menu: function(){ S.menu = !S.menu; },
+  scroll: function(id){ S.menu = false; if (S.route !== 'home') { go('home', id); return 'skip'; } render(); scrollToId(id); return 'skip'; },
+  startRequest: function(mode){ S.home.mode = mode; S.home.submitted = false; if (S.route !== 'home') { go('home','request'); return 'skip'; } S.menu = false; render(); scrollToId('request'); return 'skip'; },
+  homeMode: function(m){ S.home.mode = m; },
+  homeSvc: function(s){ S.home.service = s; },
+  homeSlot: function(s){ S.home.slot = s; },
+  homeSubmit: function(){ S.home.submitted = true; },
+  homeReset: function(){ S.home.submitted = false; },
+  preq: function(arg){ var p = arg.split(':'); S.preq[p[0]] = p[1]; },
+  preqSend: function(){ toast(t('أُرسل طلبك، وسيؤكد منسّق الرعاية الموعد','Request sent; the coordinator will confirm the time')); go('p-visits'); return 'skip'; },
+  pcare: function(tab){ S.pcare.tab = tab; },
+  cons: function(arg){ var C = S.cons, p = arg.split(':');
+    if (p[0] === 'step') C.step = p[1];
+    else if (p[0] === 'signer') C.signer = p[1];
+    else if (p[0] === 'agree') C.agreed[p[1]] = !C.agreed[p[1]];
+    else if (p[0] === 'sign') C.signed = true;
+    else if (p[0] === 'reset') { C.step = 'intro'; C.agreed = {}; C.signed = false; }
+    window.scrollTo(0,0); },
+  rfilter: function(f){ S.rlist.filter = f; },
+  rask: function(){ S.rcase.asked = true; },
+  rsend: function(){ var v = (S.f.rmsg || '').trim(); if (!v) { toast(t('اكتب الرسالة أولاً','Write a message first')); return 'skip'; } S.rcase.msgs.push(v); S.f.rmsg = ''; },
+  isel: function(id){ S.inbox.sel = id; },
+  istaff: function(id){ S.inbox.staff = id; },
+  iassign: function(){ S.inbox.assigned[S.inbox.sel] = S.inbox.staff; },
+  crit: function(id){ S.review.met[id] = !S.review.met[id]; },
+  rstage: function(st){ S.review.stage = st; },
+  rpick: function(id){ S.reass.pick = id; S.reass.confirmed = false; },
+  rconfirm: function(){ S.reass.confirmed = true; },
+  svtask: function(id){ S.svisit.done[id] = !S.svisit.done[id]; },
+  svfinish: function(){ S.svisit.finished = true; window.scrollTo(0,0); },
+  svreset: function(){ S.svisit.finished = false; S.svisit.done = { verify: true }; },
+  ack: function(id){ S.cmd.acked[id] = true; },
+  toastMsg: function(m){ toast(m); return 'skip'; },
+  soon: function(){ toast(t('هذه الشاشة غير متاحة في النموذج الأولي','This screen is not part of the prototype')); return 'skip'; }
+};
+document.addEventListener('click', function(e){
+  var el = e.target.closest('[data-a]'); if (!el) return;
+  e.preventDefault();
+  var fn = ACT[el.getAttribute('data-a')]; if (!fn) return;
+  var r = fn(el.getAttribute('data-arg'));
+  if (r !== 'skip') render();
+});
+document.addEventListener('input', function(e){
+  var el = e.target;
+  if (el.hasAttribute && el.hasAttribute('data-keep')) S.f[el.id] = el.value;
+  if (el.id === 'rq') { var q = el.value.trim().toLowerCase(); document.querySelectorAll('tr[data-search]').forEach(function(tr){ tr.hidden = q && tr.getAttribute('data-search').indexOf(q) === -1; }); }
+});
+document.addEventListener('change', function(e){
+  var el = e.target;
+  if (el.id === 'switcher') { go(el.value); return; }
+  if (el.hasAttribute && el.hasAttribute('data-keep')) S.f[el.id] = el.value;
+});
+window.addEventListener('hashchange', fromHash);
+var resizeT;
+function onResize(){ clearTimeout(resizeT); resizeT = setTimeout(function(){ var a = document.activeElement; var typing = a && /INPUT|TEXTAREA|SELECT/.test(a.tagName); if (detectDevice() && !typing) render(); }, 200); }
+window.addEventListener('resize', onResize);
+window.addEventListener('orientationchange', onResize);
+fromHash();
+if (!location.hash) render();
+})();
+</script>
